@@ -1,0 +1,20 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Faspons
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_FasponsHUD : NCH_BaseHUD
+{
+	override void NCHF_InGameSetup ()
+	{
+		NCHF_AddToAmmoListOverride("RifleAmmo");
+		NCHF_AddToAmmoListOverride("Shell");
+		NCHF_AddToAmmoListOverride("Nato");
+		NCHF_AddToAmmoListOverride("RocketAmmo");
+		NCHF_AddToAmmoListOverride("Cell");
+		NCHF_AddToAmmoListOverride("HandGrenadeAmmo");
+	}
+}

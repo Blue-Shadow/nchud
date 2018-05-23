@@ -1,0 +1,309 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Brutal Doom Version 21
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_BDHUD : NCH_BaseHUD
+{
+	override void NCHF_InGameSetup ()
+	{
+		let player = CPlayer.mo;
+
+		if (player is "Purist")
+		{
+			NCHF_AddToAmmoListOverride("Clip2");
+			NCHF_AddToAmmoListOverride("AmmoShell");
+			NCHF_AddToAmmoListOverride("AmmoRocket");
+			NCHF_AddToAmmoListOverride("AmmoCell");
+		}
+		else
+		{
+			NCHF_AddToAmmoListOverride("Clip1");
+			NCHF_AddToAmmoListOverride("AmmoShell");
+			NCHF_AddToAmmoListOverride("Clip2");
+			NCHF_AddToAmmoListOverride("BuzzSawAmmo");
+			NCHF_AddToAmmoListOverride("AmmoRocket");
+			NCHF_AddToAmmoListOverride("AmmoCell");
+			NCHF_AddToAmmoListOverride("SoulAmmo");
+			NCHF_AddToAmmoListOverride("MiniHellRocketAmmo");
+			NCHF_AddToAmmoListOverride("Gas");
+			NCHF_AddToAmmoListOverride("GrenadeAmmo");
+		}
+	}
+
+    override void NCHF_DrawAirSupply ()
+    {
+        if (!(!NCHF_GetCVar('nchud_toggleair') || level.airsupply <= 0 || CPlayer.health <= 0 || CPlayer.mo.waterlevel < 3 || NCHF_FindInventoryType("PowerIronFeet") || CPlayer.mo.bInvulnerable || (CPlayer.cheats & (CF_GODMODE | CF_GODMODE2 | CF_NOCLIP2))))
+        {
+            DrawImage("H_BGAIR", (0, -75), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+            NCHF_DrawString(nch_sfont, "Air", (-1, -90), DI_TEXT_ALIGN_CENTER | DI_SCREEN_CENTER_BOTTOM);
+
+            int curpnts = Max(CPlayer.air_finished - level.time, 0);
+            string barframe = "H_BRFMX3";
+            string barfg = "H_BRFLG3";
+
+            // Low on air.
+            if((curpnts * 100 / level.airsupply) < NCHF_GetLowState('nchud_airlowstate'))
+            {
+                barframe = "H_BFGR3A";
+                barfg = "H_BRFLR3";
+            }
+
+            DrawImage(barframe, (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+            NCHF_DrawBar(barfg, "H_BRBGB3", curpnts, level.airsupply, (0, -71), 0, SHADER_HORZ, DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+        }
+		else if (GetAmount("IsTacticalClass") && GetAmount("UsedStamina"))
+		{
+            DrawImage("H_BGAIR", (0, -75), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+            NCHF_DrawString(nch_sfont, "Stamina", (-1, -90), DI_TEXT_ALIGN_CENTER | DI_SCREEN_CENTER_BOTTOM);
+
+			int maxstamina = GetMaxAmount("UsedStamina");
+			int stamina = maxstamina - GetAmount("UsedStamina");
+            string barframe = "H_BRFMX3";
+            string barfg = "H_BRFLG3";
+
+            if (stamina <= maxstamina * 0.35)
+            {
+                barframe = "H_BFGR3A";
+                barfg = "H_BRFLR3";
+            }
+
+            DrawImage(barframe, (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+            NCHF_DrawBar(barfg, "H_BRBGB3", stamina, maxstamina, (0, -71), 0, SHADER_HORZ, DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+		}
+    }
+
+    override void NCHF_DrawWeaponAmmo ()
+    {
+        let invsel = CPlayer.mo.InvSel;
+        bool drawinv = !level.NoInventoryBar && invsel;
+
+        let wpn = CPlayer.ReadyWeapon;
+        let wpn_ammotype1 = wpn ? wpn.AmmoType1 : null;
+        let wpn_ammotype2 = wpn ? wpn.AmmoType2 : null;
+
+        // Background ----------------------------------------------------------------------------
+
+        vector2 rightbgpos = (-5, -108);
+
+        if(drawinv)
+        {
+            if(wpn_ammotype1 || wpn_ammotype2)
+            {
+                DrawImage("H_BGRIT", rightbgpos, DI_ITEM_RIGHT_TOP);
+            }
+            else
+            {
+                DrawImage("H_BGRIT3", rightbgpos, DI_ITEM_RIGHT_TOP);
+            }
+        }
+        else if(wpn_ammotype1 || wpn_ammotype2)
+        {
+            DrawImage("H_BGRIT2", rightbgpos, DI_ITEM_RIGHT_TOP);
+        }
+
+        // Selected inventory --------------------------------------------------------------------
+
+        if(drawinv)
+        {
+            DrawInventoryIcon(invsel, (-37, -71), DI_ITEM_CENTER | DI_ALTICONFIRST | DI_SKIPSPAWN, boxsize : (60, 70), scale : (2, 2));
+
+            if(invsel.Amount > 1)
+            {
+                NCHF_DrawString(nch_bfont, FormatNumber(invsel.Amount, 0, 3), (-13, -54), DI_TEXT_ALIGN_RIGHT);
+            }
+        }
+
+        // ---------------------------------------------------------------------------------------
+        //
+        //   Determine ammo1 and ammo2 elements' state and position.
+        //
+        // ---------------------------------------------------------------------------------------
+
+        if(wpn && (wpn_ammotype1 || wpn_ammotype2))
+        {
+            int curpnts;
+            int maxpnts;
+            name lscvar;
+            int barstate;
+            Inventory icon;
+            string barbg;
+            string barfg;
+            string barframe;
+            name valuecolor;
+            vector2 iconpos;
+            vector2 barframepos;
+            vector2 barpos;
+            vector2 valuepos;
+
+            let wpn_ammo1 = wpn.Ammo1;
+            let wpn_ammo2 = wpn.Ammo2;
+            bool infiniteammo = (sv_infiniteammo || NCHF_FindInventoryType("PowerInfiniteAmmo"));
+            int bv = drawinv ? 0 : 1; // Short or long bars?
+
+            for(int i = 0; i < 2; i++)
+            {
+                if(i == 0)
+                {
+                    if(wpn_ammotype1)
+                    {
+                        curpnts = wpn_ammo1 ? wpn_ammo1.Amount : 0;
+                        maxpnts = wpn_ammo1 ? wpn_ammo1.MaxAmount : 0;
+                        lscvar = 'nchud_am1lowstate';
+                        icon = wpn_ammo1;
+                    }
+                    else
+                    {
+                        curpnts = wpn_ammo2 ? wpn_ammo2.Amount : 0;
+                        maxpnts = wpn_ammo2 ? wpn_ammo2.MaxAmount : 0;
+                        lscvar = 'nchud_am2lowstate';
+                        icon = wpn_ammo2;
+                    }
+
+                    // Positions: assume the inventory and both ammo types are present.
+                    iconpos = (-85, -85);
+                    barframepos = (-100, -92);
+                    barpos = (-103, -89);
+                    valuepos = (-214, -91);
+
+                    if(drawinv)
+                    {
+                        // Inventory, single ammo type or both ammo types are the same.
+                        if((wpn_ammotype1 && !wpn_ammotype2) || (!wpn_ammotype1 && wpn_ammotype2) || (wpn_ammotype1 == wpn_ammotype2))
+                        {
+                            iconpos.y += 14;
+                            barframepos.y += 14;
+                            barpos.y += 14;
+                            valuepos.y += 14;
+                        }
+                    }
+                    else
+                    {
+                        // No inventory, single ammo type or both ammo types are the same.
+                        if((wpn_ammotype1 && !wpn_ammotype2) || (!wpn_ammotype1 && wpn_ammotype2) || (wpn_ammotype1 == wpn_ammotype2))
+                        {
+                            iconpos.x += 45;
+                            iconpos.y += 14;
+                            barframepos.x += 45;
+                            barframepos.y += 14;
+                            barpos.x += 45;
+                            barpos.y += 14;
+                            valuepos.x += 18;
+                            valuepos.y += 14;
+                        }
+
+                        // No inventory, both ammo types.
+                        else
+                        {
+                            iconpos.x += 45;
+                            barframepos.x += 45;
+                            barpos.x += 45;
+                            valuepos.x += 18;
+                        }
+                    }
+                }
+                else
+                {
+                    // Quit if there's a single ammo type or both ammo types are the same.
+                    if((wpn_ammotype1 && !wpn_ammotype2) || (!wpn_ammotype1 && wpn_ammotype2) || (wpn_ammotype1 == wpn_ammotype2))
+                    {
+                        break;
+                    }
+
+                    curpnts = wpn_ammo2 ? wpn_ammo2.Amount : 0;
+                    maxpnts = wpn_ammo2 ? wpn_ammo2.MaxAmount : 0;
+                    lscvar = 'nchud_am2lowstate';
+                    icon = wpn_ammo2;
+
+                    // Positions: assume the inventory is present.
+                    iconpos = (-85, -57);
+                    barframepos = (-100, -64);
+                    barpos = (-103, -61);
+                    valuepos = (-214, -63);
+
+                    if(!drawinv)
+                    {
+                        iconpos.x += 45;
+                        barframepos.x += 45;
+                        barpos.x += 45;
+                        valuepos.x += 18;
+                    }
+                }
+
+                // Determine the state.
+                if((curpnts * 100 / maxpnts) < NCHF_GetLowState(lscvar))
+                {
+                    barstate = NCHC_BARSTATE_LOW;
+                }
+                else
+                {
+                    barstate = NCHC_BARSTATE_NORMAL;
+                }
+
+                // Bar frame: default to the normal version.
+                barframe = NCHF_GetBarGFX(bv, 0);
+
+                // Bar background: default to the normal version.
+                barbg = NCHF_GetBarGFX(bv, 3);
+
+                if(infiniteammo)
+                {
+                    barfg = NCHF_GetBarGFX(bv, 8);
+                }
+                else
+                {
+                    switch(barstate)
+                    {
+                        case NCHC_BARSTATE_LOW:
+                            barfg = NCHF_GetBarGFX(bv, 6);
+                            barframe = NCHF_GetBarGFX(bv, 1);
+                            valuecolor = 'NCHYellow';
+                            break;
+                        case NCHC_BARSTATE_NORMAL:
+                            barfg = NCHF_GetBarGFX(bv, 5);
+                            valuecolor = 'NCHGreen';
+                            break;
+                    }
+                }
+
+                // ---------------------------------------------------------------------------------------
+                //
+                //   Drawing
+                //
+                // ---------------------------------------------------------------------------------------
+
+                // Icon.
+				// Begin variation
+				if (GetAmount("FiredMGGrenade") && CheckWeaponSelected("Machinegun") && icon == wpn_ammo2)
+				{
+					TextureID reload;
+					reload = TexMan.CheckForTexture("NCHRK0", TexMan.Type_Any);
+					DrawTexture(reload, iconpos, DI_ITEM_CENTER | DI_ALTICONFIRST | DI_SKIPSPAWN, box : (18, 18));
+				}
+				else
+				{
+					DrawInventoryIcon(icon, iconpos, DI_ITEM_CENTER | DI_ALTICONFIRST | DI_SKIPSPAWN, boxsize : (18, 18));
+				}
+				// End variation
+
+                // Bar frame.
+                DrawImage(barframe, barframepos, DI_ITEM_RIGHT_TOP);
+
+                // Bar and counter.
+                if(infiniteammo)
+                {
+                    DrawImage(barfg, barpos, DI_ITEM_RIGHT_TOP);
+                    DrawImage("H_INFNTY", valuepos, DI_ITEM_RIGHT_TOP);
+                }
+                else
+                {
+                    NCHF_DrawBar(barfg, barbg, curpnts, maxpnts, barpos, 0, SHADER_HORZ, DI_ITEM_RIGHT_TOP, true);
+                    NCHF_DrawString(nch_bfont, FormatNumber(curpnts, 0, 4), valuepos, DI_TEXT_ALIGN_RIGHT, valuecolor);
+                }
+            }
+        }
+    }
+}

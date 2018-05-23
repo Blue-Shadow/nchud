@@ -1,0 +1,6 @@
+version "3.3"
+
+#include "zscript/nch_basehud.zsc"
+#include "zscript/nch_debug.zsc"
+#include "zscript/nch_handler.zsc"
+#include "zscript/nch_helper.zsc"

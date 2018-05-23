@@ -1,0 +1,27 @@
+// ------------------------------------------------------------------------------------------------
+//
+//
+//
+// ------------------------------------------------------------------------------------------------
+
+user int nchud_toggletally;
+user bool nchud_toggleair = true;
+
+user int nchud_toggleammo;
+user bool nchud_allowammolistoverride = true;
+
+user bool nchud_hpovermaxbarmode;
+user int nchud_hpovermaxbarvalue = 200;
+user bool nchud_arovermaxbarmode;
+user int nchud_arovermaxbarvalue = 200;
+
+user int nchud_hplowstate = 35;
+user int nchud_arlowstate = 35;
+user int nchud_am1lowstate = 35;
+user int nchud_am2lowstate = 35;
+user int nchud_airlowstate = 35;
+
+user int nchud_monsterhpbar;
+user bool nchud_monsterhpbar_genname;
+user bool nchud_monsterhpbar_friend;
+user bool nchud_monsterhpbar_max;

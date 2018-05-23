@@ -1,0 +1,3 @@
+NapalmAmmo		AMMOHUDL
+HatchetAmmo		AMMOHUDJ
+HandNadeAmmo	AMMOHUDI

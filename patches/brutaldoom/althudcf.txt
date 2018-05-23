@@ -1,0 +1,2 @@
+SoulAmmo			UNHWA0
+MiniHellRocketAmmo	FATBD0

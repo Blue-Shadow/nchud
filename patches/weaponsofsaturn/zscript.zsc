@@ -1,0 +1,21 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Weapons of Saturn
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_WOSHUD : NCH_BaseHUD
+{
+	override void NCHF_InGameSetup ()
+	{
+		NCHF_AddToAmmoListOverride("Clip");
+		NCHF_AddToAmmoListOverride("Bullets");
+		NCHF_AddToAmmoListOverride("Shell");
+		NCHF_AddToAmmoListOverride("RifleAmmo");
+		NCHF_AddToAmmoListOverride("Nato");
+		NCHF_AddToAmmoListOverride("RocketAmmo");
+		NCHF_AddToAmmoListOverride("Cell");
+	}
+}

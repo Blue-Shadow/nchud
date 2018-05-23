@@ -1,0 +1,18 @@
+// ------------------------------------------------------------------------------------------------
+//
+//
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_Handler : EventHandler
+{
+	override void PlayerEntered (PlayerEvent e)
+	{
+		PlayerInfo pl = players[e.PlayerNumber];
+
+		if(pl && pl.mo)
+		{
+			pl.mo.A_GiveInventory("NCH_Helper");
+		}
+	}
+}

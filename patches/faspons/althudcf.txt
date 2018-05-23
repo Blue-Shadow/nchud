@@ -1,0 +1,2 @@
+RifleAmmo	CLIPA0
+Nato		BELTA0

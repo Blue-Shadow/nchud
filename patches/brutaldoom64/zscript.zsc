@@ -1,0 +1,62 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Brutal Doom 64
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_BD64HUD : NCH_BaseHUD
+{
+	override void NCHF_InGameSetup ()
+	{
+		NCHF_AddToAmmoListOverride("SawGas");
+		NCHF_AddToAmmoListOverride("Clip");
+		NCHF_AddToAmmoListOverride("Shell");
+		NCHF_AddToAmmoListOverride("RocketAmmo");
+		NCHF_AddToAmmoListOverride("Cell");
+		NCHF_AddToAmmoListOverride("SoulAmmo");
+	}
+
+    override void NCHF_DrawAirSupply ()
+    {
+        if (!(!NCHF_GetCVar('nchud_toggleair') || level.airsupply <= 0 || CPlayer.health <= 0 || CPlayer.mo.waterlevel < 3 || NCHF_FindInventoryType("PowerIronFeet") || CPlayer.mo.bInvulnerable || (CPlayer.cheats & (CF_GODMODE | CF_GODMODE2 | CF_NOCLIP2))))
+        {
+            DrawImage("H_BGAIR", (0, -75), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+            NCHF_DrawString(nch_sfont, "Air", (-1, -90), DI_TEXT_ALIGN_CENTER | DI_SCREEN_CENTER_BOTTOM);
+
+            int curpnts = Max(CPlayer.air_finished - level.time, 0);
+            string barframe = "H_BRFMX3";
+            string barfg = "H_BRFLG3";
+
+            // Low on air.
+            if((curpnts * 100 / level.airsupply) < NCHF_GetLowState('nchud_airlowstate'))
+            {
+                barframe = "H_BFGR3A";
+                barfg = "H_BRFLR3";
+            }
+
+            DrawImage(barframe, (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+            NCHF_DrawBar(barfg, "H_BRBGB3", curpnts, level.airsupply, (0, -71), 0, SHADER_HORZ, DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+        }
+		else if (GetAmount("Stamina") < GetMaxAmount("Stamina"))
+		{
+            DrawImage("H_BGAIR", (0, -75), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+            NCHF_DrawString(nch_sfont, "Stamina", (-1, -90), DI_TEXT_ALIGN_CENTER | DI_SCREEN_CENTER_BOTTOM);
+
+			int maxstamina = GetMaxAmount("Stamina");
+			int stamina = GetAmount("Stamina");
+            string barframe = "H_BRFMX3";
+            string barfg = "H_BRFLG3";
+
+            if (stamina <= maxstamina * 0.35)
+            {
+                barframe = "H_BFGR3A";
+                barfg = "H_BRFLR3";
+            }
+
+            DrawImage(barframe, (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+            NCHF_DrawBar(barfg, "H_BRBGB3", stamina, maxstamina, (0, -71), 0, SHADER_HORZ, DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+		}
+    }
+}

@@ -1,0 +1,2 @@
+SawGas		GSLNA0
+SoulAmmo	MDHPC0

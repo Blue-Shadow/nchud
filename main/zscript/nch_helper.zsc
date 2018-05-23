@@ -1,0 +1,222 @@
+// ------------------------------------------------------------------------------------------------
+//
+//
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_Helper : Inventory
+{
+	const NCHC_WSLOT_COUNT = 10;
+
+	struct NCH_WeaponSlot
+	{
+		Array<class<Weapon> > weapons;
+	}
+
+	bool nch_init;
+	NCH_WeaponSlot nch_wslots[NCHC_WSLOT_COUNT];
+	Array<class<Ammo> > nch_ammosA; // List A: all ammo.
+	Array<class<Ammo> > nch_ammosB; // List B: ammo for weapons in the inventory only.
+	bool nch_ewfound;
+	int nch_ewslot;
+	Actor nch_linetarget;
+
+	Default
+	{
+		+INVENTORY.UNDROPPABLE
+		+INVENTORY.UNTOSSABLE
+	}
+
+	void NCHF_AddAmmoToList (Inventory weaponitem, class<Ammo> at1, class<Ammo> at2)
+	{
+		textureid icon;
+
+		for(int i = 0; i < 2; i++)
+		{
+			let at = i == 0 ? at1 : at2;
+
+			if(at)
+			{
+				let ammodef = GetDefaultByType(at);
+
+				if(ammodef && !ammodef.bInvBar)
+				{
+					let ammoitem = owner.player.mo.FindInventory(at);
+
+					if (ammoitem)
+					{
+						icon = ammoitem.AltHUDIcon;
+
+						if (!icon.IsValid())
+						{
+							icon = ammoitem.Icon;
+						}
+					}
+					else
+					{
+						icon = ammodef.AltHUDIcon;
+
+						if (!icon.IsValid())
+						{
+							icon = ammodef.Icon;
+						}
+					}
+
+					if(!icon.IsValid())
+					{
+						continue;
+					}
+
+					uint j;
+
+					// -------------------------------------------------------
+					//
+					//   List A
+					//
+					// -------------------------------------------------------
+
+					for(j = 0; j < nch_ammosA.Size(); j++)
+					{
+						if(at == nch_ammosA[j])
+						{
+							break;
+						}
+					}
+
+					if(j == nch_ammosA.Size())
+					{
+						nch_ammosA.Push(at);
+					}
+
+					// -------------------------------------------------------
+					//
+					//   List B
+					//
+					// -------------------------------------------------------
+
+					if (weaponitem)
+					{
+						for(j = 0; j < nch_ammosB.Size(); j++)
+						{
+							if(at == nch_ammosB[j])
+							{
+								break;
+							}
+						}
+
+						if(j == nch_ammosB.Size())
+						{
+							nch_ammosB.Push(at);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	override void DoEffect ()
+	{
+		let o = owner;
+
+		if(o && o.player)
+		{
+			// -------------------------------------------------------------------------------------------------
+			//
+			//
+			//
+			// -------------------------------------------------------------------------------------------------
+
+			if(!nch_init)
+			{
+				for(int i = 0; i < AllActorClasses.Size(); ++i)
+				{
+					let wcls = (class<Weapon>)(AllActorClasses[i]);
+
+					if(wcls)
+					{
+						bool found;
+						int slot, index;
+						[found, slot, index] = o.player.weapons.LocateWeapon(wcls);
+
+						if(found)
+						{
+							uint lsize = nch_wslots[slot].weapons.Size();
+
+							if((lsize == 0) || (index >= lsize))
+							{
+								nch_wslots[slot].weapons.Insert(index, wcls);
+							}
+							else
+							{
+								nch_wslots[slot].weapons[index] = wcls;
+							}
+						}
+					}
+				}
+
+				nch_init = true;
+			}
+
+			nch_ammosA.Clear();
+			nch_ammosB.Clear();
+
+			for(uint i = 0; i < NCHC_WSLOT_COUNT; i++)
+			{
+				for(uint j = 0; j < nch_wslots[i].weapons.Size(); j++)
+				{
+					let weap = nch_wslots[i].weapons[j];
+
+					if(weap)
+					{
+						NCHF_AddAmmoToList(o.player.mo.FindInventory(weap), GetDefaultByType(weap).AmmoType1, GetDefaultByType(weap).AmmoType2);
+					}
+				}
+			}
+
+			for(let i = o.player.mo.Inv; i != null; i = i.Inv)
+			{
+				if(i is "Weapon")
+				{
+					NCHF_AddAmmoToList(i, Weapon(i).AmmoType1, Weapon(i).AmmoType2);
+				}
+			}
+
+			// -------------------------------------------------------------------------------------------------
+			//
+			//
+			//
+			// -------------------------------------------------------------------------------------------------
+
+			let ew = o.player.ReadyWeapon;
+
+			if(ew)
+			{
+				[nch_ewfound, nch_ewslot] = o.player.weapons.LocateWeapon(ew.GetClass());
+
+				// If the weapon doesn't have a slot assigned to it, it could be a powered weapon. So check its
+				// sister weapon.
+				if(!nch_ewfound && ew.bPowered_up && ew.SisterWeaponType)
+				{
+					[nch_ewfound, nch_ewslot] = o.player.weapons.LocateWeapon(ew.SisterWeaponType);
+				}
+			}
+			else
+			{
+				// This needs to be set to false, so as not to draw the last equipped weapon's slot if the player
+				// ends up with their weapons cleared from the inventory for some reason.
+				nch_ewfound = false;
+			}
+
+			// -------------------------------------------------------------------------------------------------
+			//
+			//
+			//
+			// -------------------------------------------------------------------------------------------------
+
+			if(o.player.playerstate == PST_LIVE)
+			{
+				nch_linetarget = o.player.mo.AimTarget();
+			}
+		}
+	}
+}

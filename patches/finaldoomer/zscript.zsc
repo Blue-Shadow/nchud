@@ -1,0 +1,64 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Final Doomer
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_FinalDoomerHUD : NCH_BaseHUD
+{
+	override void NCHF_InGameSetup ()
+	{
+		let player = CPlayer.mo;
+
+		if (player is "FDAliensPlayer")
+		{
+			NCHF_AddToAmmoListOverride("FDAliensShells");
+			NCHF_AddToAmmoListOverride("FDAliensBullets");
+			NCHF_AddToAmmoListOverride("FDAliensRocket");
+			NCHF_AddToAmmoListOverride("FDAliensCell");
+			NCHF_AddToAmmoListOverride("FDAliensBFGCharge");
+		}
+		else if (player is "FDBTSXPlayer")
+		{
+			NCHF_AddToAmmoListOverride("FDBTSXShells");
+			NCHF_AddToAmmoListOverride("FDBTSXBullets");
+			NCHF_AddToAmmoListOverride("FDBTSXRocket");
+			NCHF_AddToAmmoListOverride("FDBTSXCell");
+			NCHF_AddToAmmoListOverride("FDBTSXBFGCharge");
+		}
+		else if (player is "FDDoom2Player")
+		{
+			NCHF_AddToAmmoListOverride("FDDoom2Shells");
+			NCHF_AddToAmmoListOverride("FDDoom2Bullets");
+			NCHF_AddToAmmoListOverride("FDDoom2Rocket");
+			NCHF_AddToAmmoListOverride("FDDoom2Cell");
+			NCHF_AddToAmmoListOverride("FDDoom2BFGCharge");
+		}
+		else if (player is "FDJPCPPlayer")
+		{
+			NCHF_AddToAmmoListOverride("FDJPCPShells");
+			NCHF_AddToAmmoListOverride("FDJPCPBullets");
+			NCHF_AddToAmmoListOverride("FDJPCPRocket");
+			NCHF_AddToAmmoListOverride("FDJPCPCell");
+			NCHF_AddToAmmoListOverride("FDJPCPBFGCharge");
+		}
+		else if (player is "FDPlutPlayer")
+		{
+			NCHF_AddToAmmoListOverride("FDPlutShells");
+			NCHF_AddToAmmoListOverride("FDPlutBullets");
+			NCHF_AddToAmmoListOverride("FDPlutRocket");
+			NCHF_AddToAmmoListOverride("FDPlutCell");
+			NCHF_AddToAmmoListOverride("FDPlutBFGCharge");
+		}
+		else if (player is "FDTNTPlayer")
+		{
+			NCHF_AddToAmmoListOverride("FDTNTShells");
+			NCHF_AddToAmmoListOverride("FDTNTBullets");
+			NCHF_AddToAmmoListOverride("FDTNTRocket");
+			NCHF_AddToAmmoListOverride("FDTNTCell");
+			NCHF_AddToAmmoListOverride("FDTNTBFGCharge");
+		}
+	}
+}

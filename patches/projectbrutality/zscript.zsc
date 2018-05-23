@@ -1,0 +1,51 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Project Brutality Version 3
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_PBHUD : NCH_BaseHUD
+{
+	override void NCHF_InGameSetup ()
+	{
+		let player = CPlayer.mo;
+
+		if (player is "Traditional")
+		{
+			NCHF_AddToAmmoListOverride("NewClip");
+			NCHF_AddToAmmoListOverride("NewShell");
+			NCHF_AddToAmmoListOverride("RocketAmmo");
+			NCHF_AddToAmmoListOverride("Cell");
+		}
+		else if (player is "Purist")
+		{
+			NCHF_AddToAmmoListOverride("PistolBullets");
+			NCHF_AddToAmmoListOverride("NewClip");
+			NCHF_AddToAmmoListOverride("NewShell");
+			NCHF_AddToAmmoListOverride("RocketAmmo");
+			NCHF_AddToAmmoListOverride("Cell");
+			NCHF_AddToAmmoListOverride("MiniHellRocketAmmo");
+			NCHF_AddToAmmoListOverride("Gas");
+			NCHF_AddToAmmoListOverride("BuzzSawAmmo");
+			NCHF_AddToAmmoListOverride("HandGrenadeAmmo");
+		}
+		else
+		{
+			NCHF_AddToAmmoListOverride("PistolBullets");
+			NCHF_AddToAmmoListOverride("NewShell");
+			NCHF_AddToAmmoListOverride("NewClip");
+			NCHF_AddToAmmoListOverride("HighExplosiveGrenadeRounds");
+			NCHF_AddToAmmoListOverride("SpecialGrenadeRounds");
+			NCHF_AddToAmmoListOverride("RocketAmmo");
+			NCHF_AddToAmmoListOverride("Cell");
+			NCHF_AddToAmmoListOverride("MiniHellRocketAmmo");
+			NCHF_AddToAmmoListOverride("Gas");
+			NCHF_AddToAmmoListOverride("DemonPower");
+			NCHF_AddToAmmoListOverride("BuzzSawAmmo");
+			NCHF_AddToAmmoListOverride("HandGrenadeAmmo");
+			NCHF_AddToAmmoListOverride("MineAmmo");
+		}
+	}
+}

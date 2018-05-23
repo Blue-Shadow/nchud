@@ -1,0 +1,5 @@
+NewShell			SHELA0
+MiniHellRocketAmmo	FATBD0
+DemonPower			MDHPC0
+BuzzSawAmmo			HBUSD0
+MineAmmo			XPFPA0

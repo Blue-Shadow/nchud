@@ -1,0 +1,24 @@
+---------------------------------------------------------------------------------------------------
+-- NC HUD credits                                                                                --
+---------------------------------------------------------------------------------------------------
+
+    This HUD was created by Blue Shadow. Additional credits go to:
+
+    - id Software for Doom.
+    - Raven Software for Heretic and Hexen.
+    - The following people and all contributors for the ZDoom and GZDoom source ports.
+        - Marisa Heit (randi)
+        - Christoph Oelckers (Graf Zahl)
+        - Braden Obrzut (Blzut3)
+        - Rachael Alexanderson
+        - Alexey Lysiuk (_mental_)
+        - Magnus Norddahl (dpjudas)
+        - Chris Robinson
+    - Marisa Heit for 'imagetool' and the BIGFONT font that came with it, on which the DBFPLAIN
+      font was based.
+    - Christoph Oelckers for GZDoom's alternative HUD, from which I borrowed some code.
+    - MajorCooke and Xaser for the idea of using an inventory item to obtain information for the
+      HUD which otherwise cannot be obtained from within the status bar code.
+    - Tekish for testing.
+
+---------------------------------------------------------------------------------------------------

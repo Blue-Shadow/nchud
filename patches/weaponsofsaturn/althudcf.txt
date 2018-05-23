@@ -1,0 +1,5 @@
+Clip		CLIPB0
+Bullets		45CLA0
+RifleAmmo	CLIPA0
+Nato		BELTA0
+RocketAmmo	ROCKA0

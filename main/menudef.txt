@@ -1,0 +1,67 @@
+AddOptionMenu "HUDOptions"
+{
+	StaticText ""
+	StaticText ""
+	Submenu "NC HUD", "NCHUD"
+}
+
+OptionValue "NCH_TallyDrawModes"
+{
+	0, "Off"
+	1, "Counters"
+	2, "Counters and %"
+}
+
+OptionValue "NCH_AmmoListDrawModes"
+{
+	0, "Off"
+	1, "Owned weapons only"
+	2, "All"
+}
+
+OptionValue "NCH_OverMaxBarModes"
+{
+	0, "Over max"
+	1, "Over 100"
+}
+
+OptionValue "NCH_MonsterHPBarDrawModes"
+{
+	0, "Off"
+	1, "On"
+	2, "Always"
+}
+
+OptionMenu "NCHUD"
+{
+	Title "NC HUD"
+	Indent 220
+	StaticText "Toggles", 1
+	Option "Level stats", "nchud_toggletally", "NCH_TallyDrawModes"
+	Option "Air supply bar", "nchud_toggleair", "OnOff"
+	StaticText " "
+	StaticText "Ammo List", 1
+	Option "Draw mode", "nchud_toggleammo", "NCH_AmmoListDrawModes"
+	Option "Allow list override?", "nchud_allowammolistoverride", "YesNo", "nchud_toggleammo"
+	StaticText " "
+	StaticText "Health Overmax Bar Mode", 1
+	Option "Mode", "nchud_hpovermaxbarmode", "NCH_OverMaxBarModes"
+	TextField "Bar maxes out at", "nchud_hpovermaxbarvalue", "nchud_hpovermaxbarmode"
+	StaticText " "
+	StaticText "Armor Overmax Bar Mode", 1
+	Option "Mode", "nchud_arovermaxbarmode", "NCH_OverMaxBarModes"
+	TextField "Bar maxes out at", "nchud_arovermaxbarvalue", "nchud_arovermaxbarmode"
+	StaticText " "
+	StaticText "Bars Low State (%)", 1
+	Slider "Health", "nchud_hplowstate", 0, 50, 1, 0
+	Slider "Armor", "nchud_arlowstate", 0, 50, 1, 0
+	Slider "Primary ammo", "nchud_am1lowstate", 0, 50, 1, 0
+	Slider "Secondary ammo", "nchud_am2lowstate", 0, 50, 1, 0
+	Slider "Air supply", "nchud_airlowstate", 0, 50, 1, 0
+	StaticText " "
+	StaticText "Monster Health Bar", 1
+	Option "Draw mode", "nchud_monsterhpbar", "NCH_MonsterHPBarDrawModes"
+	Option "Name is generic?", "nchud_monsterhpbar_genname", "YesNo", "nchud_monsterhpbar"
+	Option "Include friendlies?", "nchud_monsterhpbar_friend", "YesNo", "nchud_monsterhpbar"
+	Option "Show max health?", "nchud_monsterhpbar_max", "YesNo", "nchud_monsterhpbar"
+}

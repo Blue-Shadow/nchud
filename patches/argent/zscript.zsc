@@ -1,0 +1,406 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Argent
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_ArgentHUD : NCH_BaseHUD
+{
+	HUDFont ArgTextFont;
+	ArgMerch emptyMod;
+
+	const ARG_MERCH_WIDTH = 640;
+	const ARG_MERCH_HEIGHT = 360;
+	const ARG_MERCH_FADETICS = 7;
+
+	int merchTic;
+
+	override void Init()
+	{
+		Super.Init();
+
+		self.ArgTextFont = self.Arg_CreateFont("ARGFONT", false);
+		self.emptyMod = new("ArgMerch");
+		self.emptyMod.tag = "No Mods Available";
+		self.emptyMod.description = "No mods available for this weapon.";
+		self.emptyMod.pic = "graphics/hud/mod-pic-nope.png";
+	}
+
+	override void Draw (int state, double TicFrac)
+	{
+		CPlayer.inventoryTics = 0;
+
+		if (state == HUD_Fullscreen)
+		{
+			Super.Draw(HUD_None, TicFrac);
+			BeginHUD(resW : NCHC_RESW, resH : NCHC_RESH);
+			NCHF_DrawKeys();
+			NCHF_DrawWeaponSlots();
+			NCHF_DrawHealthAndArmor();
+			NCHF_DrawWeaponAmmo();
+			NCHF_DrawLevelStats();
+			NCHF_DrawAmmoList();
+			NCHF_DrawAirSupply();
+			NCHF_DrawMonsterHealth();
+		}
+		else
+		{
+			Super.Draw(state, TicFrac);
+		}
+
+		let modkit = ArgModKit(CPlayer.mo.FindInventory("ArgModKit"));
+		if (modkit && modkit.active)
+		{
+			self.merchTic = level.totaltime + ARG_MERCH_FADETICS;
+		}
+		if (modkit && level.totaltime <= self.merchTic)
+		{
+			self.DrawArgentMerchUI(state, ticFrac, modkit);
+		}
+	}
+
+    override void NCHF_DrawWeaponAmmo ()
+    {
+        let invsel = CPlayer.mo.InvSel;
+        bool drawinv = !level.NoInventoryBar && invsel;
+
+        let wpn = CPlayer.ReadyWeapon;
+        let wpn_ammotype1 = wpn ? wpn.AmmoType1 : null;
+        let wpn_ammotype2 = wpn ? wpn.AmmoType2 : null;
+
+        // Background ----------------------------------------------------------------------------
+
+        vector2 rightbgpos = (-5, -108);
+
+        if(drawinv)
+        {
+            if(wpn_ammotype1 || wpn_ammotype2)
+            {
+                DrawImage("H_BGRIT", rightbgpos, DI_ITEM_RIGHT_TOP);
+            }
+            else
+            {
+                DrawImage("H_BGRIT3", rightbgpos, DI_ITEM_RIGHT_TOP);
+            }
+        }
+        else if(wpn_ammotype1 || wpn_ammotype2)
+        {
+            DrawImage("H_BGRIT2", rightbgpos, DI_ITEM_RIGHT_TOP);
+        }
+
+        // Selected inventory --------------------------------------------------------------------
+
+        if(drawinv)
+        {
+            DrawInventoryIcon(invsel, (-37, -71), DI_ITEM_CENTER | DI_ALTICONFIRST | DI_SKIPSPAWN, boxsize : (60, 70), scale : (2, 2));
+
+			// Begin variation
+			let equipment = ArgEquipment(invsel);
+
+			if (equipment)
+			{
+				if (equipment.Amount < equipment.rechargeAmount)
+				{
+					NCHF_DrawString(nch_bfont, FormatNumber((equipment.Arg_RechargeDelayTics() - equipment.rechargeTics + 35) / 35, 0, 3), (-32, -70), DI_TEXT_ALIGN_CENTER, "NCHRed");
+				}
+			}
+
+			NCHF_DrawString(nch_bfont, FormatNumber(invsel.Amount, 0, 3), (-13, -54), DI_TEXT_ALIGN_RIGHT);
+			// End variation
+        }
+
+        // ---------------------------------------------------------------------------------------
+        //
+        //   Determine ammo1 and ammo2 elements' state and position.
+        //
+        // ---------------------------------------------------------------------------------------
+
+        if(wpn && (wpn_ammotype1 || wpn_ammotype2))
+        {
+            int curpnts;
+            int maxpnts;
+            name lscvar;
+            int barstate;
+            Inventory icon;
+            string barbg;
+            string barfg;
+            string barframe;
+            name valuecolor;
+            vector2 iconpos;
+            vector2 barframepos;
+            vector2 barpos;
+            vector2 valuepos;
+
+            let wpn_ammo1 = wpn.Ammo1;
+            let wpn_ammo2 = wpn.Ammo2;
+            bool infiniteammo = (sv_infiniteammo || NCHF_FindInventoryType("PowerInfiniteAmmo"));
+            int bv = drawinv ? 0 : 1; // Short or long bars?
+
+            for(int i = 0; i < 2; i++)
+            {
+                if(i == 0)
+                {
+                    if(wpn_ammotype1)
+                    {
+                        curpnts = wpn_ammo1 ? wpn_ammo1.Amount : 0;
+                        maxpnts = wpn_ammo1 ? wpn_ammo1.MaxAmount : 0;
+                        lscvar = 'nchud_am1lowstate';
+                        icon = wpn_ammo1;
+                    }
+                    else
+                    {
+                        curpnts = wpn_ammo2 ? wpn_ammo2.Amount : 0;
+                        maxpnts = wpn_ammo2 ? wpn_ammo2.MaxAmount : 0;
+                        lscvar = 'nchud_am2lowstate';
+                        icon = wpn_ammo2;
+                    }
+
+                    // Positions: assume the inventory and both ammo types are present.
+                    iconpos = (-85, -85);
+                    barframepos = (-100, -92);
+                    barpos = (-103, -89);
+                    valuepos = (-214, -91);
+
+                    if(drawinv)
+                    {
+                        // Inventory, single ammo type or both ammo types are the same.
+                        if((wpn_ammotype1 && !wpn_ammotype2) || (!wpn_ammotype1 && wpn_ammotype2) || (wpn_ammotype1 == wpn_ammotype2))
+                        {
+                            iconpos.y += 14;
+                            barframepos.y += 14;
+                            barpos.y += 14;
+                            valuepos.y += 14;
+                        }
+                    }
+                    else
+                    {
+                        // No inventory, single ammo type or both ammo types are the same.
+                        if((wpn_ammotype1 && !wpn_ammotype2) || (!wpn_ammotype1 && wpn_ammotype2) || (wpn_ammotype1 == wpn_ammotype2))
+                        {
+                            iconpos.x += 45;
+                            iconpos.y += 14;
+                            barframepos.x += 45;
+                            barframepos.y += 14;
+                            barpos.x += 45;
+                            barpos.y += 14;
+                            valuepos.x += 18;
+                            valuepos.y += 14;
+                        }
+
+                        // No inventory, both ammo types.
+                        else
+                        {
+                            iconpos.x += 45;
+                            barframepos.x += 45;
+                            barpos.x += 45;
+                            valuepos.x += 18;
+                        }
+                    }
+                }
+                else
+                {
+                    // Quit if there's a single ammo type or both ammo types are the same.
+                    if((wpn_ammotype1 && !wpn_ammotype2) || (!wpn_ammotype1 && wpn_ammotype2) || (wpn_ammotype1 == wpn_ammotype2))
+                    {
+                        break;
+                    }
+
+                    curpnts = wpn_ammo2 ? wpn_ammo2.Amount : 0;
+                    maxpnts = wpn_ammo2 ? wpn_ammo2.MaxAmount : 0;
+                    lscvar = 'nchud_am2lowstate';
+                    icon = wpn_ammo2;
+
+                    // Positions: assume the inventory is present.
+                    iconpos = (-85, -57);
+                    barframepos = (-100, -64);
+                    barpos = (-103, -61);
+                    valuepos = (-214, -63);
+
+                    if(!drawinv)
+                    {
+                        iconpos.x += 45;
+                        barframepos.x += 45;
+                        barpos.x += 45;
+                        valuepos.x += 18;
+                    }
+                }
+
+                // Determine the state.
+                if((curpnts * 100 / maxpnts) < NCHF_GetLowState(lscvar))
+                {
+                    barstate = NCHC_BARSTATE_LOW;
+                }
+                else
+                {
+                    barstate = NCHC_BARSTATE_NORMAL;
+                }
+
+                // Bar frame: default to the normal version.
+                barframe = NCHF_GetBarGFX(bv, 0);
+
+                // Bar background: default to the normal version.
+                barbg = NCHF_GetBarGFX(bv, 3);
+
+                if(infiniteammo)
+                {
+                    barfg = NCHF_GetBarGFX(bv, 8);
+                }
+                else
+                {
+                    switch(barstate)
+                    {
+                        case NCHC_BARSTATE_LOW:
+                            barfg = NCHF_GetBarGFX(bv, 6);
+                            barframe = NCHF_GetBarGFX(bv, 1);
+                            valuecolor = 'NCHYellow';
+                            break;
+                        case NCHC_BARSTATE_NORMAL:
+                            barfg = NCHF_GetBarGFX(bv, 5);
+                            valuecolor = 'NCHGreen';
+                            break;
+                    }
+                }
+
+                // ---------------------------------------------------------------------------------------
+                //
+                //   Drawing
+                //
+                // ---------------------------------------------------------------------------------------
+
+                // Icon.
+                DrawInventoryIcon(icon, iconpos, DI_ITEM_CENTER | DI_ALTICONFIRST | DI_SKIPSPAWN, boxsize : (18, 18));
+
+                // Bar frame.
+                DrawImage(barframe, barframepos, DI_ITEM_RIGHT_TOP);
+
+                // Bar and counter.
+                if(infiniteammo)
+                {
+                    DrawImage(barfg, barpos, DI_ITEM_RIGHT_TOP);
+                    DrawImage("H_INFNTY", valuepos, DI_ITEM_RIGHT_TOP);
+                }
+                else
+                {
+                    NCHF_DrawBar(barfg, barbg, curpnts, maxpnts, barpos, 0, SHADER_HORZ, DI_ITEM_RIGHT_TOP, true);
+                    NCHF_DrawString(nch_bfont, FormatNumber(curpnts, 0, 4), valuepos, DI_TEXT_ALIGN_RIGHT, valuecolor);
+                }
+            }
+        }
+    }
+
+	HUDFont Arg_CreateFont(Font font, bool monospace = true)
+	{
+		int width = monospace ? font.getCharWidth("0") : 0;
+		return HUDFont.Create(font, width, monospace);
+	}
+
+	protected void DrawArgentMerchUI(int state, double ticFrac, ArgModKit modkit)
+	{
+		self.BeginHUD(1.0, false, ARG_MERCH_WIDTH, ARG_MERCH_HEIGHT);
+
+		let scalevec = GetHUDScale();
+		int scale = int(scalevec.X);
+		int vwidth = screen.GetWidth() / scale;
+		int vheight = screen.GetHeight() / scale;
+
+		Vector2 oldDrawOffset = self.drawOffset;
+		self.drawOffset = ((vwidth-ARG_MERCH_WIDTH)/2, (vheight-ARG_MERCH_HEIGHT)/2);
+
+		double alpha = clamp(0.0, (self.merchTic - level.totaltime - TicFrac + 1) / double(ARG_MERCH_FADETICS), 1.0);
+
+		let modWeapon = ArgModWeapon(CPlayer.ReadyWeapon);
+
+		if (modkit.merchPage > 0)
+		{
+			ArgMerch leftMerch  = modkit.common.MerchForPage(modkit.merchPage, 1);
+			ArgMerch rightMerch = modkit.common.MerchForPage(modkit.merchPage, 2);
+			if (rightMerch)
+			{
+				self.DrawArgentMerchPanel(  0, leftMerch , "+attack"   , alpha);
+				self.DrawArgentMerchPanel(320, rightMerch, "+altattack", alpha);
+			}
+			else if (leftMerch)
+			{
+				self.DrawArgentMerchPanel(160, leftMerch , "+attack"   , alpha);
+			}
+
+		}
+		else if(modWeapon)
+		{
+			self.DrawArgentMerchPanel(  0, modWeapon.mod1, "+attack"   , alpha);
+			self.DrawArgentMerchPanel(320, modWeapon.mod2, "+altattack", alpha);
+
+		}
+		else
+		{
+			self.DrawArgentMerchPanel(160, self.emptyMod, "", alpha);
+		}
+
+		self.DrawArgentMerchFooter("Switch weapons to browse mods.", "Press '" .. self.GetKeyName("+use") .. "' to exit.", alpha);
+	
+		int currentPage = modkit.merchPage + 1;
+		int pageCount = modkit.common.MerchPageCount() + 1;
+		self.DrawArgentMerchHeader("Page " .. currentPage .." of " .. pageCount ..".", "Press '" .. self.GetKeyName("+reload") .. "' to cycle pages.", alpha);
+
+		self.drawOffset = oldDrawOffset;
+	}
+
+	protected void DrawArgentMerchPanel(int x, ArgMerch merch, string key, double alpha)
+	{
+		string instructions = "";
+		int textColor = Font.CR_UNTRANSLATED;
+		double picAlpha = 1.0;
+
+		let mod = ArgMod(merch);
+		let equipment = ArgEquipment(CPlayer.mo.FindInventory(merch.giveclass));
+
+		if (mod && mod.enabled)
+		{
+			instructions = "This mod is already installed.";
+			textColor = Font.CR_BLACK;
+			picAlpha = 0.333;
+
+		} 
+		else if (equipment && equipment.rechargeAmount == equipment.MaxAmount)
+		{
+			instructions = "This item is already maxed out.";
+			textColor = Font.CR_BLACK;
+			picAlpha = 0.333;
+
+		}
+		else if (key != "")
+		{
+			instructions = "'" .. self.GetKeyName(key) .. "' to " .. (mod ? "install" : "purchase");
+		}
+
+		DrawImage("graphics/hud/mod-base.png" ,(x, 0), DI_ITEM_OFFSETS, alpha);
+		DrawImage(merch.pic,(x + 160, 136), DI_ITEM_CENTER, picAlpha * alpha);
+
+		DrawString(self.ArgTextFont, merch.tag        , (x + 160,  58), DI_ITEM_HCENTER|DI_TEXT_ALIGN_CENTER, textColor  , alpha);
+		DrawString(self.ArgTextFont, merch.description, (x + 160, 202), DI_ITEM_HCENTER|DI_TEXT_ALIGN_CENTER, textColor  , alpha, 320);
+		DrawString(self.ArgTextFont, instructions     , (x + 160, 292), DI_ITEM_HCENTER|DI_TEXT_ALIGN_CENTER, Font.CR_RED, alpha);
+	}
+
+	protected void DrawArgentMerchHeader(string text1, string text2, double alpha)
+	{
+		DrawImage("graphics/hud/mod-header.png" ,(320, 0), DI_ITEM_HCENTER|DI_ITEM_VOFFSET, alpha);
+		DrawString(self.ArgTextFont, text1, (320, 6 ), DI_ITEM_HCENTER|DI_TEXT_ALIGN_CENTER, Font.CR_GOLD, alpha);
+		DrawString(self.ArgTextFont, text2, (320, 22), DI_ITEM_HCENTER|DI_TEXT_ALIGN_CENTER, Font.CR_RED , alpha);
+	}
+
+	protected void DrawArgentMerchFooter(string text1, string text2, double alpha)
+	{
+		DrawImage("graphics/hud/mod-footer.png" ,(320, 318), DI_ITEM_HCENTER|DI_ITEM_VOFFSET, alpha);
+		DrawString(self.ArgTextFont, text1, (320, 324), DI_ITEM_HCENTER|DI_TEXT_ALIGN_CENTER, Font.CR_UNTRANSLATED, alpha);
+		DrawString(self.ArgTextFont, text2, (320, 340), DI_ITEM_HCENTER|DI_TEXT_ALIGN_CENTER, Font.CR_RED         , alpha);
+	}
+
+	protected string GetKeyName(string command)
+	{
+		int k1, k2;
+		[k1, k2] = Bindings.GetKeysForCommand(command);
+		return KeyBindings.NameKeys(k1, k2);
+	}
+}

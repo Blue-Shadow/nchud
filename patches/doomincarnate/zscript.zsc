@@ -1,0 +1,25 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Doom Incarnate
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_DoomIncarnateHUD : NCH_BaseHUD
+{
+	override void NCHF_InGameSetup ()
+	{
+		NCHF_AddToAmmoListOverride("9MMBullets");
+		NCHF_AddToAmmoListOverride("MagnumBullets");
+		NCHF_AddToAmmoListOverride("ShotgunShells");
+		NCHF_AddToAmmoListOverride("NATOBullets");
+		NCHF_AddToAmmoListOverride("GatlingAmmo");
+		NCHF_AddToAmmoListOverride("ExplosiveSlugs");
+		NCHF_AddToAmmoListOverride("NapalmAmmo");
+		NCHF_AddToAmmoListOverride("Battery");
+		NCHF_AddToAmmoListOverride("FusionCell");
+		NCHF_AddToAmmoListOverride("HatchetAmmo");
+		NCHF_AddToAmmoListOverride("HandNadeAmmo");
+	}
+}
