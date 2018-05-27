@@ -9,6 +9,10 @@ class NCH_BaseHUD : BaseStatusBar
 	const NCHC_LOWSTATEUCAP = 50; // Bar low state upper cap.
 	const NCHC_DI_SCREEN_CENTER_TOP = DI_SCREEN_TOP | DI_SCREEN_HCENTER;
 
+	// The icons of depleted inventory items are drawn with this alpha value (used for the selected
+	// inventory and inventory bar).
+	const NCHC_DEPALPHA = 0.4;
+
 	const NCHC_RESW = 640;
 	const NCHC_RESH = 400;
 
@@ -339,7 +343,7 @@ class NCH_BaseHUD : BaseStatusBar
 				}
 				else
 				{
-					DrawInventoryIcon(item, itempos + ((boxsize.X + 3) * i, 0), flags | DI_ITEM_CENTER, boxsize : (60, 70), scale : (2, 2));
+					DrawInventoryIcon(item, itempos + ((boxsize.X + 3) * i, 0), flags | DI_ITEM_CENTER, item.Amount <= 0 ? NCHC_DEPALPHA : 1.0, boxsize : (60, 70), scale : (2, 2));
 				}
 			}
 			
@@ -874,7 +878,7 @@ class NCH_BaseHUD : BaseStatusBar
 
 		if(drawinv)
 		{
-			DrawInventoryIcon(invsel, (-37, -71), DI_ITEM_CENTER | DI_ALTICONFIRST | DI_SKIPSPAWN, boxsize : (60, 70), scale : (2, 2));
+			DrawInventoryIcon(invsel, (-37, -71), DI_ITEM_CENTER | DI_ALTICONFIRST | DI_SKIPSPAWN, invsel.Amount <= 0 ? NCHC_DEPALPHA : 1.0, boxsize : (60, 70), scale : (2, 2));
 
 			if(invsel.Amount > 1)
 			{
