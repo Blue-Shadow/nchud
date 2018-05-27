@@ -339,7 +339,7 @@ class NCH_BaseHUD : BaseStatusBar
 				}
 				else
 				{
-					DrawInventoryIcon(item, itempos + ((boxsize.X + 3) * i, 0), flags | DI_ITEM_CENTER, scale : (2, 2));
+					DrawInventoryIcon(item, itempos + ((boxsize.X + 3) * i, 0), flags | DI_ITEM_CENTER, boxsize : (60, 70), scale : (2, 2));
 				}
 			}
 			
