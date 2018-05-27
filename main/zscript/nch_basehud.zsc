@@ -77,8 +77,7 @@ class NCH_BaseHUD : BaseStatusBar
 		nch_sfont = HUDFont.Create(fnt);
 		fnt = "dbfplain";
 		nch_bfont = HUDFont.Create(fnt, fnt.GetCharWidth("0"), true);
-		nch_diparms = InventoryBarState.Create(nch_bfont, Font.FindFontColor('NCHLightGray'),
-												boxgfx : "H_INVBOX", selgfx : "H_INVCUR", leftgfx : "H_INVAL1", rightgfx : "H_INVAR1");
+		nch_diparms = InventoryBarState.Create(nch_bfont, boxgfx : "H_INVBOX", selgfx : "H_INVCUR", leftgfx : "H_INVAL1", rightgfx : "H_INVAR1");
 
 		// HUD setup.
 		nch_DrawMugShot = true;
@@ -349,7 +348,8 @@ class NCH_BaseHUD : BaseStatusBar
 			
 			if(parms.amountfont != null && (item.Amount > 1 || (flags & DI_ALWAYSSHOWCOUNTERS)))
 			{
-				DrawString(parms.amountfont, FormatNumber(item.Amount, 0, 3), textpos + ((boxsize.X + 3) * i, 0), flags | DI_TEXT_ALIGN_RIGHT, parms.cr, parms.itemalpha);
+				name fcolor = item.Amount >= item.MaxAmount ? 'NCHBlue' : 'NCHLightGray';
+				DrawString(parms.amountfont, FormatNumber(item.Amount, 0, 3), textpos + ((boxsize.X + 3) * i, 0), flags | DI_TEXT_ALIGN_RIGHT, Font.FindFontColor(fcolor), parms.itemalpha);
 			}
 
 			i++;
@@ -882,7 +882,7 @@ class NCH_BaseHUD : BaseStatusBar
 
 			if(invsel.Amount > 1)
 			{
-				NCHF_DrawString(nch_bfont, FormatNumber(invsel.Amount, 0, 3), (-13, -54), DI_TEXT_ALIGN_RIGHT);
+				NCHF_DrawString(nch_bfont, FormatNumber(invsel.Amount, 0, 3), (-13, -54), DI_TEXT_ALIGN_RIGHT, invsel.Amount >= invsel.MaxAmount ? 'NCHBlue' : 'NCHLightGray');
 			}
 		}
 
