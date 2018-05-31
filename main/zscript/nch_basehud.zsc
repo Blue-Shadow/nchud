@@ -140,6 +140,14 @@ class NCH_BaseHUD : BaseStatusBar
 	//
 	// -------------------------------------------------------------------------------------------------
 
+	override void DrawPowerups () {} // The HUD uses its own powerup-drawing function.
+
+	// -------------------------------------------------------------------------------------------------
+	//
+	//
+	//
+	// -------------------------------------------------------------------------------------------------
+
 	void NCHF_AddToAmmoListOverride (class<Ammo> cls)
 	{
 		if (cls)
@@ -1305,6 +1313,78 @@ class NCH_BaseHUD : BaseStatusBar
 	//
 	// -------------------------------------------------------------------------------------------------
 
+	virtual void NCHF_DrawPowerups ()
+	{
+		vector2 bgpos = (-5, 5);
+		vector2 iconpos = (-29, 24);
+		vector2 ticspos = (-29, 46);
+		int count = 0;
+
+		for (let i = CPlayer.mo.Inv; i != null; i = i.Inv)
+		{
+			let item = Powerup(i);
+
+			if (item)
+			{
+				// Exclude the berserk pack powerup, since unlike the other powerups, it lasts for the whole map.
+				if (item is 'PowerStrength')
+				{
+					continue;
+				}
+
+				// Determine the icon.
+				let icon = item.AltHUDIcon;
+
+				if (!icon.IsValid())
+				{
+					icon = item.Icon;
+				}
+
+				if (!icon.IsValid())
+				{
+					continue;
+				}
+
+				// Drawing.
+				DrawImage("H_BGPOW", bgpos, DI_ITEM_RIGHT_TOP);
+
+				if (!item.IsBlinking())
+				{
+					DrawTexture(icon, iconpos, DI_ITEM_CENTER, box : (32, 32));
+				}
+
+				int sec = Thinker.Tics2Seconds(item.EffectTics);
+				NCHF_DrawString(nch_sfont, String.Format("%02d:%02d", (sec % 3600) / 60, sec % 60), ticspos, DI_TEXT_ALIGN_CENTER, 'NCHLightGray');
+
+				bgpos.x -= 48;
+				iconpos.x -= 48;
+				ticspos.x -= 48;
+
+				// Draw a maximum of 10 powerups, with 5 per row.
+				if (++count == 5)
+				{
+					bgpos.x = -5;
+					iconpos.x = -29;
+					ticspos.x = -29;
+
+					bgpos.y += 56;
+					iconpos.y += 56;
+					ticspos.y += 56;
+				}
+				else if (count == 10)
+				{
+					break;
+				}
+			}
+		}
+	}
+
+	// -------------------------------------------------------------------------------------------------
+	//
+	//
+	//
+	// -------------------------------------------------------------------------------------------------
+
 	virtual void NCHF_DrawAirSupply ()
 	{
 		if(!(!NCHF_GetCVar('nchud_toggleair') || level.airsupply <= 0 || CPlayer.health <= 0 || CPlayer.mo.waterlevel < 3 || NCHF_FindInventoryType("PowerIronFeet") ||
@@ -1454,6 +1534,7 @@ class NCH_BaseHUD : BaseStatusBar
 
 		NCHF_DrawLevelStats();
 		NCHF_DrawAmmoList();
+		NCHF_DrawPowerups();
 		NCHF_DrawAirSupply();
 		NCHF_DrawMonsterHealth();
 	}

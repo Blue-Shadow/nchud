@@ -1,0 +1,4 @@
+PowerInvisibility PINSA0
+PowerInvulnerable PINVA0
+PowerIronFeet H_SUIT
+PowerLightAmp PVISA0
