@@ -1337,12 +1337,12 @@ class NCH_BaseHUD : BaseStatusBar
 
 				if (!icon.IsValid())
 				{
-					icon = item.Icon;
-				}
+					icon = item.GetPowerupIcon();
 
-				if (!icon.IsValid())
-				{
-					continue;
+					if (!icon.IsValid())
+					{
+						continue;
+					}
 				}
 
 				// Drawing.
