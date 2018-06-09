@@ -63,5 +63,5 @@ OptionMenu "NCHUD"
 	Option "Draw mode", "nchud_monsterhpbar", "NCH_MonsterHPBarDrawModes"
 	Option "Name is generic?", "nchud_monsterhpbar_genname", "YesNo", "nchud_monsterhpbar"
 	Option "Include friendlies?", "nchud_monsterhpbar_friend", "YesNo", "nchud_monsterhpbar"
-	Option "Show max health?", "nchud_monsterhpbar_max", "YesNo", "nchud_monsterhpbar"
+	Option "Show spawn health?", "nchud_monsterhpbar_spawnhp", "YesNo", "nchud_monsterhpbar"
 }

@@ -191,12 +191,12 @@
       Controls whether friendly monsters should display a health bar or not. Setting this to
       "Yes" (1), displays it, while setting it to "No" (0), does not.
 
-    - Show max health?
-      CVAR: nchud_monsterhpbar_max
+    - Show spawn health?
+      CVAR: nchud_monsterhpbar_spawnhp
       Default: No (0)
 
-      Controls the display of the max health (a.k.a, spawn health). Setting this to "Yes" (1),
-      displays it, while setting it to "No" (0), does not.
+      Controls the display of the spawn health. Setting this to "Yes" (1), displays it, while
+      setting it to "No" (0), does not.
 
 ---------------------------------------------------------------------------------------------------
 -- Overriding icons and ammo list                                                                --
