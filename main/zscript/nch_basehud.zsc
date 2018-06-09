@@ -1420,11 +1420,18 @@ class NCH_BaseHUD : BaseStatusBar
 		int monsterhpbar = NCHF_GetCVar('nchud_monsterhpbar');
 		let helper = NCH_Helper(CPlayer.mo.FindInventory("NCH_Helper"));
 
-		if(monsterhpbar > 0 && helper && helper.nch_linetarget && helper.nch_linetarget.health > 0)
+		if(monsterhpbar > 0 && helper && helper.nch_linetarget)
 		{
 			Actor t = helper.nch_linetarget;
 			int monsterhp = t.health;
 			int monsterspawnhp = t.GetSpawnHealth();
+
+			// Consider anything with health or spawn health of 0 or less invalid.
+			if (monsterhp <= 0 || monsterspawnhp <= 0)
+			{
+				return;
+			}
+
 			double alpha = t.alpha;
 			int rs = t.GetRenderStyle();
 
