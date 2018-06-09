@@ -1423,12 +1423,16 @@ class NCH_BaseHUD : BaseStatusBar
 		if(monsterhpbar > 0 && helper && helper.nch_linetarget && helper.nch_linetarget.health > 0)
 		{
 			Actor t = helper.nch_linetarget;
+			int monsterhp = t.health;
+			int monsterspawnhp = t.GetSpawnHealth();
 			double alpha = t.alpha;
 			int rs = t.GetRenderStyle();
 
 			if(t.bIsMonster && !t.bDormant &&
 				(!t.bFriendly || NCHF_GetCVar('nchud_monsterhpbar_friend')) &&
-				(monsterhpbar >= 2 || (!t.CountInv("NCH_NoHpBar") && (!t.bStealth || alpha > 0.5) && (rs != STYLE_Fuzzy) && (rs != STYLE_OptFuzzy || alpha > 0.5))))
+				(monsterhpbar >= 2 ||
+					(!t.CountInv("NCH_NoHpBar") && (monsterspawnhp >= NCHF_GetCVar('nchud_monsterhpbar_threshold')) &&
+					(!t.bStealth || alpha > 0.5) && (rs != STYLE_Fuzzy) && (rs != STYLE_OptFuzzy || alpha > 0.5))))
 			{
 				// -------------------------------------------------------------------------------------------------
 				//
@@ -1483,9 +1487,6 @@ class NCH_BaseHUD : BaseStatusBar
 					barfg = "H_BRFLP3";
 					valcolor = 'NCHPink';
 				}
-
-				int monsterhp = t.health;
-				int monsterspawnhp = t.GetSpawnHealth();
 
 				NCHF_DrawBar(barfg, "H_BRBGB3", monsterhp, monsterspawnhp, (0, 75), 0, SHADER_HORZ, DI_ITEM_CENTER | NCHC_DI_SCREEN_CENTER_TOP);
 

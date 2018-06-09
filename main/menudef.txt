@@ -64,4 +64,5 @@ OptionMenu "NCHUD"
 	Option "Name is generic?", "nchud_monsterhpbar_genname", "YesNo", "nchud_monsterhpbar"
 	Option "Include friendlies?", "nchud_monsterhpbar_friend", "YesNo", "nchud_monsterhpbar"
 	Option "Show spawn health?", "nchud_monsterhpbar_spawnhp", "YesNo", "nchud_monsterhpbar"
+	TextField "Spawn health threshold", "nchud_monsterhpbar_threshold", "nchud_monsterhpbar"
 }

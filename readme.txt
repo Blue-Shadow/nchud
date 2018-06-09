@@ -161,6 +161,8 @@
       Note that for the bar to be displayed, the monster being aimed at needs...
 
         - ...not to have the bar display explicitly disabled (see the note just below).
+        - ...not to have a spawn health value below the spawn health threshold value (see the
+          "Spawn health threshold" option below).
         - ...not to be stealth, or be stealth but only if its alpha is greater than 0.5.
         - ...to not have the "Fuzzy" render style.
         - ...to not have the "OptFuzzy" render style, or have it but only if its alpha is greater
@@ -197,6 +199,12 @@
 
       Controls the display of the spawn health. Setting this to "Yes" (1), displays it, while
       setting it to "No" (0), does not.
+
+    - Spawn health threshold
+      CVAR: nchud_monsterhpbar_threshold
+      Default: 0
+
+      Sets the value at or above which a monster's spawn health needs to be for the bar to be drawn.
 
 ---------------------------------------------------------------------------------------------------
 -- Overriding icons and ammo list                                                                --
