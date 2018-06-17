@@ -1315,6 +1315,11 @@ class NCH_BaseHUD : BaseStatusBar
 
 	virtual void NCHF_DrawPowerups ()
 	{
+		if (!NCHF_GetCVar('nchud_togglepowerups'))
+		{
+			return;
+		}
+
 		vector2 bgpos = (-5, 5);
 		vector2 iconpos = (-29, 24);
 		vector2 ticspos = (-29, 46);

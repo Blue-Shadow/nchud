@@ -39,6 +39,7 @@ OptionMenu "NCHUD"
 	StaticText "Toggles", 1
 	Option "Level stats", "nchud_toggletally", "NCH_TallyDrawModes"
 	Option "Air supply bar", "nchud_toggleair", "OnOff"
+	Option "Active powerups", "nchud_togglepowerups", "OnOff"
 	StaticText " "
 	StaticText "Ammo List", 1
 	Option "Draw mode", "nchud_toggleammo", "NCH_AmmoListDrawModes"

@@ -56,6 +56,13 @@
       Controls the toggling of the air supply display. Setting this to "On" (1), toggles the display
       on (while underwater, that is), while setting it to "Off" (0), toggles it off.
 
+    - Active powerups
+      CVAR: nchud_togglepowerups
+      Default: Off (0)
+
+      Controls the toggling of the active powerups display. Setting this to "On" (1), toggles the
+      display on, while setting it to "Off" (0), toggles it off.
+
   ------------------------------------------ Ammo List ------------------------------------------
 
     - Draw mode
