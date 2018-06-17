@@ -1345,6 +1345,12 @@ class NCH_BaseHUD : BaseStatusBar
 					}
 				}
 
+				// Exclude powerups which use 'TNT1A0' as their icon.
+				if (TexMan.GetName(icon) ~== "TNT1A0")
+				{
+					continue;
+				}
+
 				// Drawing.
 				DrawImage("H_BGPOW", bgpos, DI_ITEM_RIGHT_TOP);
 
