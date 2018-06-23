@@ -1,8 +1,7 @@
-AddOptionMenu "HUDOptions"
+AddOptionMenu "OptionsMenu"
 {
 	StaticText ""
-	StaticText ""
-	Submenu "NC HUD", "NCHUD"
+	Submenu "NC HUD Options", "NCHUD"
 }
 
 OptionValue "NCH_TallyDrawModes"
@@ -34,7 +33,7 @@ OptionValue "NCH_MonsterHPBarDrawModes"
 
 OptionMenu "NCHUD"
 {
-	Title "NC HUD"
+	Title "NC HUD Options"
 	Indent 220
 	StaticText "Toggles", 1
 	Option "Level stats", "nchud_toggletally", "NCH_TallyDrawModes"

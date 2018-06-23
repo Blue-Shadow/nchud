@@ -31,13 +31,13 @@
   scaled up.
 
 ---------------------------------------------------------------------------------------------------
--- NC HUD options menu (Accessing: Options -> HUD Options -> NC HUD)                             --
+-- NC HUD options menu (Accessing: Options -> NC HUD Options)                                    --
 ---------------------------------------------------------------------------------------------------
 
-  | Note that if you load a mod on top of the HUD which happens to redefine the HUD Options     |
-  | menu, the HUD's own menu may be overridden and thus become inaccessable. The options        |
-  | below can be changed without having access to the menu. To do that, enter the option's      |
-  | CVAR into the console, setting it to the desired value.                                     |
+  | Note that if you load a mod on top of the HUD which happens to redefine the Options menu,   |
+  | the HUD's own menu may be overridden and thus become inaccessable. The options below can be |
+  | changed without having access to the menu. To do that, enter the option's CVAR into the     |
+  | console, setting it to the desired value.                                                   |
 
   ------------------------------------------- Toggles -------------------------------------------
 
