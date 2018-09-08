@@ -1,6 +1,6 @@
-SoulAmmo			UNHWA0
-MiniHellRocketAmmo	FATBD0
-PowerLightAmp			TNT1A0
-PowerTorch				PVISA0
-PowerTransformBaron		D4BST01
-PowerTransformRevenant	D4REVL0
+SoulAmmo               UNHWA0
+MiniHellRocketAmmo     FATBD0
+PowerLightAmp          TNT1A0
+PowerTorch             PVISA0
+PowerTransformBaron    D4BST01
+PowerTransformRevenant D4REVL0
