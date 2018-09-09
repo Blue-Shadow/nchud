@@ -2,8 +2,8 @@
 -- Supported games (IWADs)                                                                       --
 ---------------------------------------------------------------------------------------------------
 
-  The HUD was originally made for Doom only, but it now supports Heretic and Hexen, as well. There
-  are no plans to support other games at the moment.
+  The HUD was originally made for Doom only, but it now supports Heretic, Hexen, Chex Quest 3 and
+  Hacx v1.2, as well. There are no plans to support other games at the moment.
 
 ---------------------------------------------------------------------------------------------------
 -- I do not see the HUD!                                                                         --
@@ -35,7 +35,7 @@
 ---------------------------------------------------------------------------------------------------
 
   | Note that if you load a mod on top of the HUD which happens to redefine the Options menu,   |
-  | the HUD's own menu may be overridden and thus become inaccessable. The options below can be |
+  | the HUD's own menu may be overridden and thus become inaccessible. The options below can be |
   | changed without having access to the menu. To do that, enter the option's CVAR into the     |
   | console, setting it to the desired value.                                                   |
 
