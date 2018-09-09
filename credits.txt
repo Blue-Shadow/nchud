@@ -19,6 +19,7 @@
     - Christoph Oelckers for GZDoom's alternative HUD, from which I borrowed some code.
     - MajorCooke and Xaser for the idea of using an inventory item to obtain information for the
       HUD which otherwise cannot be obtained from within the status bar code.
-    - Tekish for testing.
+    - Tekish for testing and patch contributions.
+    - Shockwave508 for patch contributions.
 
 ---------------------------------------------------------------------------------------------------
