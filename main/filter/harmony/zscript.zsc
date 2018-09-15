@@ -1,0 +1,18 @@
+version "3.2.5"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Harmony
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_HarmonyStatusBar : NCH_BaseHUD
+{
+	override void NCHF_InGameSetup ()
+	{
+		NCHF_AddToAmmoListOverride("Clip");
+		NCHF_AddToAmmoListOverride("Shell");
+		NCHF_AddToAmmoListOverride("RocketAmmo");
+		NCHF_AddToAmmoListOverride("Cell");
+	}
+}
