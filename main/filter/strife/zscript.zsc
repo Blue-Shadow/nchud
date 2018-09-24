@@ -1,0 +1,16 @@
+version "3.2.5"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Strife Classic
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_StrifeStatusBar : NCH_BaseHUD
+{
+	override void NCHF_Setup ()
+	{
+		nch_DrawMugShot = false;
+		nch_KeysUseSpawnState = true;
+	}
+}
