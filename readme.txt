@@ -2,8 +2,9 @@
 -- Supported games (IWADs)                                                                       --
 ---------------------------------------------------------------------------------------------------
 
-  The HUD was originally made for Doom only, but it now supports Heretic, Hexen, Chex Quest 3,
-  Hacx v1.2 and Harmony, as well. There are no plans to support other games at the moment.
+  The HUD was originally made for Doom only, but it now supports Heretic, Hexen, Strife (partial),
+  Chex Quest 3, Hacx v1.2 and Harmony, as well. There are no plans to support other games at the
+  moment.
 
 ---------------------------------------------------------------------------------------------------
 -- I do not see the HUD!                                                                         --
