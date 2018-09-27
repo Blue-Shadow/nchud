@@ -1528,6 +1528,32 @@ class NCH_BaseHUD : BaseStatusBar
 	//
 	// -------------------------------------------------------------------------------------------------
 
+	virtual void NCHF_DrawDamageReceived ()
+	{
+		if (NCHF_GetCVar('nchud_toggledamage'))
+		{
+			let helper = NCH_Helper(CPlayer.mo.FindInventory("NCH_Helper"));
+
+			if (helper)
+			{
+				int damageReceived = helper.nch_damageReceived;
+
+				if (damageReceived > 0)
+				{
+					DrawImage("H_BGDMG", (80, 120), DI_ITEM_LEFT_TOP);
+					NCHF_DrawString(nch_bfont, FormatNumber(damageReceived, 0, 5), (113, 128), DI_TEXT_ALIGN_CENTER, 'NCHPink');
+					NCHF_DrawString(nch_sfont, "Damage", (112, 152), DI_TEXT_ALIGN_CENTER);
+				}
+			}
+		}
+	}
+
+	// -------------------------------------------------------------------------------------------------
+	//
+	//
+	//
+	// -------------------------------------------------------------------------------------------------
+
 	protected void DrawMainBar (double TicFrac)
 	{
 		DrawImage("H_STBRBG", (0, 168), DI_ITEM_OFFSETS);
@@ -1556,6 +1582,7 @@ class NCH_BaseHUD : BaseStatusBar
 		NCHF_DrawPowerups();
 		NCHF_DrawAirSupply();
 		NCHF_DrawMonsterHealth();
+		NCHF_DrawDamageReceived();
 	}
 }
 

@@ -7,6 +7,7 @@
 class NCH_Helper : Inventory
 {
 	const NCHC_WSLOT_COUNT = 10;
+	const NCHC_DAMAGEDELAY = 6 * 35; // How long, in tics, the damage display remains on the HUD before it disappears.
 
 	struct NCH_WeaponSlot
 	{
@@ -20,11 +21,37 @@ class NCH_Helper : Inventory
 	bool nch_ewfound;
 	int nch_ewslot;
 	Actor nch_linetarget;
+	int nch_damageDelay;
+	int nch_damageReceived;
 
 	Default
 	{
 		+INVENTORY.UNDROPPABLE
 		+INVENTORY.UNTOSSABLE
+	}
+
+	override void BeginPlay ()
+	{
+		nch_damageDelay = 0;
+		nch_damageReceived = 0;
+
+		Super.BeginPlay();
+	}
+
+	override void Tick ()
+	{
+		if (nch_damageDelay > 0 && --nch_damageDelay == 0)
+		{
+			nch_damageReceived = 0;
+		}
+
+		Super.Tick();
+	}
+
+	void NCHF_Damaged (int damage)
+	{
+		nch_damageDelay = NCHC_DAMAGEDELAY;
+		nch_damageReceived += damage;
 	}
 
 	void NCHF_AddAmmoToList (Inventory weaponitem, class<Ammo> at1, class<Ammo> at2)

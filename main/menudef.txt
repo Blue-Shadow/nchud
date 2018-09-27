@@ -37,6 +37,7 @@ OptionMenu "NCHUD"
 	Indent 220
 	StaticText "Toggles", 1
 	Option "Level stats", "nchud_toggletally", "NCH_TallyDrawModes"
+	Option "Received damage", "nchud_toggledamage", "OnOff"
 	Option "Air supply bar", "nchud_toggleair", "OnOff"
 	Option "Active powerups", "nchud_togglepowerups", "OnOff"
 	StaticText " "

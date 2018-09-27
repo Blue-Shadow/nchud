@@ -50,6 +50,13 @@
       display on; setting it to "Counters and %" (2), draws the stats as percentages, as well;
       setting it to "Off" (0), toggles the display off.
 
+    - Received damage
+      CVAR: nchud_toggledamage
+      Default: Off (0)
+
+      Controls the toggling of the received damage display. Setting this to "On" (1), toggles the
+      display on, while setting it to "Off" (0), toggles it off.
+
     - Air supply bar
       CVAR: nchud_toggleair
       Default: On (1)

@@ -15,4 +15,19 @@ class NCH_Handler : EventHandler
 			pl.mo.A_GiveInventory("NCH_Helper");
 		}
 	}
+
+	override void WorldThingDamaged (WorldEvent e)
+	{
+		let pl = e.Thing.player;
+
+		if (pl && pl.mo)
+		{
+			let helper = NCH_Helper(pl.mo.FindInventory("NCH_Helper"));
+
+			if (helper)
+			{
+				helper.NCHF_Damaged(e.Damage);
+			}
+		}
+	}
 }
