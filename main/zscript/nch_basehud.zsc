@@ -4,6 +4,17 @@
 //
 // ------------------------------------------------------------------------------------------------
 
+class NCH_StatItem ui
+{
+	int labeltype;
+	string label;
+	int format;
+	string val;
+	int cur;
+	int total;
+	bool colorize;
+}
+
 class NCH_BaseHUD : BaseStatusBar
 {
 	const NCHC_LOWSTATEUCAP = 50; // Bar low state upper cap.
@@ -24,19 +35,24 @@ class NCH_BaseHUD : BaseStatusBar
 		NCHC_BARSTATE_OVER
 	}
 
-	enum NCHELevelStats
+	enum NCHEStatLabelTypes
 	{
-		NCHC_LEVELSTAT_TIME,
-		NCHC_LEVELSTAT_MONSTERS,
-		NCHC_LEVELSTAT_ITEMS,
-		NCHC_LEVELSTAT_SECRETS,
+		NCHC_STATLABELTYPE_TEXT,
+		NCHC_STATLABELTYPE_ICON
+	}
 
-		NCHC_LEVELSTAT_NUM
+	enum NCHEStatFormats
+	{
+		NCHC_STATFORMAT_SINGLE,
+		NCHC_STATFORMAT_RATIO
 	}
 
 	bool nch_init;
 	HUDFont nch_sfont, nch_bfont;
 	InventoryBarState nch_diparms;
+
+	// Used to store the stats items.
+	Array<NCH_StatItem> nch_statslist;
 
 	// Ammo list overrides.
 	Array<class<Ammo> > nch_aolist;
@@ -141,6 +157,76 @@ class NCH_BaseHUD : BaseStatusBar
 	// -------------------------------------------------------------------------------------------------
 
 	override void DrawPowerups () {} // The HUD uses its own powerup-drawing function.
+
+	// -------------------------------------------------------------------------------------------------
+	//
+	//   NCHF_AddSingleStat
+	//
+	//   Adds a single stat to the list of stats to be drawn by the NCHF_DrawLevelStats() function.
+	//
+	//   - labeltype: the type of the label:
+	//     * NCHC_STATLABELTYPE_TEXT - the label is drawn as a text.
+	//     * NCHC_STATLABELTYPE_ICON - instead of a text, an icon is drawn as the label.
+	//   - label: a string representing the label of the stat, be it a text or the name of an icon.
+	//   - format: the format the stat is drawn in:
+	//     * NCHC_STATFORMAT_SINGLE - single-value format. The stat is drawn as it is passed. This uses
+	//       the 'val' parameter. The 'cur' and 'total' parameters are ignored.
+	//     * NCHC_STATFORMAT_RATIO - "ratio" format. The stat is drawn as current/total and a percentage.
+	//       This uses both the 'cur' and 'total' parameters. The 'val' parameter is ignored.
+	//   - val: the stat to draw, as a string.
+	//   - cur: the "current" value in the current/total format.
+	//   - total: the "total" value in the current/total format.
+	//   - colorize: if 'true', the stat's text is drawn in blue, otherwise, if 'false', it is drawn
+	//     in lightgray. This is used to colorize the text if certain conditions are met.
+	//   - vis: if 'true', the stat is drawn, otherwise, if 'false', it is not. This is used to show/hide
+	//     the stat if certain conditions are met.
+	//
+	// -------------------------------------------------------------------------------------------------
+
+	void NCHF_AddSingleStat (int labeltype = NCHC_STATLABELTYPE_TEXT, string label = "", int format = NCHC_STATFORMAT_SINGLE, string val = "", int cur = 0, int total = 0,
+		bool colorize = false, bool vis = true)
+	{
+		if (!vis)
+		{
+			return;
+		}
+
+		let stat = new("NCH_StatItem");
+
+		if (stat)
+		{
+			stat.labeltype = labeltype;
+			stat.label = label;
+			stat.format = format;
+			stat.val = val;
+			stat.cur = cur;
+			stat.total = total;
+			stat.colorize = colorize;
+
+			nch_statslist.Push(stat);
+		}
+	}
+
+	// -------------------------------------------------------------------------------------------------
+	//
+	//
+	//
+	// -------------------------------------------------------------------------------------------------
+
+	virtual void NCHF_AddStats ()
+	{
+		int curmonsters = level.killed_monsters;
+		int totmonsters = level.total_monsters;
+		int curitems = level.found_items;
+		int totitems = level.total_items;
+		int cursecrets = level.found_secrets;
+		int totsecrets = level.total_secrets;
+
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "T", NCHC_STATFORMAT_SINGLE, level.TimeFormatted(), 0, 0, Thinker.Tics2Seconds(level.time) < level.partime);
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "K", NCHC_STATFORMAT_RATIO, "", curmonsters, totmonsters, curmonsters == totmonsters, totmonsters > 0);
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "I", NCHC_STATFORMAT_RATIO, "", curitems, totitems, curitems == totitems, totitems > 0);
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "S", NCHC_STATFORMAT_RATIO, "", cursecrets, totsecrets, cursecrets == totsecrets, totsecrets > 0);
+	}
 
 	// -------------------------------------------------------------------------------------------------
 	//
@@ -374,71 +460,6 @@ class NCH_BaseHUD : BaseStatusBar
 		{
 			DrawTexture(parms.right, position + parms.arrowoffset + (width, 0), flags | DI_ITEM_LEFT | DI_ITEM_VCENTER);
 		}
-	}
-
-	// -------------------------------------------------------------------------------------------------
-	//
-	//
-	//
-	// -------------------------------------------------------------------------------------------------
-
-	bool NCHF_IsLevelStatValid (int stat)
-	{
-		switch(stat)
-		{
-			default: break;
-			case NCHC_LEVELSTAT_TIME:     return true; // Time is always valid.
-			case NCHC_LEVELSTAT_MONSTERS: return level.total_monsters > 0;
-			case NCHC_LEVELSTAT_ITEMS:    return level.total_items > 0;
-			case NCHC_LEVELSTAT_SECRETS:  return level.total_secrets > 0;
-		}
-
-		return false;
-	}
-
-	// -------------------------------------------------------------------------------------------------
-	//
-	//
-	//
-	// -------------------------------------------------------------------------------------------------
-
-	string, int, int, int, name NCHF_GetLevelStatInfo (int stat)
-	{
-		string statlabel = "";
-		int statcur = 0;
-		int stattotal = 0;
-		name statvalcolor = '';
-
-		if(stat == NCHC_LEVELSTAT_TIME)
-		{
-			statlabel = "T";
-			statvalcolor = Thinker.Tics2Seconds(level.time) < level.partime ? 'NCHBlue' : 'NCHLightGray';
-		}
-		else
-		{
-			switch(stat)
-			{
-				case NCHC_LEVELSTAT_MONSTERS:
-					statlabel = "K";
-					statcur = level.killed_monsters;
-					stattotal = level.total_monsters;
-					break;
-				case NCHC_LEVELSTAT_ITEMS:
-					statlabel = "I";
-					statcur = level.found_items;
-					stattotal = level.total_items;
-					break;
-				case NCHC_LEVELSTAT_SECRETS:
-					statlabel = "S";
-					statcur = level.found_secrets;
-					stattotal = level.total_secrets;
-					break;
-			}
-
-			statvalcolor = statcur == stattotal ? 'NCHBlue' : 'NCHLightGray';
-		}
-
-		return statlabel, statcur, stattotal, stattotal > 0 ? statcur * 100 / stattotal : 0, statvalcolor;
 	}
 
 	// -------------------------------------------------------------------------------------------------
@@ -1085,51 +1106,14 @@ class NCH_BaseHUD : BaseStatusBar
 
 		if(toggletally >= 1)
 		{
-			// -------------------------------------------------------------------------------------------------
-			//
-			//   Determine the number of backgrounds to draw.
-			//
-			// -------------------------------------------------------------------------------------------------
+			nch_statslist.Clear();
+			NCHF_AddStats();
+			int listsize = nch_statslist.Size();
 
-			int bgnum = 0;
-
-			for(int i = 0; i < NCHC_LEVELSTAT_NUM; i++)
+			// There aren't any stats to draw, so quit.
+			if (listsize == 0)
 			{
-				if(NCHF_IsLevelStatValid(i))
-				{
-					bgnum++;
-				}
-			}
-
-			// -------------------------------------------------------------------------------------------------
-			//
-			//   Draw the backgrounds.
-			//
-			// -------------------------------------------------------------------------------------------------
-
-			string bg;
-			vector2 bgpos = (5, -133);
-
-			for(int i = bgnum - 1; i >= 0; i--)
-			{
-				if(i == 0)
-				{
-					// Top background, which is always used for the level time.
-					bg = NCHF_GetTallyBg(0, 0);
-				}
-				else if(i == bgnum - 1)
-				{
-					// Bottom background.
-					bg = NCHF_GetTallyBg(toggletally - 1, 2);
-				}
-				else
-				{
-					// In-between background.
-					bg = NCHF_GetTallyBg(toggletally - 1, 1);
-				}
-
-				DrawImage(bg, bgpos, DI_ITEM_LEFT_TOP);
-				bgpos.y -= 23;
+				return;
 			}
 
 			// -------------------------------------------------------------------------------------------------
@@ -1138,26 +1122,33 @@ class NCH_BaseHUD : BaseStatusBar
 			//
 			// -------------------------------------------------------------------------------------------------
 
-			string label;
-			int curpnts;
-			int maxpnts;
-			int prc;
-			name valcolor;
+			vector2 bgpos = (5, -133);
 			vector2 labelpos = (17, -126);
+			vector2 iconpos = (18, -122);
 			vector2 curpntspos = (69, -126);
 			vector2 slashpos = (81, -126);
 			vector2 maxpntspos = (115, -126);
 			vector2 prcpos = (150, -126);
 			vector2 psignpos = (162, -126);
 
-			for(int i = NCHC_LEVELSTAT_NUM - 1; i >= 0; i--)
+			for (int i = listsize - 1; i >= 0; i--)
 			{
-				if(!NCHF_IsLevelStatValid(i))
+				int bg = 1; // In-between background.
+
+				if (i == 0)
 				{
-					continue;
+					// Top background.
+					bg = 0;
+				}
+				else if (i == listsize - 1)
+				{
+					// Bottom background.
+					bg = 2;
 				}
 
-				[label, curpnts, maxpnts, prc, valcolor] = NCHF_GetLevelStatInfo(i);
+				int format = nch_statslist[i].format;
+				bool extendedbg = toggletally == 2 && format == NCHC_STATFORMAT_RATIO;
+				name valcolor = nch_statslist[i].colorize ? 'NCHBlue' : 'NCHLightGray';
 
 				// -------------------------------------------------------------------------------------------------
 				//
@@ -1165,26 +1156,51 @@ class NCH_BaseHUD : BaseStatusBar
 				//
 				// -------------------------------------------------------------------------------------------------
 
-				NCHF_DrawString(nch_sfont, label, labelpos, DI_TEXT_ALIGN_CENTER);
+				// Background
+				DrawImage(NCHF_GetTallyBg(extendedbg ? 1 : 0, bg), bgpos, DI_ITEM_LEFT_TOP);
 
-				if(i == 0)
+				// Label/Icon
+				if (nch_statslist[i].labeltype == NCHC_STATLABELTYPE_ICON)
 				{
-					NCHF_DrawString(nch_sfont, level.TimeFormatted(), maxpntspos, DI_TEXT_ALIGN_RIGHT, valcolor);
+					let icon = TexMan.CheckForTexture(nch_statslist[i].label, TexMan.TYPE_MiscPatch);
+
+					if (!icon.IsValid())
+					{
+						icon = TexMan.CheckForTexture("H_ICNMIS", TexMan.TYPE_MiscPatch);
+					}
+
+					DrawTexture(icon, iconpos, DI_ITEM_CENTER, box : (18, 18));
 				}
 				else
 				{
-					NCHF_DrawString(nch_sfont, FormatNumber(curpnts, 0, 4), curpntspos, DI_TEXT_ALIGN_RIGHT, valcolor);
-					NCHF_DrawString(nch_sfont, "/", slashpos, DI_TEXT_ALIGN_RIGHT);
-					NCHF_DrawString(nch_sfont, FormatNumber(maxpnts, 0, 4), maxpntspos, DI_TEXT_ALIGN_RIGHT, valcolor);
+					NCHF_DrawString(nch_sfont, nch_statslist[i].label, labelpos, DI_TEXT_ALIGN_CENTER);
+				}
 
-					if(toggletally == 2)
+				// Value
+				if (format == NCHC_STATFORMAT_SINGLE)
+				{
+					// Single-value type
+					NCHF_DrawString(nch_sfont, nch_statslist[i].val, maxpntspos, DI_TEXT_ALIGN_RIGHT, valcolor);
+				}
+				else
+				{
+					// Current/Total type
+					int cur = nch_statslist[i].cur;
+					int total = nch_statslist[i].total;
+					NCHF_DrawString(nch_sfont, FormatNumber(cur, 0, 4), curpntspos, DI_TEXT_ALIGN_RIGHT, valcolor);
+					NCHF_DrawString(nch_sfont, "/", slashpos, DI_TEXT_ALIGN_RIGHT);
+					NCHF_DrawString(nch_sfont, FormatNumber(total, 0, 4), maxpntspos, DI_TEXT_ALIGN_RIGHT, valcolor);
+
+					if (extendedbg)
 					{
-						NCHF_DrawString(nch_sfont, FormatNumber(prc, 0, 3), prcpos, DI_TEXT_ALIGN_RIGHT, valcolor);
+						NCHF_DrawString(nch_sfont, FormatNumber(total > 0 ? cur * 100 / total : 0, 0, 3), prcpos, DI_TEXT_ALIGN_RIGHT, valcolor);
 						NCHF_DrawString(nch_sfont, "%", psignpos, DI_TEXT_ALIGN_RIGHT, valcolor);
 					}
 				}
 
+				bgpos.y -= 23;
 				labelpos.y -= 23;
+				iconpos.y -= 23;
 				curpntspos.y -= 23;
 				slashpos.y -= 23;
 				maxpntspos.y -= 23;
