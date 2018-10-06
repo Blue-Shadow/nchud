@@ -21,5 +21,6 @@
       HUD which otherwise cannot be obtained from within the status bar code.
     - Tekish for testing and patch contributions.
     - Shockwave508 for patch contributions.
+    - CottonDisciple for patch contributions.
 
 ---------------------------------------------------------------------------------------------------
