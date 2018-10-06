@@ -20,26 +20,14 @@ class NCH_MetaDoomHUD : NCH_BaseHUD
 		NCHF_AddToAmmoListOverride("HalonCannister");
 		NCHF_AddToAmmoListOverride("GrenadeAmmo");
 	}
-	
+
 	override void NCHF_AddStats ()
 	{
-		int curmonsters = level.killed_monsters;
-		int totmonsters = level.total_monsters;
-		int curitems = level.found_items;
-		int totitems = level.total_items;
-		int cursecrets = level.found_secrets;
-		int totsecrets = level.total_secrets;
-		
-		int getpoints = players[consoleplayer].mo.score;
-		string totpoints = FormatNumber(getpoints, 0, 10);
-				
-		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "T", NCHC_STATFORMAT_SINGLE, level.TimeFormatted(), 0, 0, Thinker.Tics2Seconds(level.time) < level.partime);
-		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "K", NCHC_STATFORMAT_RATIO, "", curmonsters, totmonsters, curmonsters == totmonsters, totmonsters > 0);
-		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "I", NCHC_STATFORMAT_RATIO, "", curitems, totitems, curitems == totitems, totitems > 0);
-		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "S", NCHC_STATFORMAT_RATIO, "", cursecrets, totsecrets, cursecrets == totsecrets, totsecrets > 0);
-		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "P", NCHC_STATFORMAT_SINGLE, totpoints);
-	}	
-	
+		Super.NCHF_AddStats();
+
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "P", NCHC_STATFORMAT_SINGLE, FormatNumber(CPlayer.mo.score));
+	}
+
 	override void NCHF_DrawKeys ()
 	{
 		DrawImage("H_BGKEYS", (5, -31), DI_ITEM_LEFT_TOP); // Background.

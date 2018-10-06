@@ -13,23 +13,11 @@ class NCH_StrifeStatusBar : NCH_BaseHUD
 		nch_DrawMugShot = false;
 		nch_KeysUseSpawnState = true;
 	}
-	
+
 	override void NCHF_AddStats ()
 	{
-		int curmonsters = level.killed_monsters;
-		int totmonsters = level.total_monsters;
-		int curitems = level.found_items;
-		int totitems = level.total_items;
-		int cursecrets = level.found_secrets;
-		int totsecrets = level.total_secrets;
-		
-		int getcoin = GetAmount("Coin");
-		string totcoin = FormatNumber(getcoin, 0, 7);
-		
-		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "T", NCHC_STATFORMAT_SINGLE, level.TimeFormatted(), 0, 0, Thinker.Tics2Seconds(level.time) < level.partime);
-		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "K", NCHC_STATFORMAT_RATIO, "", curmonsters, totmonsters, curmonsters == totmonsters, totmonsters > 0);
-		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "I", NCHC_STATFORMAT_RATIO, "", curitems, totitems, curitems == totitems, totitems > 0);
-		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "S", NCHC_STATFORMAT_RATIO, "", cursecrets, totsecrets, cursecrets == totsecrets, totsecrets > 0);
-		NCHF_AddSingleStat(NCHC_STATLABELTYPE_ICON, "I_COIN", NCHC_STATFORMAT_SINGLE, totcoin);
-		}
+		Super.NCHF_AddStats();
+
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_ICON, "I_COIN", NCHC_STATFORMAT_SINGLE, FormatNumber(GetAmount("Coin")));
+	}
 }
