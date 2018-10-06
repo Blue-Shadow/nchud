@@ -522,18 +522,23 @@ class NCH_BaseHUD : BaseStatusBar
 					break;
 				}
 
-				if(nch_KeysUseSpawnState && i.SpawnState && i.SpawnState.sprite != 0)
-				{
-					icon = i.SpawnState.GetSpriteTexture(0);
-				}
-				else
-				{
-					icon = i.Icon;
-				}
+				icon = i.AltHUDIcon;
 
-				if(!icon.IsValid())
+				if (!icon.IsValid())
 				{
-					continue;
+					if(nch_KeysUseSpawnState && i.SpawnState && i.SpawnState.sprite != 0)
+					{
+						icon = i.SpawnState.GetSpriteTexture(0);
+					}
+					else
+					{
+						icon = i.Icon;
+					}
+
+					if(!icon.IsValid())
+					{
+						continue;
+					}
 				}
 
 				// Scale the icon up if needed.

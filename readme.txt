@@ -229,7 +229,7 @@
 
     https://zdoom.org/wiki/ALTHUDCF
 
-  Note that the HUD only supports overriding icons for ammo, "artifacts" and powerups.
+  Note that the HUD only supports overriding icons for keys, ammo, "artifacts" and powerups.
 
   Overriding the ammo list is done by overriding the virtual function NCHF_InGameSetup() in your
   status bar class and then simply calling the NCHF_AddToAmmoListOverride() function for each ammo
