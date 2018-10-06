@@ -1,0 +1,18 @@
+SoulAmmo SOLAA0
+HalonCannister FIEXZ0
+HolyWater HWPAA0
+GrenadeAmmo HGREZ0
+
+PowerIronFeet SUITA0
+PowerWeaponLevel2 PSTRA0
+PowerLightAmp PVISA0
+PowerSpeed HASTA0
+PowerInvulnerable PINVA0
+PowerDamage QUADA0
+
+BlueCard2 STKEYS0
+YellowCard2 STKEYS1
+RedCard2 STKEYS2
+BlueSkull2 STKEYS3
+YellowSkull2 STKEYS4
+RedSkull2 STKEYS5

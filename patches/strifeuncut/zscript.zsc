@@ -1,12 +1,12 @@
-version "3.2.5"
+version "3.3"
 
 // ------------------------------------------------------------------------------------------------
 //
-//   NC HUD - Strife Classic
+//   NC HUD - Strife Uncut
 //
 // ------------------------------------------------------------------------------------------------
 
-class NCH_StrifeStatusBar : NCH_BaseHUD
+class NCH_UCHUD : NCH_BaseHUD
 {
 	override void NCHF_Setup ()
 	{
@@ -26,10 +26,14 @@ class NCH_StrifeStatusBar : NCH_BaseHUD
 		int getcoin = GetAmount("Coin");
 		string totcoin = FormatNumber(getcoin, 0, 7);
 		
+		int getfood = GetAmount("FoodUnit");
+		string totfood = FormatNumber(getfood, 0, 7);
+		
 		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "T", NCHC_STATFORMAT_SINGLE, level.TimeFormatted(), 0, 0, Thinker.Tics2Seconds(level.time) < level.partime);
 		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "K", NCHC_STATFORMAT_RATIO, "", curmonsters, totmonsters, curmonsters == totmonsters, totmonsters > 0);
 		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "I", NCHC_STATFORMAT_RATIO, "", curitems, totitems, curitems == totitems, totitems > 0);
 		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "S", NCHC_STATFORMAT_RATIO, "", cursecrets, totsecrets, cursecrets == totsecrets, totsecrets > 0);
 		NCHF_AddSingleStat(NCHC_STATLABELTYPE_ICON, "I_COIN", NCHC_STATFORMAT_SINGLE, totcoin);
-		}
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_ICON, "I_BKPK", NCHC_STATFORMAT_SINGLE, totfood);
+	}	
 }

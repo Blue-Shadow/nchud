@@ -1,0 +1,87 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - MetaDoom
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_MetaDoomHUD : NCH_BaseHUD
+{
+	override void NCHF_InGameSetup ()
+	{
+		NCHF_AddToAmmoListOverride("Clip");
+		NCHF_AddToAmmoListOverride("Shell");
+		NCHF_AddToAmmoListOverride("RocketAmmo");
+		NCHF_AddToAmmoListOverride("Cell");
+		NCHF_AddToAmmoListOverride("BFGAmmo");
+		NCHF_AddToAmmoListOverride("SoulAmmo");
+		NCHF_AddToAmmoListOverride("HolyWater");
+		NCHF_AddToAmmoListOverride("HalonCannister");
+		NCHF_AddToAmmoListOverride("GrenadeAmmo");
+	}
+	
+	override void NCHF_AddStats ()
+	{
+		int curmonsters = level.killed_monsters;
+		int totmonsters = level.total_monsters;
+		int curitems = level.found_items;
+		int totitems = level.total_items;
+		int cursecrets = level.found_secrets;
+		int totsecrets = level.total_secrets;
+		
+		int getpoints = players[consoleplayer].mo.score;
+		string totpoints = FormatNumber(getpoints, 0, 10);
+				
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "T", NCHC_STATFORMAT_SINGLE, level.TimeFormatted(), 0, 0, Thinker.Tics2Seconds(level.time) < level.partime);
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "K", NCHC_STATFORMAT_RATIO, "", curmonsters, totmonsters, curmonsters == totmonsters, totmonsters > 0);
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "I", NCHC_STATFORMAT_RATIO, "", curitems, totitems, curitems == totitems, totitems > 0);
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "S", NCHC_STATFORMAT_RATIO, "", cursecrets, totsecrets, cursecrets == totsecrets, totsecrets > 0);
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "P", NCHC_STATFORMAT_SINGLE, totpoints);
+	}	
+	
+	override void NCHF_DrawKeys ()
+	{
+		DrawImage("H_BGKEYS", (5, -31), DI_ITEM_LEFT_TOP); // Background.
+
+		textureid icon;
+		vector2 size;
+		bool scaleup;
+		vector2 pos = (18, -18);
+		int count = 0;
+
+		for(let i = CPlayer.mo.Inv; i != null; i = i.Inv)
+		{
+			if(i is "Key")
+			{
+				// Draw up to 10 keys.
+				if(count == 10)
+				{
+					break;
+				}
+
+				if(nch_KeysUseSpawnState && i.SpawnState && i.SpawnState.sprite != 0)
+				{
+					icon = i.SpawnState.GetSpriteTexture(0);
+				}
+				else
+				{
+					//[cotton_disciple] there's no spawn state or inventory icons so we use this
+					icon = i.althudIcon; 
+				}
+
+				if(!icon.IsValid())
+				{
+					continue;
+				}
+
+				// Scale the icon up if needed.
+				size = TexMan.GetScaledSize(icon);
+				scaleup = (size.x <= 11 && size.y <= 11);
+				DrawTexture(icon, pos, DI_ITEM_CENTER, box : (22, 22), scaleup ? (2, 2) : (1, 1));
+				pos.x += 26;
+				count++;
+			}
+		}
+	}
+}
