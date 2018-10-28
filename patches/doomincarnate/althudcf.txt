@@ -1,3 +1,10 @@
-NapalmAmmo		AMMOHUDL
-HatchetAmmo		AMMOHUDJ
-HandNadeAmmo	AMMOHUDI
+HandNadeAmmo		AMMOHUDI
+HatchetAmmo			AMMOHUDJ
+NapalmAmmo			AMMOHUDL
+PowerBattleSuit		RUN4A0
+PowerIronfeet		HEVSA0
+PowerLightamp		PVISA0
+PowerQ3Regeneration	RUN3A0
+PowerQuadDamage		RUN2A0
+PowerPsyche			RUN5A0
+PowerWrath			RUN1A0

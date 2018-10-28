@@ -14,7 +14,7 @@ class NCH_DoomIncarnateHUD : NCH_BaseHUD
 		NCHF_AddToAmmoListOverride("MagnumBullets");
 		NCHF_AddToAmmoListOverride("ShotgunShells");
 		NCHF_AddToAmmoListOverride("NATOBullets");
-		NCHF_AddToAmmoListOverride("GatlingAmmo");
+		NCHF_AddToAmmoListOverride("VenomAmmo");
 		NCHF_AddToAmmoListOverride("ExplosiveSlugs");
 		NCHF_AddToAmmoListOverride("NapalmAmmo");
 		NCHF_AddToAmmoListOverride("Battery");
