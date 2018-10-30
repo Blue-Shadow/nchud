@@ -1,0 +1,22 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Arachnocide
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_ArachnocideHUD : NCH_BaseHUD
+{
+	override void NCHF_InGameSetup ()
+	{
+		NCHF_AddToAmmoListOverride("ARCL1");
+		NCHF_AddToAmmoListOverride("ARRV1");
+		NCHF_AddToAmmoListOverride("ARSH1");
+		NCHF_AddToAmmoListOverride("ARHC1");
+		NCHF_AddToAmmoListOverride("AREX1");
+		NCHF_AddToAmmoListOverride("ARBT1");
+		NCHF_AddToAmmoListOverride("ARTR1");
+		NCHF_AddToAmmoListOverride("ARFL1");
+	}
+}
