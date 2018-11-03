@@ -1,0 +1,11 @@
+PowerInvulnerable GODMA0
+SpeedBoost        TNT1A0
+PowerIronFeet     MASKA0
+PowerLightAmp     NZNVA0
+BOCL1             TNOBULL
+BOHC1             TNOHIGH
+BOSH1             TNOSHEL
+BOEX1             TNORCKT
+BOBT1             TNOBATT
+BOCE1             TNOCELL
+BOGR1             TNOGREN

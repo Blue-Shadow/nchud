@@ -1,0 +1,26 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Kriegsland: Blutorden
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_KriegslandHUD : NCH_BaseHUD
+{
+	override void NCHF_Setup ()
+	{
+		nch_DrawMugShot = false;
+	}
+
+	override void NCHF_InGameSetup ()
+	{
+		NCHF_AddToAmmoListOverride("BOCL1");
+		NCHF_AddToAmmoListOverride("BOHC1");
+		NCHF_AddToAmmoListOverride("BOSH1");
+		NCHF_AddToAmmoListOverride("BOEX1");
+		NCHF_AddToAmmoListOverride("BOBT1");
+		NCHF_AddToAmmoListOverride("BOCE1");
+		NCHF_AddToAmmoListOverride("BOGR1");
+	}
+}
