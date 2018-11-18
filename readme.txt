@@ -42,13 +42,13 @@
 
   ------------------------------------------- Toggles -------------------------------------------
 
-    - Level stats
+    - Statistics
       CVAR: nchud_toggletally
       Default: Off (0)
 
-      Controls the toggling of the level stats display. Setting this to "Counters" (1), toggles the
-      display on; setting it to "Counters and %" (2), draws the stats as percentages, as well;
-      setting it to "Off" (0), toggles the display off.
+      Controls the toggling of the statistics display (kill, items, secrets, etc.). Setting this to
+      "Counters" (1), toggles the display on; setting it to "Counters and %" (2), draws the stats
+      as percentages, as well; setting it to "Off" (0), toggles the display off.
 
     - Received damage
       CVAR: nchud_toggledamage
