@@ -1,0 +1,21 @@
+WolfClip AMMO1
+MauserClip AMMO2
+KarClip AMMO3
+TGAMMO AMMO4
+Clip AMMO5
+M1Clip AMMO6
+GAS AMMO7
+MGAmmoReserve AMMO8
+PPSHReserve AMMO9
+AxeAmmo AXEHUD
+GrenadeAmmo GRNINV
+
+HeavyArmor BON2A0
+BlueArmor BON2A0
+
+BlueCard STKEYS0
+BlueSkull STKEYS0
+YellowCard STKEYS1
+YellowSkull STKEYS1
+RedCard BRKEY
+RedSkull BRKEY
