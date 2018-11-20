@@ -6,5 +6,5 @@
 
 gameinfo
 {
-    StatusBarClass = "NCH_ZBWHUD"
+	StatusBarClass = "NCH_ZBWHUD"
 }

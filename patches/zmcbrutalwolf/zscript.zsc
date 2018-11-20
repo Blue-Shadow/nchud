@@ -11,15 +11,15 @@ class NCH_ZBWHUD : NCH_BaseHUD
 	override void NCHF_InGameSetup ()
 	{
 		NCHF_AddToAmmoListOverride("WolfClip");
-			NCHF_AddToAmmoListOverride("MauserClip");
-			NCHF_AddToAmmoListOverride("KarClip");
-			NCHF_AddToAmmoListOverride("TGAMMO");
-			NCHF_AddToAmmoListOverride("CLIP");
-			NCHF_AddToAmmoListOverride("M1Clip");
-			NCHF_AddToAmmoListOverride("GAS");
-			NCHF_AddToAmmoListOverride("MGAmmoReserve");
-			NCHF_AddToAmmoListOverride("PPSHReserve");
-			NCHF_AddToAmmoListOverride("AxeAmmo");
-			NCHF_AddToAmmoListOverride("GrenadeAmmo");
+		NCHF_AddToAmmoListOverride("MauserClip");
+		NCHF_AddToAmmoListOverride("KarClip");
+		NCHF_AddToAmmoListOverride("TGAMMO");
+		NCHF_AddToAmmoListOverride("CLIP");
+		NCHF_AddToAmmoListOverride("M1Clip");
+		NCHF_AddToAmmoListOverride("GAS");
+		NCHF_AddToAmmoListOverride("MGAmmoReserve");
+		NCHF_AddToAmmoListOverride("PPSHReserve");
+		NCHF_AddToAmmoListOverride("AxeAmmo");
+		NCHF_AddToAmmoListOverride("GrenadeAmmo");
 	}
 }
