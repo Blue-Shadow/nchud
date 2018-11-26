@@ -18,6 +18,10 @@ class NCH_UCHUD : NCH_BaseHUD
 	{
 		Super.NCHF_AddStats();
 
+		int curtotems = GetAmount("Totem");
+		int tottotems = GetMaxAmount("Totem");
+
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_ICON, "FLGGA0", NCHC_STATFORMAT_RATIO, "", curtotems, tottotems, curtotems == tottotems, tottotems > 0);
 		NCHF_AddSingleStat(NCHC_STATLABELTYPE_ICON, "I_COIN", NCHC_STATFORMAT_SINGLE, FormatNumber(GetAmount("Coin")));
 		NCHF_AddSingleStat(NCHC_STATLABELTYPE_ICON, "I_BKPK", NCHC_STATFORMAT_SINGLE, FormatNumber(GetAmount("FoodUnit")));
 	}

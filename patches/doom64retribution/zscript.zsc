@@ -1,0 +1,28 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Doom 64 Retribution
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_D64RHUD : NCH_BaseHUD
+{
+	override void NCHF_InGameSetup ()
+	{
+		NCHF_AddToAmmoListOverride("Clip");
+		NCHF_AddToAmmoListOverride("Shell");
+		NCHF_AddToAmmoListOverride("RocketAmmo");
+		NCHF_AddToAmmoListOverride("Cell");
+	}
+
+	override void NCHF_AddStats ()
+	{
+		Super.NCHF_AddStats();
+
+		int curupgrades = GetAmount("UnmakerUpgrades");
+		int totupgrades = GetMaxAmount("UnmakerUpgrades");
+		
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_ICON, "ART1HUD", NCHC_STATFORMAT_RATIO, "", curupgrades, totupgrades, curupgrades == totupgrades, totupgrades > 0);
+	}
+}

@@ -1,0 +1,12 @@
+PowerInvisibility PINSA0
+PowerInvulnerable PINVA0
+PowerIronFeet     SUITA0
+64PowerLightAmp   PVISA0
+PowerTimeFreezer  TNT1A0
+
+BlueCard          STKEYS0
+YellowCard        STKEYS1
+RedCard           STKEYS2
+BlueSkull         STKEYS3
+YellowSkull       STKEYS4
+RedSkull          STKEYS5

@@ -4,7 +4,7 @@ PowerTorch        PWLTA0
 ARCL1             ARCLA0
 ARRV1             ARRVA0
 ARSH1             ARSHA0
-ARHC1             ARCHA0
+ARHC1             ARHCA0
 ARBT1             ARB1A0
 ARFL1             ARFLA0
 AREX1             AREXA0
