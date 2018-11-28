@@ -1,2 +1,3 @@
 RifleAmmo	CLIPA0
 Nato		BELTA0
+RocketAmmo		ROKKA0
