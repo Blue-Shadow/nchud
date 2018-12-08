@@ -1,0 +1,69 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Combined Arms (Blastmaster MK2 Update)
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_CombinedArmsHUD : NCH_BaseHUD
+{
+	override void NCHF_InGameSetup ()
+	{
+			NCHF_AddToAmmoListOverride("Clip");
+			NCHF_AddToAmmoListOverride("Shell");
+			NCHF_AddToAmmoListOverride("RocketAmmo");
+			NCHF_AddToAmmoListOverride("Cell");
+	}
+
+override void NCHF_DrawAirSupply ()
+    {
+        if (NCHF_GetCVar('nchud_toggleair') &&
+            CPlayer.health > 0 &&
+            level.airsupply > 0 && CPlayer.mo.AirCapacity > 0 &&
+            (CPlayer.air_finished + 1 - level.time) < int(level.airsupply * CPlayer.mo.AirCapacity))
+        {
+            DrawImage("H_BGAIR", (0, -75), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+            NCHF_DrawString(nch_sfont, "Air", (-1, -90), DI_TEXT_ALIGN_CENTER | DI_SCREEN_CENTER_BOTTOM);
+
+            int curpnts = Max(CPlayer.air_finished - level.time, 0);
+            int maxpnts = int(level.airsupply * CPlayer.mo.AirCapacity);
+            string barframe = "H_BRFMX3";
+            string barfg = "H_BRFLG3";
+
+            // Low on air.
+            if((curpnts * 100 / maxpnts) < NCHF_GetLowState('nchud_airlowstate'))
+            {
+                barframe = "H_BFGR3A";
+                barfg = "H_BRFLR3";
+            }
+
+            DrawImage(barframe, (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+            NCHF_DrawBar(barfg, "H_BRBGB3", curpnts, maxpnts, (0, -71), 0, SHADER_HORZ, DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+        }
+        else if (GetAmount("BMOverHeat") > 0)
+		{
+			DrawImage("H_BGAIR", (0, -75), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+			NCHF_DrawString(nch_sfont, "Overheated!", (-1, -90), DI_TEXT_ALIGN_CENTER | DI_SCREEN_CENTER_BOTTOM);
+
+			int curpnts = Max(GetAmount("BMOverHeat"), 0);
+			string barframe = "H_BRFMX3";
+			string barfg = "H_BRFLR3";
+
+			DrawImage(barframe, (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+			NCHF_DrawBar(barfg, "H_BRBGB3", curpnts, GetMaxAmount("BMOverheat"), (0, -71), 0, SHADER_HORZ, DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+		}
+		else if (GetAmount("BMHeat") > 0)
+		{
+			DrawImage("H_BGAIR", (0, -75), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+			NCHF_DrawString(nch_sfont, "Heat Level", (-1, -90), DI_TEXT_ALIGN_CENTER | DI_SCREEN_CENTER_BOTTOM);
+
+			int curpnts = Max(GetAmount("BMHeat"), 0);
+			string barframe = "H_BRFMX3";
+			string barfg = "H_BRFLG3";
+
+			DrawImage(barframe, (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+			NCHF_DrawBar(barfg, "H_BRBGB3", curpnts, GetMaxAmount("BMHeat"), (0, -71), 0, SHADER_HORZ, DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+		}
+	}
+}

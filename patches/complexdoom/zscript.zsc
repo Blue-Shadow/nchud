@@ -1,0 +1,21 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Complex Doom v27a4
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_ComplexDoomHUD : NCH_BaseHUD
+{
+	override void NCHF_InGameSetup ()
+	{
+		NCHF_AddToAmmoListOverride("BulletMag");
+		NCHF_AddToAmmoListOverride("NewShell");
+		NCHF_AddToAmmoListOverride("Missile");
+		NCHF_AddToAmmoListOverride("NewCell");
+		NCHF_AddToAmmoListOverride("DemonAmmo");
+		NCHF_AddToAmmoListOverride("HandGrenadeAmmo");
+		NCHF_AddToAmmoListOverride("MineAmmo");
+	}
+}
