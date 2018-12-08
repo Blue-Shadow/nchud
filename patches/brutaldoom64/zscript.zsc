@@ -25,8 +25,8 @@ class NCH_BD64HUD : NCH_BaseHUD
             level.airsupply > 0 && CPlayer.mo.AirCapacity > 0 &&
             (CPlayer.air_finished + 1 - level.time) < int(level.airsupply * CPlayer.mo.AirCapacity))
         {
-            DrawImage("H_BGAIR", (0, -75), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
-            NCHF_DrawString(nch_sfont, "Air", (-1, -90), DI_TEXT_ALIGN_CENTER | DI_SCREEN_CENTER_BOTTOM);
+            NCHF_DrawBarLabel("Air", -99, DI_SCREEN_BOTTOM);
+            DrawImage("H_BGAIR", (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
 
             int curpnts = Max(CPlayer.air_finished - level.time, 0);
             int maxpnts = int(level.airsupply * CPlayer.mo.AirCapacity);
@@ -45,8 +45,8 @@ class NCH_BD64HUD : NCH_BaseHUD
         }
 		else if (GetAmount("Stamina") < GetMaxAmount("Stamina"))
 		{
-            DrawImage("H_BGAIR", (0, -75), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
-            NCHF_DrawString(nch_sfont, "Stamina", (-1, -90), DI_TEXT_ALIGN_CENTER | DI_SCREEN_CENTER_BOTTOM);
+            NCHF_DrawBarLabel("Stamina", -99, DI_SCREEN_BOTTOM);
+            DrawImage("H_BGAIR", (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
 
 			int maxstamina = GetMaxAmount("Stamina");
 			int stamina = GetAmount("Stamina");

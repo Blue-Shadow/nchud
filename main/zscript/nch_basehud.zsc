@@ -259,6 +259,38 @@ class NCH_BaseHUD : BaseStatusBar
 	//
 	// -------------------------------------------------------------------------------------------------
 
+	void NCHF_DrawBarLabel (string label, double ypos, int flags = DI_SCREEN_TOP)
+	{
+		Font sfont = Font.GetFont('nchslfnt');
+
+		if (sfont != null)
+		{
+			int labelwidth = sfont.StringWidth(label);
+			int halflabelwidth = labelwidth / 2;
+			flags |= DI_SCREEN_HCENTER;
+
+			// Preserve the active clipping rectangle.
+			int cx, cy, cw, ch;
+			[cx, cy, cw, ch] = Screen.GetClipRect();
+
+			SetClipRect(-halflabelwidth, ypos - 12, labelwidth, 24, flags);
+			DrawImage("H_BGMNM", (0, ypos), flags | DI_ITEM_CENTER);
+
+			// Restore the previous clipping rectangle.
+			Screen.SetClipRect(cx, cy, cw, ch);
+
+			DrawImage("H_BGMNL", (-halflabelwidth, ypos - 12), flags | DI_ITEM_RIGHT_TOP);
+			DrawImage("H_BGMNR", (halflabelwidth + (labelwidth & 1), ypos - 12), flags | DI_ITEM_LEFT_TOP);
+			NCHF_DrawString(nch_sfont, label, (-1, ypos - 4), flags | DI_TEXT_ALIGN_CENTER);
+		}
+	}
+
+	// -------------------------------------------------------------------------------------------------
+	//
+	//
+	//
+	// -------------------------------------------------------------------------------------------------
+
 	int NCHF_GetCVar (name cvarname)
 	{
 		let nch_cvar = CVar.GetCVar(cvarname, CPlayer);
@@ -1424,8 +1456,8 @@ class NCH_BaseHUD : BaseStatusBar
 			level.airsupply > 0 && CPlayer.mo.AirCapacity > 0 &&
 			(CPlayer.air_finished + 1 - level.time) < int(level.airsupply * CPlayer.mo.AirCapacity))
 		{
-			DrawImage("H_BGAIR", (0, -75), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
-			NCHF_DrawString(nch_sfont, "Air", (-1, -90), DI_TEXT_ALIGN_CENTER | DI_SCREEN_CENTER_BOTTOM);
+			NCHF_DrawBarLabel("Air", -99, DI_SCREEN_BOTTOM);
+			DrawImage("H_BGAIR", (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
 
 			int curpnts = Max(CPlayer.air_finished - level.time, 0);
 			int maxpnts = int(level.airsupply * CPlayer.mo.AirCapacity);
@@ -1482,28 +1514,7 @@ class NCH_BaseHUD : BaseStatusBar
 				//
 				// -------------------------------------------------------------------------------------------------
 
-				Font sfont = Font.GetFont('nchslfnt');
-
-				if(sfont != null)
-				{
-					string monstername = NCHF_GetCVar('nchud_monsterhpbar_genname') ? StringTable.Localize("$NCH_MONGENNAME") : t.GetTag();
-					int namewidth = sfont.StringWidth(monstername);
-					int halfnamewidth = namewidth / 2;
-
-					// Preserve the active clipping rectangle.
-					int cx, cy, cw, ch;
-					[cx, cy, cw, ch] = Screen.GetClipRect();
-
-					SetClipRect(-halfnamewidth, 35, namewidth, 24, DI_SCREEN_HCENTER);
-					DrawImage("H_BGMNM", (0, 47), DI_ITEM_CENTER | DI_SCREEN_HCENTER);
-
-					// Restore the previous clipping rectangle.
-					Screen.SetClipRect(cx, cy, cw, ch);
-
-					DrawImage("H_BGMNL", (-halfnamewidth, 35), DI_ITEM_RIGHT_TOP | DI_SCREEN_HCENTER);
-					DrawImage("H_BGMNR", (halfnamewidth + (namewidth & 1), 35), DI_ITEM_LEFT_TOP | DI_SCREEN_HCENTER);
-					NCHF_DrawString(nch_sfont, monstername, (-1, 43), DI_TEXT_ALIGN_CENTER | NCHC_DI_SCREEN_CENTER_TOP);
-				}
+				NCHF_DrawBarLabel(NCHF_GetCVar('nchud_monsterhpbar_genname') ? StringTable.Localize("$NCH_MONGENNAME") : t.GetTag(), 47);
 
 				// -------------------------------------------------------------------------------------------------
 				//
