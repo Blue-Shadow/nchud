@@ -1575,9 +1575,10 @@ class NCH_BaseHUD : BaseStatusBar
 
 				if (damageReceived > 0)
 				{
-					DrawImage("H_BGDMG", (80, 120), DI_ITEM_LEFT_TOP);
-					NCHF_DrawString(nch_bfont, FormatNumber(damageReceived, 0, 5), (113, 128), DI_TEXT_ALIGN_CENTER, 'NCHPink');
-					NCHF_DrawString(nch_sfont, "Damage", (112, 152), DI_TEXT_ALIGN_CENTER);
+					vector2 pos = (Screen.GetWidth() * 0.1, Screen.GetHeight() * 0.2);
+					DrawImage("H_BGDMG", pos, DI_ITEM_LEFT_TOP);
+					NCHF_DrawString(nch_bfont, FormatNumber(damageReceived, 0, 5), (pos.x + 33, pos.y + 8), DI_TEXT_ALIGN_CENTER, 'NCHPink');
+					NCHF_DrawString(nch_sfont, "Damage", (pos.x + 32, pos.y + 32), DI_TEXT_ALIGN_CENTER);
 				}
 			}
 		}
