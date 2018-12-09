@@ -1,28 +1,28 @@
-PowerBootProtection		RDBTA0
-PowerLightAmp		LASCA0
-PowerShieldProtection		IQAMA0
-PowerShade		VARMA0
+PowerBootProtection   RDBTA0
+PowerLightAmp         LASCA0
+PowerShieldProtection IQAMA0
+PowerShade            VARMA0
 
-Clip		CABLA0
-Shell		CASLA0
-RocketAmmo		CARAA0
-Cell		CACLA0
+Clip                  CABLA0
+Shell                 CASLA0
+RocketAmmo            CARAA0
+Cell                  CACLA0
 
-D3PSAmmo		CLP1A0
-HarpoonCharge		GNSHA8A2
-IceCharge		SHRDA1
-Skill		SPAXA4A6
+D3PSAmmo              CLP1A0
+HarpoonCharge         GNSHA8A2
+IceCharge             SHRDA1
+Skill                 SPAXA4A6
 
-BrickMana		BNPUA0
-BatCharge		DBPUA0
-IcarusShell		HMSLA7A3
-SmashCell		BWEFA0
-Calcium		RBOXA0
-SKAmmo		CLIPA0
+BrickMana             BNPUA0
+BatCharge             DBPUA0
+IcarusShell           HMSLA7A3
+SmashCell             BWEFA0
+Calcium               RBOXA0
+SKAmmo                CLIPA0
 
-RedCard		RKEYA0
-RedSkull		RSKUA0
-YellowCard		YKEYA0
-YellowSkull		YSKUA0
-BlueCard		BKEYA0
-BlueSkull		BSKUA0
+RedCard               RKEYA0
+RedSkull              RSKUA0
+YellowCard            YKEYA0
+YellowSkull           YSKUA0
+BlueCard              BKEYA0
+BlueSkull             BSKUA0
