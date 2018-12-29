@@ -14,7 +14,7 @@ class NCH_BDLiteHUD : NCH_BaseHUD
 		NCHF_AddToAmmoListOverride("Shell");
 		NCHF_AddToAmmoListOverride("RocketAmmo");
 		NCHF_AddToAmmoListOverride("PlasmaAmmo");
-		NCHF_AddToAmkoListOverride("FlakAmmo");
+		NCHF_AddToAmmoListOverride("FlakAmmo");
 		NCHF_AddToAmmoListOverride("GrenadeAmmo");
 	}
 }
