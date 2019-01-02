@@ -17,7 +17,7 @@ class NCH_FasponsHUD : NCH_BaseHUD
 		NCHF_AddToAmmoListOverride("Cell");
 		NCHF_AddToAmmoListOverride("HandGrenadeAmmo");
 	}
-	
+
 	override void NCHF_DrawAirSupply ()
 	{
 		if (NCHF_GetCVar('nchud_toggleair') &&
@@ -48,12 +48,11 @@ class NCH_FasponsHUD : NCH_BaseHUD
 			NCHF_DrawBarLabel("Adrenaline", -99, DI_SCREEN_BOTTOM);
 			DrawImage("H_BGAIR", (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
 
-			int curpnts = Max(GetAmount("Adrenaline"), 0);
 			string barframe = "H_BRFMX3";
 			string barfg = "H_BRFLG3";
 
 			DrawImage(barframe, (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
-			NCHF_DrawBar(barfg, "H_BRBGB3", curpnts, GetMaxAmount("Adrenaline"), (0, -71), 0, SHADER_HORZ, DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+			NCHF_DrawBar(barfg, "H_BRBGB3", Max(GetAmount("Adrenaline"), 0), GetMaxAmount("Adrenaline"), (0, -71), 0, SHADER_HORZ, DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
 		}
 	}
 }
