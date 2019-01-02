@@ -45,6 +45,7 @@ class NCH_ArgentHUD : NCH_BaseHUD
 			NCHF_DrawPowerups();
 			NCHF_DrawAirSupply();
 			NCHF_DrawMonsterHealth();
+			NCHF_DrawDamageReceived();
 		}
 		else
 		{
