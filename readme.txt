@@ -222,7 +222,7 @@
       Sets the value at or above which a monster's spawn health needs to be for the bar to be drawn.
 
 ---------------------------------------------------------------------------------------------------
--- Overriding icons and ammo list                                                                --
+-- Overriding icons                                                                              --
 ---------------------------------------------------------------------------------------------------
 
   Overriding the icons is simply achieved through the use of the ALTHUDCF lump:
@@ -230,6 +230,10 @@
     https://zdoom.org/wiki/ALTHUDCF
 
   Note that the HUD only supports overriding icons for keys, ammo, "artifacts" and powerups.
+
+---------------------------------------------------------------------------------------------------
+-- Overriding ammo list                                                                          --
+---------------------------------------------------------------------------------------------------
 
   Overriding the ammo list is done by overriding the virtual function NCHF_InGameSetup() in your
   status bar class and then simply calling the NCHF_AddToAmmoListOverride() function for each ammo
@@ -275,6 +279,41 @@
                 NCHF_AddToAmmoListOverride("RocketAmmo");
                 NCHF_AddToAmmoListOverride("Cell");
             }
+        }
+
+---------------------------------------------------------------------------------------------------
+-- Overriding statistics                                                                         --
+---------------------------------------------------------------------------------------------------
+
+  Overriding the statistics is done by overriding the virtual function NCHF_AddStats() in your
+  status bar class and then simply calling the NCHF_AddSingleStat() function for each statistic
+  item you want to be listed. Refer to the nch_basehud.zsc file for documentation on how to use
+  the function.
+
+    Example #1 --------------------------------------------------------------------------------
+
+      This example draws a level time, kills and a "gold" counter.
+
+        override void NCHF_AddStats ()
+        {
+            int curmonsters = level.killed_monsters;
+            int totmonsters = level.total_monsters;
+
+            NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "T", NCHC_STATFORMAT_SINGLE, level.TimeFormatted(), 0, 0, Thinker.Tics2Seconds(level.time) < level.partime);
+            NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "K", NCHC_STATFORMAT_RATIO, "", curmonsters, totmonsters, curmonsters == totmonsters, totmonsters > 0);
+            NCHF_AddSingleStat(NCHC_STATLABELTYPE_ICON, "I_GOLD", NCHC_STATFORMAT_SINGLE, FormatNumber(GetAmount("Gold")));
+        }
+
+    Example #2 --------------------------------------------------------------------------------
+
+      This example adds a "gold" counter to the already-existing level time, kills, items and
+      secrets stats list, placing it at the bottom of the list. It does that by calling the
+      the base HUD's instance of the NCHF_AddStats() function.
+
+        override void NCHF_AddStats ()
+        {
+            NCH_BaseHUD.NCHF_AddStats(); // Tip: you can replace 'NCH_BaseHUD' with 'Super' if your status bar class inherits directly from the base HUD.
+            NCHF_AddSingleStat(NCHC_STATLABELTYPE_ICON, "I_GOLD", NCHC_STATFORMAT_SINGLE, FormatNumber(GetAmount("Gold")));
         }
 
 ---------------------------------------------------------------------------------------------------
