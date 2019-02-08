@@ -8,6 +8,11 @@ version "3.3"
 
 class NCH_ComplexDoomHUD : NCH_BaseHUD
 {
+	override void NCHF_Setup ()
+	{
+		nch_XDeathFace = true;
+	}
+
 	override void NCHF_InGameSetup ()
 	{
 		NCHF_AddToAmmoListOverride("BulletMag");
