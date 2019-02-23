@@ -74,6 +74,10 @@ class NCH_BaseHUD : BaseStatusBar
 	// inventory icon.
 	bool nch_KeysUseSpawnState;
 
+	// The color used for highlighting. It affects statistics, weapon slots, inventory items and
+	// ammo list.
+	name nch_HighlightColor;
+
 	// -------------------------------------------------------------------------------------------------
 	//
 	//
@@ -99,6 +103,7 @@ class NCH_BaseHUD : BaseStatusBar
 		nch_DrawMugShot = true;
 		nch_XDeathFace = false;
 		nch_KeysUseSpawnState = false;
+		nch_HighlightColor = 'NCHBlue';
 
 		// Call the setup function.
 		NCHF_Setup();
@@ -474,7 +479,7 @@ class NCH_BaseHUD : BaseStatusBar
 			
 			if(parms.amountfont != null && (item.Amount > 1 || (flags & DI_ALWAYSSHOWCOUNTERS)))
 			{
-				name fcolor = item.Amount >= item.MaxAmount ? 'NCHBlue' : 'NCHLightGray';
+				name fcolor = item.Amount >= item.MaxAmount ? nch_HighlightColor : 'NCHLightGray';
 				DrawString(parms.amountfont, FormatNumber(item.Amount, 0, 4), textpos + ((boxsize.X + 3) * i, 0), flags | DI_TEXT_ALIGN_RIGHT, Font.FindFontColor(fcolor), parms.itemalpha);
 			}
 
@@ -604,7 +609,7 @@ class NCH_BaseHUD : BaseStatusBar
 
 			if(helper.nch_ewfound && helper.nch_ewslot == s)
 			{
-				fcolor = 'NCHBlue';
+				fcolor = nch_HighlightColor;
 			}
 			else if(CPlayer.HasWeaponsInSlot(s))
 			{
@@ -948,7 +953,7 @@ class NCH_BaseHUD : BaseStatusBar
 
 			if(invsel.Amount > 1)
 			{
-				NCHF_DrawString(nch_bfont, FormatNumber(invsel.Amount, 0, 4), (-13, -54), DI_TEXT_ALIGN_RIGHT, invsel.Amount >= invsel.MaxAmount ? 'NCHBlue' : 'NCHLightGray');
+				NCHF_DrawString(nch_bfont, FormatNumber(invsel.Amount, 0, 4), (-13, -54), DI_TEXT_ALIGN_RIGHT, invsel.Amount >= invsel.MaxAmount ? nch_HighlightColor : 'NCHLightGray');
 			}
 		}
 
@@ -1185,7 +1190,7 @@ class NCH_BaseHUD : BaseStatusBar
 
 				int format = nch_statslist[i].format;
 				bool extendedbg = toggletally == 2 && format == NCHC_STATFORMAT_RATIO;
-				name valcolor = nch_statslist[i].colorize ? 'NCHBlue' : 'NCHLightGray';
+				name valcolor = nch_statslist[i].colorize ? nch_HighlightColor : 'NCHLightGray';
 
 				// -------------------------------------------------------------------------------------------------
 				//
@@ -1317,7 +1322,7 @@ class NCH_BaseHUD : BaseStatusBar
 
 				if((nch_localammos[i] == wpn_ammotype1) || (nch_localammos[i] == wpn_ammotype2))
 				{
-					valuecolor = 'NCHBlue';
+					valuecolor = nch_HighlightColor;
 				}
 				else
 				{

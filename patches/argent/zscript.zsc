@@ -109,7 +109,7 @@ class NCH_ArgentHUD : NCH_BaseHUD
 				}
 			}
 
-			NCHF_DrawString(nch_bfont, FormatNumber(invsel.Amount, 0, 4), (-13, -54), DI_TEXT_ALIGN_RIGHT, invsel.Amount >= invsel.MaxAmount ? 'NCHBlue' : 'NCHLightGray');
+			NCHF_DrawString(nch_bfont, FormatNumber(invsel.Amount, 0, 4), (-13, -54), DI_TEXT_ALIGN_RIGHT, invsel.Amount >= invsel.MaxAmount ? nch_HighlightColor : 'NCHLightGray');
 			// End variation
         }
 
