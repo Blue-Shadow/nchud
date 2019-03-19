@@ -8,14 +8,14 @@ version "3.3"
 
 class NCH_BD64HUD : NCH_BaseHUD
 {
-	override void NCHF_InGameSetup ()
+	override void NCHF_AddAmmos ()
 	{
-		NCHF_AddToAmmoListOverride("SawGas");
-		NCHF_AddToAmmoListOverride("Clip");
-		NCHF_AddToAmmoListOverride("Shell");
-		NCHF_AddToAmmoListOverride("RocketAmmo");
-		NCHF_AddToAmmoListOverride("Cell");
-		NCHF_AddToAmmoListOverride("SoulAmmo");
+		NCHF_AddSingleAmmo("SawGas");
+		NCHF_AddSingleAmmo("Clip");
+		NCHF_AddSingleAmmo("Shell");
+		NCHF_AddSingleAmmo("RocketAmmo");
+		NCHF_AddSingleAmmo("Cell");
+		NCHF_AddSingleAmmo("SoulAmmo");
 	}
 
     override void NCHF_DrawAirSupply ()

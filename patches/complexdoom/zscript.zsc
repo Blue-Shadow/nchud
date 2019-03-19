@@ -13,14 +13,14 @@ class NCH_ComplexDoomHUD : NCH_BaseHUD
 		nch_XDeathFace = true;
 	}
 
-	override void NCHF_InGameSetup ()
+	override void NCHF_AddAmmos ()
 	{
-		NCHF_AddToAmmoListOverride("BulletMag");
-		NCHF_AddToAmmoListOverride("NewShell");
-		NCHF_AddToAmmoListOverride("Missile");
-		NCHF_AddToAmmoListOverride("NewCell");
-		NCHF_AddToAmmoListOverride("DemonAmmo");
-		NCHF_AddToAmmoListOverride("HandGrenadeAmmo");
-		NCHF_AddToAmmoListOverride("MineAmmo");
+		NCHF_AddSingleAmmo("BulletMag");
+		NCHF_AddSingleAmmo("NewShell");
+		NCHF_AddSingleAmmo("Missile");
+		NCHF_AddSingleAmmo("NewCell");
+		NCHF_AddSingleAmmo("DemonAmmo");
+		NCHF_AddSingleAmmo("HandGrenadeAmmo");
+		NCHF_AddSingleAmmo("MineAmmo");
 	}
 }

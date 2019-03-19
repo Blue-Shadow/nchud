@@ -8,17 +8,17 @@ version "3.3"
 
 class NCH_MetaDoomHUD : NCH_BaseHUD
 {
-	override void NCHF_InGameSetup ()
+	override void NCHF_AddAmmos ()
 	{
-		NCHF_AddToAmmoListOverride("Clip");
-		NCHF_AddToAmmoListOverride("Shell");
-		NCHF_AddToAmmoListOverride("RocketAmmo");
-		NCHF_AddToAmmoListOverride("Cell");
-		NCHF_AddToAmmoListOverride("BFGAmmo");
-		NCHF_AddToAmmoListOverride("SoulAmmo");
-		NCHF_AddToAmmoListOverride("HolyWater");
-		NCHF_AddToAmmoListOverride("HalonCannister");
-		NCHF_AddToAmmoListOverride("GrenadeAmmo");
+		NCHF_AddSingleAmmo("Clip");
+		NCHF_AddSingleAmmo("Shell");
+		NCHF_AddSingleAmmo("RocketAmmo");
+		NCHF_AddSingleAmmo("Cell");
+		NCHF_AddSingleAmmo("BFGAmmo");
+		NCHF_AddSingleAmmo("SoulAmmo");
+		NCHF_AddSingleAmmo("HolyWater");
+		NCHF_AddSingleAmmo("HalonCannister");
+		NCHF_AddSingleAmmo("GrenadeAmmo");
 	}
 
 	override void NCHF_AddStats ()

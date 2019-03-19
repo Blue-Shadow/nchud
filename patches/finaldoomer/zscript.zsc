@@ -8,57 +8,57 @@ version "3.3"
 
 class NCH_FinalDoomerHUD : NCH_BaseHUD
 {
-	override void NCHF_InGameSetup ()
+	override void NCHF_AddAmmos ()
 	{
 		let player = CPlayer.mo;
 
 		if (player is "FDAliensPlayer")
 		{
-			NCHF_AddToAmmoListOverride("FDAliensShells");
-			NCHF_AddToAmmoListOverride("FDAliensBullets");
-			NCHF_AddToAmmoListOverride("FDAliensRocket");
-			NCHF_AddToAmmoListOverride("FDAliensCell");
-			NCHF_AddToAmmoListOverride("FDAliensBFGCharge");
+			NCHF_AddSingleAmmo("FDAliensShells");
+			NCHF_AddSingleAmmo("FDAliensBullets");
+			NCHF_AddSingleAmmo("FDAliensRocket");
+			NCHF_AddSingleAmmo("FDAliensCell");
+			NCHF_AddSingleAmmo("FDAliensBFGCharge");
 		}
 		else if (player is "FDBTSXPlayer")
 		{
-			NCHF_AddToAmmoListOverride("FDBTSXShells");
-			NCHF_AddToAmmoListOverride("FDBTSXBullets");
-			NCHF_AddToAmmoListOverride("FDBTSXRocket");
-			NCHF_AddToAmmoListOverride("FDBTSXCell");
-			NCHF_AddToAmmoListOverride("FDBTSXBFGCharge");
+			NCHF_AddSingleAmmo("FDBTSXShells");
+			NCHF_AddSingleAmmo("FDBTSXBullets");
+			NCHF_AddSingleAmmo("FDBTSXRocket");
+			NCHF_AddSingleAmmo("FDBTSXCell");
+			NCHF_AddSingleAmmo("FDBTSXBFGCharge");
 		}
 		else if (player is "FDDoom2Player")
 		{
-			NCHF_AddToAmmoListOverride("FDDoom2Shells");
-			NCHF_AddToAmmoListOverride("FDDoom2Bullets");
-			NCHF_AddToAmmoListOverride("FDDoom2Rocket");
-			NCHF_AddToAmmoListOverride("FDDoom2Cell");
-			NCHF_AddToAmmoListOverride("FDDoom2BFGCharge");
+			NCHF_AddSingleAmmo("FDDoom2Shells");
+			NCHF_AddSingleAmmo("FDDoom2Bullets");
+			NCHF_AddSingleAmmo("FDDoom2Rocket");
+			NCHF_AddSingleAmmo("FDDoom2Cell");
+			NCHF_AddSingleAmmo("FDDoom2BFGCharge");
 		}
 		else if (player is "FDJPCPPlayer")
 		{
-			NCHF_AddToAmmoListOverride("FDJPCPShells");
-			NCHF_AddToAmmoListOverride("FDJPCPBullets");
-			NCHF_AddToAmmoListOverride("FDJPCPRocket");
-			NCHF_AddToAmmoListOverride("FDJPCPCell");
-			NCHF_AddToAmmoListOverride("FDJPCPBFGCharge");
+			NCHF_AddSingleAmmo("FDJPCPShells");
+			NCHF_AddSingleAmmo("FDJPCPBullets");
+			NCHF_AddSingleAmmo("FDJPCPRocket");
+			NCHF_AddSingleAmmo("FDJPCPCell");
+			NCHF_AddSingleAmmo("FDJPCPBFGCharge");
 		}
 		else if (player is "FDPlutPlayer")
 		{
-			NCHF_AddToAmmoListOverride("FDPlutShells");
-			NCHF_AddToAmmoListOverride("FDPlutBullets");
-			NCHF_AddToAmmoListOverride("FDPlutRocket");
-			NCHF_AddToAmmoListOverride("FDPlutCell");
-			NCHF_AddToAmmoListOverride("FDPlutBFGCharge");
+			NCHF_AddSingleAmmo("FDPlutShells");
+			NCHF_AddSingleAmmo("FDPlutBullets");
+			NCHF_AddSingleAmmo("FDPlutRocket");
+			NCHF_AddSingleAmmo("FDPlutCell");
+			NCHF_AddSingleAmmo("FDPlutBFGCharge");
 		}
 		else if (player is "FDTNTPlayer")
 		{
-			NCHF_AddToAmmoListOverride("FDTNTShells");
-			NCHF_AddToAmmoListOverride("FDTNTBullets");
-			NCHF_AddToAmmoListOverride("FDTNTRocket");
-			NCHF_AddToAmmoListOverride("FDTNTCell");
-			NCHF_AddToAmmoListOverride("FDTNTBFGCharge");
+			NCHF_AddSingleAmmo("FDTNTShells");
+			NCHF_AddSingleAmmo("FDTNTBullets");
+			NCHF_AddSingleAmmo("FDTNTRocket");
+			NCHF_AddSingleAmmo("FDTNTCell");
+			NCHF_AddSingleAmmo("FDTNTBFGCharge");
 		}
 	}
 }

@@ -8,14 +8,14 @@ version "3.3"
 
 class NCH_FasponsHUD : NCH_BaseHUD
 {
-	override void NCHF_InGameSetup ()
+	override void NCHF_AddAmmos ()
 	{
-		NCHF_AddToAmmoListOverride("RifleAmmo");
-		NCHF_AddToAmmoListOverride("Shell");
-		NCHF_AddToAmmoListOverride("Nato");
-		NCHF_AddToAmmoListOverride("RocketAmmo");
-		NCHF_AddToAmmoListOverride("Cell");
-		NCHF_AddToAmmoListOverride("HandGrenadeAmmo");
+		NCHF_AddSingleAmmo("RifleAmmo");
+		NCHF_AddSingleAmmo("Shell");
+		NCHF_AddSingleAmmo("Nato");
+		NCHF_AddSingleAmmo("RocketAmmo");
+		NCHF_AddSingleAmmo("Cell");
+		NCHF_AddSingleAmmo("HandGrenadeAmmo");
 	}
 
 	override void NCHF_DrawAirSupply ()

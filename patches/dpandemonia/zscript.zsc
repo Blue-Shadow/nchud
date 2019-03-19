@@ -8,11 +8,11 @@ version "3.2.5"
 
 class NCH_PandemoniaHUD : NCH_BaseHUD
 {
-	override void NCHF_InGameSetup ()
+	override void NCHF_AddAmmos ()
 	{
-		NCHF_AddToAmmoListOverride("NewClip");
-		NCHF_AddToAmmoListOverride("NewShell");
-		NCHF_AddToAmmoListOverride("NewRocketAmmo");
-		NCHF_AddToAmmoListOverride("NewCell");
+		NCHF_AddSingleAmmo("NewClip");
+		NCHF_AddSingleAmmo("NewShell");
+		NCHF_AddSingleAmmo("NewRocketAmmo");
+		NCHF_AddSingleAmmo("NewCell");
 	}
 }

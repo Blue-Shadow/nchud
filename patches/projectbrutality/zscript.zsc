@@ -8,44 +8,44 @@ version "3.3"
 
 class NCH_PBHUD : NCH_BaseHUD
 {
-	override void NCHF_InGameSetup ()
+	override void NCHF_AddAmmos ()
 	{
 		let player = CPlayer.mo;
 
 		if (player is "Traditional")
 		{
-			NCHF_AddToAmmoListOverride("NewClip");
-			NCHF_AddToAmmoListOverride("NewShell");
-			NCHF_AddToAmmoListOverride("RocketAmmo");
-			NCHF_AddToAmmoListOverride("Cell");
+			NCHF_AddSingleAmmo("NewClip");
+			NCHF_AddSingleAmmo("NewShell");
+			NCHF_AddSingleAmmo("RocketAmmo");
+			NCHF_AddSingleAmmo("Cell");
 		}
 		else if (player is "Purist")
 		{
-			NCHF_AddToAmmoListOverride("PistolBullets");
-			NCHF_AddToAmmoListOverride("NewClip");
-			NCHF_AddToAmmoListOverride("NewShell");
-			NCHF_AddToAmmoListOverride("RocketAmmo");
-			NCHF_AddToAmmoListOverride("Cell");
-			NCHF_AddToAmmoListOverride("MiniHellRocketAmmo");
-			NCHF_AddToAmmoListOverride("Gas");
-			NCHF_AddToAmmoListOverride("BuzzSawAmmo");
-			NCHF_AddToAmmoListOverride("HandGrenadeAmmo");
+			NCHF_AddSingleAmmo("PistolBullets");
+			NCHF_AddSingleAmmo("NewClip");
+			NCHF_AddSingleAmmo("NewShell");
+			NCHF_AddSingleAmmo("RocketAmmo");
+			NCHF_AddSingleAmmo("Cell");
+			NCHF_AddSingleAmmo("MiniHellRocketAmmo");
+			NCHF_AddSingleAmmo("Gas");
+			NCHF_AddSingleAmmo("BuzzSawAmmo");
+			NCHF_AddSingleAmmo("HandGrenadeAmmo");
 		}
 		else
 		{
-			NCHF_AddToAmmoListOverride("PistolBullets");
-			NCHF_AddToAmmoListOverride("NewShell");
-			NCHF_AddToAmmoListOverride("NewClip");
-			NCHF_AddToAmmoListOverride("HighExplosiveGrenadeRounds");
-			NCHF_AddToAmmoListOverride("SpecialGrenadeRounds");
-			NCHF_AddToAmmoListOverride("RocketAmmo");
-			NCHF_AddToAmmoListOverride("Cell");
-			NCHF_AddToAmmoListOverride("MiniHellRocketAmmo");
-			NCHF_AddToAmmoListOverride("Gas");
-			NCHF_AddToAmmoListOverride("DemonPower");
-			NCHF_AddToAmmoListOverride("BuzzSawAmmo");
-			NCHF_AddToAmmoListOverride("HandGrenadeAmmo");
-			NCHF_AddToAmmoListOverride("MineAmmo");
+			NCHF_AddSingleAmmo("PistolBullets");
+			NCHF_AddSingleAmmo("NewShell");
+			NCHF_AddSingleAmmo("NewClip");
+			NCHF_AddSingleAmmo("HighExplosiveGrenadeRounds");
+			NCHF_AddSingleAmmo("SpecialGrenadeRounds");
+			NCHF_AddSingleAmmo("RocketAmmo");
+			NCHF_AddSingleAmmo("Cell");
+			NCHF_AddSingleAmmo("MiniHellRocketAmmo");
+			NCHF_AddSingleAmmo("Gas");
+			NCHF_AddSingleAmmo("DemonPower");
+			NCHF_AddSingleAmmo("BuzzSawAmmo");
+			NCHF_AddSingleAmmo("HandGrenadeAmmo");
+			NCHF_AddSingleAmmo("MineAmmo");
 		}
 	}
 }

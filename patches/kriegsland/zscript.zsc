@@ -13,14 +13,14 @@ class NCH_KriegslandHUD : NCH_BaseHUD
 		nch_DrawMugShot = false;
 	}
 
-	override void NCHF_InGameSetup ()
+	override void NCHF_AddAmmos ()
 	{
-		NCHF_AddToAmmoListOverride("BOCL1");
-		NCHF_AddToAmmoListOverride("BOHC1");
-		NCHF_AddToAmmoListOverride("BOSH1");
-		NCHF_AddToAmmoListOverride("BOEX1");
-		NCHF_AddToAmmoListOverride("BOBT1");
-		NCHF_AddToAmmoListOverride("BOCE1");
-		NCHF_AddToAmmoListOverride("BOGR1");
+		NCHF_AddSingleAmmo("BOCL1");
+		NCHF_AddSingleAmmo("BOHC1");
+		NCHF_AddSingleAmmo("BOSH1");
+		NCHF_AddSingleAmmo("BOEX1");
+		NCHF_AddSingleAmmo("BOBT1");
+		NCHF_AddSingleAmmo("BOCE1");
+		NCHF_AddSingleAmmo("BOGR1");
 	}
 }

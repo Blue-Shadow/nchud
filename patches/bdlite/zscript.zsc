@@ -8,13 +8,13 @@ version "3.3"
 
 class NCH_BDLiteHUD : NCH_BaseHUD
 {
-	override void NCHF_InGameSetup ()
+	override void NCHF_AddAmmos ()
 	{
-		NCHF_AddToAmmoListOverride("RifleAmmo");
-		NCHF_AddToAmmoListOverride("Shell");
-		NCHF_AddToAmmoListOverride("RocketAmmo");
-		NCHF_AddToAmmoListOverride("PlasmaAmmo");
-		NCHF_AddToAmmoListOverride("FlakAmmo");
-		NCHF_AddToAmmoListOverride("GrenadeAmmo");
+		NCHF_AddSingleAmmo("RifleAmmo");
+		NCHF_AddSingleAmmo("Shell");
+		NCHF_AddSingleAmmo("RocketAmmo");
+		NCHF_AddSingleAmmo("PlasmaAmmo");
+		NCHF_AddSingleAmmo("FlakAmmo");
+		NCHF_AddSingleAmmo("GrenadeAmmo");
 	}
 }

@@ -8,29 +8,29 @@ version "3.3"
 
 class NCH_BDHUD : NCH_BaseHUD
 {
-	override void NCHF_InGameSetup ()
+	override void NCHF_AddAmmos ()
 	{
 		let player = CPlayer.mo;
 
 		if (player is "Purist")
 		{
-			NCHF_AddToAmmoListOverride("Clip2");
-			NCHF_AddToAmmoListOverride("AmmoShell");
-			NCHF_AddToAmmoListOverride("AmmoRocket");
-			NCHF_AddToAmmoListOverride("AmmoCell");
+			NCHF_AddSingleAmmo("Clip2");
+			NCHF_AddSingleAmmo("AmmoShell");
+			NCHF_AddSingleAmmo("AmmoRocket");
+			NCHF_AddSingleAmmo("AmmoCell");
 		}
 		else
 		{
-			NCHF_AddToAmmoListOverride("Clip1");
-			NCHF_AddToAmmoListOverride("AmmoShell");
-			NCHF_AddToAmmoListOverride("Clip2");
-			NCHF_AddToAmmoListOverride("BuzzSawAmmo");
-			NCHF_AddToAmmoListOverride("AmmoRocket");
-			NCHF_AddToAmmoListOverride("AmmoCell");
-			NCHF_AddToAmmoListOverride("SoulAmmo");
-			NCHF_AddToAmmoListOverride("MiniHellRocketAmmo");
-			NCHF_AddToAmmoListOverride("Gas");
-			NCHF_AddToAmmoListOverride("GrenadeAmmo");
+			NCHF_AddSingleAmmo("Clip1");
+			NCHF_AddSingleAmmo("AmmoShell");
+			NCHF_AddSingleAmmo("Clip2");
+			NCHF_AddSingleAmmo("BuzzSawAmmo");
+			NCHF_AddSingleAmmo("AmmoRocket");
+			NCHF_AddSingleAmmo("AmmoCell");
+			NCHF_AddSingleAmmo("SoulAmmo");
+			NCHF_AddSingleAmmo("MiniHellRocketAmmo");
+			NCHF_AddSingleAmmo("Gas");
+			NCHF_AddSingleAmmo("GrenadeAmmo");
 		}
 	}
 
