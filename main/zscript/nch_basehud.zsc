@@ -56,6 +56,7 @@ class NCH_BaseHUD : BaseStatusBar
 	}
 
 	bool nch_init;
+	int nch_toggleammo;
 	HUDFont nch_sfont, nch_bfont;
 	InventoryBarState nch_diparms;
 
@@ -343,7 +344,23 @@ class NCH_BaseHUD : BaseStatusBar
 
 	void NCHF_AddSingleAmmo (class<Ammo> type)
 	{
-		NCHF_PushAmmoItem(type, false);
+		if (nch_toggleammo > 1)
+		{
+			NCHF_PushAmmoItem(type, false);
+		}
+		else
+		{
+			for (let inv = CPlayer.mo.Inv; inv != null; inv = inv.Inv)
+			{
+				let weap = Weapon(inv);
+
+				if (weap && (type == weap.AmmoType1 || type == weap.AmmoType2))
+				{
+					NCHF_PushAmmoItem(type, false);
+					return;
+				}
+			}
+		}
 	}
 
 	// -------------------------------------------------------------------------------------------------
@@ -1381,9 +1398,9 @@ class NCH_BaseHUD : BaseStatusBar
 
 	virtual void NCHF_DrawAmmoList ()
 	{
-		int toggleammo = NCHF_GetCVar('nchud_toggleammo');
+		nch_toggleammo = NCHF_GetCVar('nchud_toggleammo');
 
-		if (toggleammo > 0)
+		if (nch_toggleammo > 0)
 		{
 			nch_ammoslist.Clear();
 			NCHF_AddAmmos();
@@ -1403,7 +1420,7 @@ class NCH_BaseHUD : BaseStatusBar
 
 						if (weap)
 						{
-							if (toggleammo > 1 || CPlayer.mo.FindInventory(weap))
+							if (nch_toggleammo > 1 || CPlayer.mo.FindInventory(weap))
 							{
 								NCHF_AddWeaponAmmos(GetDefaultByType(weap));
 							}
