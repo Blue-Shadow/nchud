@@ -15,6 +15,14 @@ class NCH_StatItem ui
 	bool colorize;
 }
 
+class NCH_AmmoItem ui
+{
+	class<Ammo> type;
+	TextureID icon;
+	int amount;
+	int maxamount;
+}
+
 class NCH_BaseHUD : BaseStatusBar
 {
 	const NCHC_LOWSTATEUCAP = 50; // Bar low state upper cap.
@@ -54,9 +62,8 @@ class NCH_BaseHUD : BaseStatusBar
 	// Used to store the stats items.
 	Array<NCH_StatItem> nch_statslist;
 
-	// Ammo list overrides.
-	Array<class<Ammo> > nch_aolist;
-	int nch_aolistsize;
+	// Used to store ammo items for the ammo list display.
+	Array<NCH_AmmoItem> nch_ammoslist;
 
 	// -------------------------------------------------------------------------------------------------
 	//
@@ -136,10 +143,6 @@ class NCH_BaseHUD : BaseStatusBar
 		if (!nch_init)
 		{
 			NCHF_InGameSetup();
-
-			// Setup is over. Get the list size of the ammo list overrides.
-			nch_aolistsize = nch_aolist.Size();
-
 			nch_init = true;
 		}
 
@@ -239,13 +242,117 @@ class NCH_BaseHUD : BaseStatusBar
 	//
 	// -------------------------------------------------------------------------------------------------
 
-	void NCHF_AddToAmmoListOverride (class<Ammo> cls)
+	void NCHF_PushAmmoItem (class<Ammo> type, bool iconSkip)
 	{
-		if (cls)
+		if (type)
 		{
-			nch_aolist.Push(cls);
+			let item = CPlayer.mo.FindInventory(type);
+			TextureID icon;
+			int amount;
+			int maxamount;
+
+			if (item)
+			{
+				if (item.bInvBar) return;
+				icon = item.AltHUDIcon;
+				if (!icon.IsValid()) icon = item.Icon;
+				if (!icon.IsValid())
+				{
+					if (iconSkip) return;
+					icon = TexMan.CheckForTexture("H_ICNMIS", TexMan.TYPE_MiscPatch);
+				}
+				amount = item.Amount;
+				maxamount = item.MaxAmount;
+			}
+			else
+			{
+				let itemdef = GetDefaultByType(type);
+
+				if (itemdef)
+				{
+					if (itemdef.bInvBar) return;
+					icon = itemdef.AltHUDIcon;
+					if (!icon.IsValid()) icon = itemdef.Icon;
+					if (!icon.IsValid())
+					{
+						if (iconSkip) return;
+						icon = TexMan.CheckForTexture("H_ICNMIS", TexMan.TYPE_MiscPatch);
+					}
+					amount = 0;
+					maxamount = itemdef.MaxAmount;
+				}
+			}
+
+			uint j = 0;
+
+			for (; j < nch_ammoslist.Size(); j++)
+			{
+				if (type == nch_ammoslist[j].type)
+				{
+					break;
+				}
+			}
+
+			if (j == nch_ammoslist.Size())
+			{
+				let ammo = new("NCH_AmmoItem");
+
+				if (ammo)
+				{
+					ammo.type = type;
+					ammo.icon = icon;
+					ammo.amount = amount;
+					ammo.maxamount = maxamount;
+
+					nch_ammoslist.Push(ammo);
+				}
+			}
 		}
 	}
+
+	// -------------------------------------------------------------------------------------------------
+	//
+	//
+	//
+	// -------------------------------------------------------------------------------------------------
+
+	void NCHF_AddWeaponAmmos (readonly<Weapon> weapdef)
+	{
+		class<Ammo> type = null;
+
+		for (int i = 0; i < 2; i++)
+		{
+			if (i == 0)
+			{
+				type = weapdef.AmmoType1;
+			}
+			else if (weapdef.AmmoType2 != weapdef.AmmoType1)
+			{
+				type = weapdef.AmmoType2;
+			}
+
+			NCHF_PushAmmoItem(type, true);
+		}
+	}
+
+	// -------------------------------------------------------------------------------------------------
+	//
+	//
+	//
+	// -------------------------------------------------------------------------------------------------
+
+	void NCHF_AddSingleAmmo (class<Ammo> type)
+	{
+		NCHF_PushAmmoItem(type, false);
+	}
+
+	// -------------------------------------------------------------------------------------------------
+	//
+	//
+	//
+	// -------------------------------------------------------------------------------------------------
+
+	virtual void NCHF_AddAmmos () {}
 
 	// -------------------------------------------------------------------------------------------------
 	//
@@ -598,20 +705,34 @@ class NCH_BaseHUD : BaseStatusBar
 	{
 		DrawImage("H_BGWSLT", (-5, -31), DI_ITEM_RIGHT_TOP);
 
-		let helper = NCH_Helper(CPlayer.mo.FindInventory("NCH_Helper"));
-		if(helper == null) return;
+		bool found = false;
+		int slot = 0;
+		let weap = CPlayer.ReadyWeapon;
+
+		if (weap)
+		{
+			[found, slot] = CPlayer.weapons.LocateWeapon(weap.GetClass());
+
+			// If the weapon doesn't have a slot assigned to it, it could be a powered weapon. So check its
+			// sister weapon.
+			if (!found && weap.bPowered_up && weap.SisterWeaponType)
+			{
+				[found, slot] = CPlayer.weapons.LocateWeapon(weap.SisterWeaponType);
+			}
+		}
+
 		name fcolor;
 		vector2 pos = (-247, -24);
 
-		for(int s, i = 1 ; i <= 10; i++)
+		for (int s, i = 1 ; i <= 10; i++)
 		{
 			s = i == 10 ? 0 : i;
 
-			if(helper.nch_ewfound && helper.nch_ewslot == s)
+			if (found && slot == s)
 			{
 				fcolor = nch_HighlightColor;
 			}
-			else if(CPlayer.HasWeaponsInSlot(s))
+			else if (CPlayer.HasWeaponsInSlot(s))
 			{
 				fcolor = 'NCHLightGray';
 			}
@@ -1260,101 +1381,76 @@ class NCH_BaseHUD : BaseStatusBar
 
 	virtual void NCHF_DrawAmmoList ()
 	{
-		let helper = NCH_Helper(CPlayer.mo.FindInventory("NCH_Helper"));
 		int toggleammo = NCHF_GetCVar('nchud_toggleammo');
 
-		if(toggleammo > 0 && helper)
+		if (toggleammo > 0)
 		{
-			let wpn = CPlayer.ReadyWeapon;
-			let wpn_ammotype1 = wpn ? wpn.AmmoType1 : null;
-			let wpn_ammotype2 = wpn ? wpn.AmmoType2 : null;
+			nch_ammoslist.Clear();
+			NCHF_AddAmmos();
 
-			Array<class<Ammo> > nch_localammos;
-			string bg;
-			Inventory item;
-			int curpnts;
-			int maxpnts;
-			name valuecolor;
+			// Respect the user's choice if they don't want the list to be overridden.
+			if (!(nch_ammoslist.Size() != 0 && NCHF_GetCVar('nchud_allowammolistoverride')))
+			{
+				nch_ammoslist.Clear();
+
+				for (int i = 0; i < PlayerPawn.NUM_WEAPON_SLOTS; i++) 
+				{
+					int slotsize = CPlayer.weapons.SlotSize(i);
+
+					for (int j = 0; j < slotsize; j++)
+					{
+						let weap = CPlayer.weapons.GetWeapon(i, j);
+
+						if (weap)
+						{
+							if (toggleammo > 1 || CPlayer.mo.FindInventory(weap))
+							{
+								NCHF_AddWeaponAmmos(GetDefaultByType(weap));
+							}
+						}
+					}
+				}
+
+				for (let inv = CPlayer.mo.Inv; inv != null; inv = inv.Inv)
+				{
+					let weap = Weapon(inv);
+
+					if (weap)
+					{
+						NCHF_AddWeaponAmmos(weap.default);
+					}
+				}
+			}
+
+			int lsize = nch_ammoslist.Size();
+			let rweap = CPlayer.ReadyWeapon;
 			vector2 bgpos = (-5, -133);
 			vector2 iconpos = (-18, -122);
 			vector2 curpntspos = (-85, -126);
 			vector2 slashpos = (-73, -126);
 			vector2 maxpntspos = (-39, -126);
 
-			// Respect the user's choice if they don't want the list to be overridden.
-			if (nch_aolistsize != 0 && NCHF_GetCVar('nchud_allowammolistoverride'))
+			for (int i = lsize - 1; i >= 0; i--)
 			{
-				nch_localammos.Copy(nch_aolist);
-			}
-			else
-			{
-				if (toggleammo >= 2)
-				{
-					nch_localammos.Copy(helper.nch_ammosA);
-				}
-				else
-				{
-					nch_localammos.Copy(helper.nch_ammosB);
-				}
-			}
+				string bg = "H_BGRAM2"; // In-between background.
 
-			int lsize = nch_localammos.Size();
-
-			for(int i = lsize - 1; i >= 0; i--)
-			{
-				// Determine the background.
-				if(i == 0)
+				if (i == 0)
 				{
 					bg = "H_BGRAM1"; // Top background.
 				}
-				else if(i == lsize - 1)
+				else if (i == lsize - 1)
 				{
 					bg = "H_BGRAM3"; // Bottom background.
 				}
-				else
-				{
-					bg = "H_BGRAM2"; // In-between background.
-				}
 
-				item = CPlayer.mo.FindInventory(nch_localammos[i]);
-				curpnts = item ? item.Amount : 0;
-				maxpnts = item ? item.MaxAmount : GetDefaultByType(nch_localammos[i]).MaxAmount;
-
-				if((nch_localammos[i] == wpn_ammotype1) || (nch_localammos[i] == wpn_ammotype2))
-				{
-					valuecolor = nch_HighlightColor;
-				}
-				else
-				{
-					valuecolor = 'NCHLightGray';
-				}
+				let ammo = nch_ammoslist[i];
+				name valuecolor = (rweap && ((ammo.type == rweap.AmmoType1) || (ammo.type == rweap.AmmoType2))) ? nch_HighlightColor : 'NCHLightGray';
 
 				DrawImage(bg, bgpos, DI_ITEM_RIGHT_TOP);
-
-				if (item)
-				{
-					DrawInventoryIcon(item, iconpos, DI_ITEM_CENTER | DI_ALTICONFIRST | DI_SKIPSPAWN, boxsize : (18, 18));
-				}
-				else
-				{
-					let itemdef = GetDefaultByType(nch_localammos[i]);
-
-					if (itemdef)
-					{
-						textureid icon = itemdef.AltHUDIcon;
-
-						if (!icon.IsValid())
-						{
-							icon = itemdef.Icon;
-						}
-
-						DrawTexture(icon, iconpos, DI_ITEM_CENTER, box : (18, 18));
-					}
-				}
-
-				NCHF_DrawString(nch_sfont, FormatNumber(curpnts, 0, 4), curpntspos, DI_TEXT_ALIGN_RIGHT, valuecolor);
+				DrawTexture(ammo.icon, iconpos, DI_ITEM_CENTER, box : (18, 18));
+				NCHF_DrawString(nch_sfont, FormatNumber(ammo.amount, 0, 4), curpntspos, DI_TEXT_ALIGN_RIGHT, valuecolor);
 				NCHF_DrawString(nch_sfont, "/", slashpos, DI_TEXT_ALIGN_RIGHT);
-				NCHF_DrawString(nch_sfont, FormatNumber(maxpnts, 0, 4), maxpntspos, DI_TEXT_ALIGN_RIGHT, valuecolor);
+				NCHF_DrawString(nch_sfont, FormatNumber(ammo.maxamount, 0, 4), maxpntspos, DI_TEXT_ALIGN_RIGHT, valuecolor);
 
 				bgpos.y -= 23;
 				iconpos.y -= 23;

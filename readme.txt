@@ -235,22 +235,20 @@
 -- Overriding ammo list                                                                          --
 ---------------------------------------------------------------------------------------------------
 
-  Overriding the ammo list is done by overriding the virtual function NCHF_InGameSetup() in your
-  status bar class and then simply calling the NCHF_AddToAmmoListOverride() function for each ammo
+  Overriding the ammo list is done by overriding the virtual function NCHF_AddAmmos() in your
+  status bar class and then simply calling the NCHF_AddSingleAmmo() function for each ammo
   class you want to be listed.
-
-  Note: the NCHF_InGameSetup() function is only called once, upon the HUD's first draw.
 
     Example #1 --------------------------------------------------------------------------------
 
       A basic example. It merely flips the order of Doom's four ammo types
 
-        override void NCHF_InGameSetup ()
+        override void NCHF_AddAmmos ()
         {
-            NCHF_AddToAmmoListOverride("Cell");
-            NCHF_AddToAmmoListOverride("RocketAmmo");
-            NCHF_AddToAmmoListOverride("Shell");
-            NCHF_AddToAmmoListOverride("Clip");
+            NCHF_AddSingleAmmo("Cell");
+            NCHF_AddSingleAmmo("RocketAmmo");
+            NCHF_AddSingleAmmo("Shell");
+            NCHF_AddSingleAmmo("Clip");
         }
 
     Example #2 --------------------------------------------------------------------------------
@@ -258,26 +256,26 @@
       This example demonstrates conditional list creation. Depending on which player class the
       player is playing as, a list is created for that class.
 
-        override void NCHF_InGameSetup ()
+        override void NCHF_AddAmmos ()
         {
             name playerclassname = CPlayer.mo.GetClassName();
 
             if (playerclassname == 'ExamplePlayerA')
             {
-                NCHF_AddToAmmoListOverride("RocketAmmo");
-                NCHF_AddToAmmoListOverride("Cell");
+                NCHF_AddSingleAmmo("RocketAmmo");
+                NCHF_AddSingleAmmo("Cell");
             }
             else if (playerclassname == 'ExamplePlayerB')
             {
-                NCHF_AddToAmmoListOverride("Clip");
-                NCHF_AddToAmmoListOverride("Shell");
+                NCHF_AddSingleAmmo("Clip");
+                NCHF_AddSingleAmmo("Shell");
             }
             else
             {
-                NCHF_AddToAmmoListOverride("Clip");
-                NCHF_AddToAmmoListOverride("Shell");
-                NCHF_AddToAmmoListOverride("RocketAmmo");
-                NCHF_AddToAmmoListOverride("Cell");
+                NCHF_AddSingleAmmo("Clip");
+                NCHF_AddSingleAmmo("Shell");
+                NCHF_AddSingleAmmo("RocketAmmo");
+                NCHF_AddSingleAmmo("Cell");
             }
         }
 
