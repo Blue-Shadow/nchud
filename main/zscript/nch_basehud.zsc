@@ -482,7 +482,6 @@ class NCH_BaseHUD : BaseStatusBar
 	{
 		let ontex = TexMan.CheckForTexture(ongfx, TexMan.TYPE_MiscPatch);
 		if (!ontex.IsValid()) return;
-		let offtex = TexMan.CheckForTexture(offgfx, TexMan.TYPE_MiscPatch);
 
 		vector2 texsize = TexMan.GetScaledSize(ontex);
 		[position, flags] = AdjustPosition(position, flags, texsize.x, texsize.y);
@@ -530,8 +529,13 @@ class NCH_BaseHUD : BaseStatusBar
 			SetClipRect(position.x + clip[0], position.y + clip[1], texsize.x - clip[0] - clip[2], texsize.y - clip[1] - clip[3], flags);
 		}
 
-		if (offtex.IsValid() && TexMan.GetScaledSize(offtex) == texsize) DrawTexture(offtex, position, flags | DI_ITEM_LEFT_TOP);
-		else Fill(color(255, 0, 0, 0), position.x + clip[0], position.y + clip[1], texsize.x - clip[0] - clip[2], texsize.y - clip[1] - clip[3]);
+		// [Blue Shadow] Passing TNT1A0 as the background graphic disables drawing of the bar background entirely.
+		if (!(offgfx ~== "TNT1A0"))
+		{
+			let offtex = TexMan.CheckForTexture(offgfx, TexMan.TYPE_MiscPatch);
+			if (offtex.IsValid() && TexMan.GetScaledSize(offtex) == texsize) DrawTexture(offtex, position, flags | DI_ITEM_LEFT_TOP);
+			else Fill(color(255, 0, 0, 0), position.x + clip[0], position.y + clip[1], texsize.x - clip[0] - clip[2], texsize.y - clip[1] - clip[3]);
+		}
 
 		if (border == 0 && !bgonfg)
 		{
@@ -1670,6 +1674,14 @@ class NCH_BaseHUD : BaseStatusBar
 					NCHF_DrawString(nch_bfont, FormatNumber(monsterhp, 0, 5), (-9, 85), DI_TEXT_ALIGN_RIGHT | NCHC_DI_SCREEN_CENTER_TOP, valcolor);
 					NCHF_DrawString(nch_bfont, "/", (-2, 85), DI_TEXT_ALIGN_CENTER | NCHC_DI_SCREEN_CENTER_TOP);
 					NCHF_DrawString(nch_bfont, FormatNumber(monsterspawnhp, 0, 5), (8, 85), DI_TEXT_ALIGN_LEFT | NCHC_DI_SCREEN_CENTER_TOP, valcolor);
+				}
+
+				// Armor bar.
+				let armor = BasicArmor(t.FindInventory("BasicArmor"));
+
+				if (armor && (armor.Amount > 0))
+				{
+					NCHF_DrawBar("H_BROLX3", "TNT1A0", armor.Amount, armor.ActualSaveAmount, (0, 75), 0, SHADER_HORZ, DI_ITEM_CENTER | NCHC_DI_SCREEN_CENTER_TOP);
 				}
 			}
 		}
