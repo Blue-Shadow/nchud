@@ -23,12 +23,12 @@ class NCH_BD64HUD : NCH_BaseHUD
         if (NCHF_GetCVar('nchud_toggleair') &&
             CPlayer.health > 0 &&
             level.airsupply > 0 && CPlayer.mo.AirCapacity > 0 &&
-            (CPlayer.air_finished + 1 - level.time) < int(level.airsupply * CPlayer.mo.AirCapacity))
+            (CPlayer.air_finished + 1 - level.maptime) < int(level.airsupply * CPlayer.mo.AirCapacity))
         {
             NCHF_DrawBarLabel("Air", -99, DI_SCREEN_BOTTOM);
             DrawImage("H_BGAIR", (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
 
-            int curpnts = Max(CPlayer.air_finished - level.time, 0);
+            int curpnts = Max(CPlayer.air_finished - level.maptime, 0);
             int maxpnts = int(level.airsupply * CPlayer.mo.AirCapacity);
             string barframe = "H_BRFMX3";
             string barfg = "H_BRFLG3";
