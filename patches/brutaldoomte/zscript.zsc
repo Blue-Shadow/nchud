@@ -1,0 +1,41 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Brutal Doom: Tomtefars Extension
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_BDTEHUD : NCH_BDHUD
+{
+	override void NCHF_AddAmmos ()
+	{
+		let player = CPlayer.mo;
+
+		if (player is "Purist")
+		{
+			NCHF_AddSingleAmmo("Clip2");
+			NCHF_AddSingleAmmo("AmmoShell");
+			NCHF_AddSingleAmmo("AmmoRocket");
+			NCHF_AddSingleAmmo("AmmoCell");
+		}
+		else
+		{
+			NCHF_AddSingleAmmo("Magazine9mm");
+			NCHF_AddSingleAmmo("RevolverBullets");
+			NCHF_AddSingleAmmo("AmmoShell");
+			NCHF_AddSingleAmmo("GreenShell");
+			NCHF_AddSingleAmmo("Clip2");
+			NCHF_AddSingleAmmo("MinigunAmmo");
+			NCHF_AddSingleAmmo("BuzzsawAmmoz");
+			NCHF_AddSingleAmmo("AmmoRocket");
+			NCHF_AddSingleAmmo("AmmoCell");
+			NCHF_AddSingleAmmo("RailCore");
+			NCHF_AddSingleAmmo("U_SoulAmmo");
+			NCHF_AddSingleAmmo("HellRocketAmmo");
+			NCHF_AddSingleAmmo("Gasoline");
+			NCHF_AddSingleAmmo("GrenadeAmmo");
+			NCHF_AddSingleAmmo("C4Ammo");
+		}
+	}
+}
