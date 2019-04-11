@@ -10,10 +10,25 @@ class NCH_CombinedArmsHUD : NCH_BaseHUD
 {
 	override void NCHF_AddAmmos ()
 	{
-		NCHF_AddSingleAmmo("Clip");
-		NCHF_AddSingleAmmo("Shell");
-		NCHF_AddSingleAmmo("RocketAmmo");
-		NCHF_AddSingleAmmo("Cell");
+		let player = CPlayer.mo;
+
+		if (player is "Blastmaster")
+		{
+			NCHF_AddSingleAmmo("IceCharge");
+			NCHF_AddSingleAmmo("Clip");
+			NCHF_AddSingleAmmo("Shell");
+			NCHF_AddSingleAmmo("RocketAmmo");
+			NCHF_AddSingleAmmo("Cell");
+		}
+		else if (player is "CollabWeaponGuy")
+		{
+			NCHF_AddSingleAmmo("D3PSAmmo");
+			NCHF_AddSingleAmmo("Skill");
+			NCHF_AddSingleAmmo("Clip");
+			NCHF_AddSingleAmmo("Shell");
+			NCHF_AddSingleAmmo("RocketAmmo");
+			NCHF_AddSingleAmmo("Cell");
+		}
 	}
 
 	override void NCHF_DrawAirSupply ()
