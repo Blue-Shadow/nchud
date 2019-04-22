@@ -1,28 +1,34 @@
-NewRedCard		RKEYB0
-NewYellowCard		YKEYB0
-NewBlueCard		BKEYB0
-NewRedSkull		RSKUB0
-NewYellowSkull		YSKUB0
-NewBlueSkull		BSKUB0
+KDiZDRedKey		""
+KDiZDYellowKey	""
+KDiZDBlueKey	""
+KDiZDOrangeKey	""
+KDiZDGreenKey	""
+KDiZDSilverKey	""
+CH_RedSkull		""
+CH_YellowSkull	""
+CH_BlueSkull	""
 
 PowerSpeed		TNT1A0
-PowerEnvSuitProtector		TNT1A0
+PowerEnvSuitProtector	TNT1A0
 PowerProtection		TNT1A0
 PowerBerserk		PSTRA0
-PowerBerserkResist		TNT1A0
-PowerInvulnerableCustom		PINVA0
+PowerBerserkResist	TNT1A0
+PowerInvulnerableCustom	PINVA0
 PowerQuadDamage		QUADA0
+PowerInvisibility	PINSA0
+PowerLightAmp	PVISA0
+PowerIronFeet	SUITA0
 
-SZ_Clip		AMMOA0
+SZ_Clip			AMMOA0
 SZ_Shell		SHELA0
 SZ_RocketAmmo		ROCKA0
-SZ_Cell		CELPA0
+SZ_Cell			CELPA0
 SZ_BFGCell		BFGCA0
 SZ_ArgentCell		ARGAA0
 SZ_HumanSoul		HSOLE0
 SZ_Cartridge		CARTA0
 SZ_FuelCan		CSAMA0
-SZ_HandGrenadeAmmo		D3HWC0
+SZ_HandGrenadeAmmo	D3HWC0
 
 ArmorShardGive		BON2D0
 SecurityArmor		ARM1A0
