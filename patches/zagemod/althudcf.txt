@@ -1,12 +1,12 @@
-KDiZDRedKey             ""
-KDiZDYellowKey          ""
-KDiZDBlueKey            ""
-KDiZDOrangeKey          ""
-KDiZDGreenKey           ""
-KDiZDSilverKey          ""
-CH_RedSkull             ""
-CH_YellowSkull          ""
-CH_BlueSkull            ""
+KDiZDRedKey             TNT1A0
+KDiZDYellowKey          TNT1A0
+KDiZDBlueKey            TNT1A0
+KDiZDOrangeKey          TNT1A0
+KDiZDGreenKey           TNT1A0
+KDiZDSilverKey          TNT1A0
+CH_RedSkull             TNT1A0
+CH_YellowSkull          TNT1A0
+CH_BlueSkull            TNT1A0
 
 PowerSpeed              TNT1A0
 PowerEnvSuitProtector   TNT1A0

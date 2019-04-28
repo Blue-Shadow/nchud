@@ -13,6 +13,7 @@ class NCH_ZagemodHUD : NCH_BaseHUD
 		nch_DrawMugShot = false;
 		nch_KeysUseSpawnState = true;
 	}
+
 	override void NCHF_AddAmmos ()
 	{
 		let player = CPlayer.mo;
@@ -64,53 +65,4 @@ class NCH_ZagemodHUD : NCH_BaseHUD
 			NCHF_AddSingleAmmo("SZ_HandGrenadeAmmo");
 		}
 	}
-	override void NCHF_DrawKeys ()
-	{
-		DrawImage("H_BGKEYS", (5, -31), DI_ITEM_LEFT_TOP); // Background.
-
-		textureid icon;
-		vector2 size;
-		bool scaleup;
-		vector2 pos = (18, -18);
-		int count = 0;
-
-		for(let i = CPlayer.mo.Inv; i != null; i = i.Inv)
-		{
-			if(i is "Key" && i.AltHUDIcon.Exists())
-			{
-				// Draw up to 10 keys.
-				if(count == 10)
-				{
-					break;
-				}
-
-				icon = i.AltHUDIcon;
-
-				if (!icon.IsValid())
-				{
-					if(nch_KeysUseSpawnState && i.SpawnState && i.SpawnState.sprite != 0)
-					{
-						icon = i.SpawnState.GetSpriteTexture(0);
-					}
-					else
-					{
-						icon = i.Icon;
-					}
-
-					if(!icon.IsValid())
-					{
-						continue;
-					}
-				}
-
-				// Scale the icon up if needed.
-				size = TexMan.GetScaledSize(icon);
-				scaleup = (size.x <= 11 && size.y <= 11);
-				DrawTexture(icon, pos, DI_ITEM_CENTER, box : (22, 22), scaleup ? (2, 2) : (1, 1));
-				pos.x += 26;
-				count++;
-			}
-		}
-	}
 }
-

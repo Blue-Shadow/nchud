@@ -706,6 +706,12 @@ class NCH_BaseHUD : BaseStatusBar
 					}
 				}
 
+				// Exclude keys which use 'TNT1A0' as their icon.
+				if (TexMan.GetName(icon) ~== "TNT1A0")
+				{
+					continue;
+				}
+
 				// Scale the icon up if needed.
 				size = TexMan.GetScaledSize(icon);
 				scaleup = (size.x <= 11 && size.y <= 11);
