@@ -6,6 +6,10 @@
 
     - id Software for Doom.
     - Raven Software for Heretic and Hexen.
+    - Banjo Software for HACX.
+    - Rogue Entertainment and Velocity for Strife.
+    - Thomas van der Velden for Harmony.
+    - Charles Jacobi and Digital Café for Chex Quest 3.
     - The following people and all contributors for the ZDoom and GZDoom source ports.
         - Marisa Heit (randi)
         - Christoph Oelckers (Graf Zahl)
