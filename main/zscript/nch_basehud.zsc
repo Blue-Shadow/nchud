@@ -28,6 +28,9 @@ class NCH_BaseHUD : BaseStatusBar
 	const NCHC_LOWSTATEUCAP = 50; // Bar low state upper cap.
 	const NCHC_DI_SCREEN_CENTER_TOP = DI_SCREEN_TOP | DI_SCREEN_HCENTER;
 
+	const NCHC_POWTIME_NONE = "---";
+	const NCHC_POWTIME_INFINITE = "--:--"; // Might change later to an infinity symbol.
+
 	// The icons of depleted inventory items are drawn with this alpha value (used for the selected
 	// inventory and inventory bar).
 	const NCHC_DEPALPHA = 0.4;
@@ -166,6 +169,35 @@ class NCH_BaseHUD : BaseStatusBar
 	// -------------------------------------------------------------------------------------------------
 
 	override void DrawPowerups () {} // The HUD uses its own powerup-drawing function.
+
+	// -------------------------------------------------------------------------------------------------
+	//
+	//
+	//
+	// -------------------------------------------------------------------------------------------------
+
+	string NCHF_PowerupTimeFormatted (Powerup item)
+	{
+		int sec = Thinker.Tics2Seconds(item.EffectTics);
+		return String.Format("%02d:%02d", (sec % 3600) / 60, sec % 60);
+	}
+
+	// -------------------------------------------------------------------------------------------------
+	//
+	//
+	//
+	// -------------------------------------------------------------------------------------------------
+
+	virtual string NCHF_GetPowerupTimeAsString (Powerup item)
+	{
+		// In case it is given an icon.
+		if (item is 'PowerStrength')
+		{
+			return NCHC_POWTIME_INFINITE;
+		}
+
+		return NCHF_PowerupTimeFormatted(item);
+	}
 
 	// -------------------------------------------------------------------------------------------------
 	//
@@ -1512,12 +1544,6 @@ class NCH_BaseHUD : BaseStatusBar
 
 			if (item)
 			{
-				// Exclude the berserk pack powerup, since unlike the other powerups, it lasts for the whole map.
-				if (item is 'PowerStrength')
-				{
-					continue;
-				}
-
 				// Determine the icon.
 				let icon = item.AltHUDIcon;
 
@@ -1545,8 +1571,9 @@ class NCH_BaseHUD : BaseStatusBar
 					DrawTexture(icon, iconpos, DI_ITEM_CENTER, box : (32, 32));
 				}
 
-				int sec = Thinker.Tics2Seconds(item.EffectTics);
-				NCHF_DrawString(nch_sfont, String.Format("%02d:%02d", (sec % 3600) / 60, sec % 60), ticspos, DI_TEXT_ALIGN_CENTER, 'NCHLightGray');
+				string ptime = NCHF_GetPowerupTimeAsString(item);
+				if (ptime.Length() == 0) ptime = NCHC_POWTIME_NONE;
+				NCHF_DrawString(nch_sfont, ptime, ticspos, DI_TEXT_ALIGN_CENTER, 'NCHLightGray');
 
 				bgpos.x -= 48;
 				iconpos.x -= 48;
