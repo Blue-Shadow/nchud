@@ -105,11 +105,11 @@ class NCH_ArgentHUD : NCH_BaseHUD
 			{
 				if (equipment.Amount < equipment.rechargeAmount)
 				{
-					NCHF_DrawString(nch_bfont, FormatNumber((equipment.Arg_RechargeDelayTics() - equipment.rechargeTics + 35) / 35, 0, 3), (-32, -70), DI_TEXT_ALIGN_CENTER, "NCHRed");
+					NCHF_DrawString(nch_bfont, FormatNumber((equipment.Arg_RechargeDelayTics() - equipment.rechargeTics + 35) / 35, 0, 3), (-33, -70), DI_TEXT_ALIGN_CENTER, "NCHRed");
 				}
 			}
 
-			NCHF_DrawString(nch_bfont, FormatNumber(invsel.Amount, 0, 4), (-13, -54), DI_TEXT_ALIGN_RIGHT, invsel.Amount >= invsel.MaxAmount ? nch_HighlightColor : 'NCHLightGray');
+			NCHF_DrawString(nch_bfont, FormatNumber(invsel.Amount, 0, 4), (-14, -54), DI_TEXT_ALIGN_RIGHT, invsel.Amount >= invsel.MaxAmount ? nch_HighlightColor : 'NCHLightGray');
 			// End variation
         }
 
@@ -163,7 +163,7 @@ class NCH_ArgentHUD : NCH_BaseHUD
                     iconpos = (-85, -85);
                     barframepos = (-100, -92);
                     barpos = (-103, -89);
-                    valuepos = (-214, -91);
+                    valuepos = (-215, -91);
 
                     if(drawinv)
                     {
@@ -218,7 +218,7 @@ class NCH_ArgentHUD : NCH_BaseHUD
                     iconpos = (-85, -57);
                     barframepos = (-100, -64);
                     barpos = (-103, -61);
-                    valuepos = (-214, -63);
+                    valuepos = (-215, -63);
 
                     if(!drawinv)
                     {
@@ -230,7 +230,11 @@ class NCH_ArgentHUD : NCH_BaseHUD
                 }
 
                 // Determine the state.
-                if((curpnts * 100 / maxpnts) < NCHF_GetLowState(lscvar))
+                if (infiniteammo)
+                {
+                    barstate = NCHC_BARSTATE_INFINITE;
+                }
+                else if ((curpnts * 100 / maxpnts) < NCHF_GetLowState(lscvar))
                 {
                     barstate = NCHC_BARSTATE_LOW;
                 }
@@ -245,24 +249,21 @@ class NCH_ArgentHUD : NCH_BaseHUD
                 // Bar background: default to the normal version.
                 barbg = NCHF_GetBarGFX(bv, 3);
 
-                if(infiniteammo)
+                switch(barstate)
                 {
-                    barfg = NCHF_GetBarGFX(bv, 8);
-                }
-                else
-                {
-                    switch(barstate)
-                    {
-                        case NCHC_BARSTATE_LOW:
-                            barfg = NCHF_GetBarGFX(bv, 6);
-                            barframe = NCHF_GetBarGFX(bv, 1);
-                            valuecolor = 'NCHYellow';
-                            break;
-                        case NCHC_BARSTATE_NORMAL:
-                            barfg = NCHF_GetBarGFX(bv, 5);
-                            valuecolor = 'NCHGreen';
-                            break;
-                    }
+                    case NCHC_BARSTATE_INFINITE:
+                        barfg = NCHF_GetBarGFX(bv, 8);
+                        valuecolor = 'NCHFiery';
+                        break;
+                    case NCHC_BARSTATE_LOW:
+                        barfg = NCHF_GetBarGFX(bv, 6);
+                        barframe = NCHF_GetBarGFX(bv, 1);
+                        valuecolor = 'NCHYellow';
+                        break;
+                    case NCHC_BARSTATE_NORMAL:
+                        barfg = NCHF_GetBarGFX(bv, 5);
+                        valuecolor = 'NCHGreen';
+                        break;
                 }
 
                 // ---------------------------------------------------------------------------------------
@@ -278,10 +279,10 @@ class NCH_ArgentHUD : NCH_BaseHUD
                 DrawImage(barframe, barframepos, DI_ITEM_RIGHT_TOP);
 
                 // Bar and counter.
-                if(infiniteammo)
+                if (barstate == NCHC_BARSTATE_INFINITE)
                 {
                     DrawImage(barfg, barpos, DI_ITEM_RIGHT_TOP);
-                    DrawImage("H_INFNTY", valuepos, DI_ITEM_RIGHT_TOP);
+                    NCHF_DrawString(nch_bfont, "∞", valuepos, DI_TEXT_ALIGN_RIGHT, valuecolor);
                 }
                 else
                 {

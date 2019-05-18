@@ -29,7 +29,7 @@ class NCH_BaseHUD : BaseStatusBar
 	const NCHC_DI_SCREEN_CENTER_TOP = DI_SCREEN_TOP | DI_SCREEN_HCENTER;
 
 	const NCHC_POWTIME_NONE = "---";
-	const NCHC_POWTIME_INFINITE = "--:--"; // Might change later to an infinity symbol.
+	const NCHC_POWTIME_INFINITE = "∞";
 
 	// The icons of depleted inventory items are drawn with this alpha value (used for the selected
 	// inventory and inventory bar).
@@ -41,6 +41,7 @@ class NCH_BaseHUD : BaseStatusBar
 	enum NCHEBarStates
 	{
 		NCHC_BARSTATE_INVUL,
+		NCHC_BARSTATE_INFINITE,
 		NCHC_BARSTATE_LOW,
 		NCHC_BARSTATE_NORMAL,
 		NCHC_BARSTATE_OVER
@@ -104,10 +105,10 @@ class NCH_BaseHUD : BaseStatusBar
 		nch_init = false;
 
 		// Font creation.
-		Font fnt = "nchslfnt";
+		Font fnt = "nchsmallfont";
 		nch_sfont = HUDFont.Create(fnt);
-		fnt = "dbfplain";
-		nch_bfont = HUDFont.Create(fnt, fnt.GetCharWidth("0"), true);
+		fnt = "nchbigfont";
+		nch_bfont = HUDFont.Create(fnt);
 		nch_diparms = InventoryBarState.Create(nch_bfont, boxgfx : "H_INVBOX", selgfx : "H_INVCUR", leftgfx : "H_INVAL1", rightgfx : "H_INVAR1");
 
 		// HUD setup.
@@ -608,7 +609,7 @@ class NCH_BaseHUD : BaseStatusBar
 		// Now the items and the rest.
 		
 		Vector2 itempos = position + boxsize / 2;
-		Vector2 textpos = position + boxsize - (8, 6 + parms.amountfont.mFont.GetHeight());
+		Vector2 textpos = position + boxsize - (9, 6 + parms.amountfont.mFont.GetHeight());
 
 		int i = 0;
 		Inventory item;
@@ -781,7 +782,7 @@ class NCH_BaseHUD : BaseStatusBar
 		}
 
 		name fcolor;
-		vector2 pos = (-247, -24);
+		vector2 pos = (-248, -24);
 
 		for (int s, i = 1 ; i <= 10; i++)
 		{
@@ -886,7 +887,7 @@ class NCH_BaseHUD : BaseStatusBar
 				iconpos = (85, -85);
 				barframepos = (100, -92);
 				barpos = (103, -89);
-				valuepos = (214, -91);
+				valuepos = (213, -91);
 
 				if(nch_DrawMugShot)
 				{
@@ -944,7 +945,7 @@ class NCH_BaseHUD : BaseStatusBar
 				iconpos = (85, -57);
 				barframepos = (100, -64);
 				barpos = (103, -61);
-				valuepos = (214, -63);
+				valuepos = (213, -63);
 
 				if(!nch_DrawMugShot)
 				{
@@ -1133,7 +1134,7 @@ class NCH_BaseHUD : BaseStatusBar
 
 			if(invsel.Amount > 1)
 			{
-				NCHF_DrawString(nch_bfont, FormatNumber(invsel.Amount, 0, 4), (-13, -54), DI_TEXT_ALIGN_RIGHT, invsel.Amount >= invsel.MaxAmount ? nch_HighlightColor : 'NCHLightGray');
+				NCHF_DrawString(nch_bfont, FormatNumber(invsel.Amount, 0, 4), (-14, -54), DI_TEXT_ALIGN_RIGHT, invsel.Amount >= invsel.MaxAmount ? nch_HighlightColor : 'NCHLightGray');
 			}
 		}
 
@@ -1187,7 +1188,7 @@ class NCH_BaseHUD : BaseStatusBar
 					iconpos = (-85, -85);
 					barframepos = (-100, -92);
 					barpos = (-103, -89);
-					valuepos = (-214, -91);
+					valuepos = (-215, -91);
 
 					if(drawinv)
 					{
@@ -1242,7 +1243,7 @@ class NCH_BaseHUD : BaseStatusBar
 					iconpos = (-85, -57);
 					barframepos = (-100, -64);
 					barpos = (-103, -61);
-					valuepos = (-214, -63);
+					valuepos = (-215, -63);
 
 					if(!drawinv)
 					{
@@ -1254,7 +1255,11 @@ class NCH_BaseHUD : BaseStatusBar
 				}
 
 				// Determine the state.
-				if((curpnts * 100 / maxpnts) < NCHF_GetLowState(lscvar))
+				if (infiniteammo)
+				{
+					barstate = NCHC_BARSTATE_INFINITE;
+				}
+				else if ((curpnts * 100 / maxpnts) < NCHF_GetLowState(lscvar))
 				{
 					barstate = NCHC_BARSTATE_LOW;
 				}
@@ -1269,24 +1274,21 @@ class NCH_BaseHUD : BaseStatusBar
 				// Bar background: default to the normal version.
 				barbg = NCHF_GetBarGFX(bv, 3);
 
-				if(infiniteammo)
+				switch (barstate)
 				{
-					barfg = NCHF_GetBarGFX(bv, 8);
-				}
-				else
-				{
-					switch(barstate)
-					{
-						case NCHC_BARSTATE_LOW:
-							barfg = NCHF_GetBarGFX(bv, 6);
-							barframe = NCHF_GetBarGFX(bv, 1);
-							valuecolor = 'NCHYellow';
-							break;
-						case NCHC_BARSTATE_NORMAL:
-							barfg = NCHF_GetBarGFX(bv, 5);
-							valuecolor = 'NCHGreen';
-							break;
-					}
+					case NCHC_BARSTATE_INFINITE:
+						barfg = NCHF_GetBarGFX(bv, 8);
+						valuecolor = 'NCHFiery';
+						break;
+					case NCHC_BARSTATE_LOW:
+						barfg = NCHF_GetBarGFX(bv, 6);
+						barframe = NCHF_GetBarGFX(bv, 1);
+						valuecolor = 'NCHYellow';
+						break;
+					case NCHC_BARSTATE_NORMAL:
+						barfg = NCHF_GetBarGFX(bv, 5);
+						valuecolor = 'NCHGreen';
+						break;
 				}
 
 				// ---------------------------------------------------------------------------------------
@@ -1302,10 +1304,10 @@ class NCH_BaseHUD : BaseStatusBar
 				DrawImage(barframe, barframepos, DI_ITEM_RIGHT_TOP);
 
 				// Bar and counter.
-				if(infiniteammo)
+				if (barstate == NCHC_BARSTATE_INFINITE)
 				{
 					DrawImage(barfg, barpos, DI_ITEM_RIGHT_TOP);
-					DrawImage("H_INFNTY", valuepos, DI_ITEM_RIGHT_TOP);
+					NCHF_DrawString(nch_bfont, "∞", valuepos, DI_TEXT_ALIGN_RIGHT, valuecolor);
 				}
 				else
 				{
@@ -1700,13 +1702,13 @@ class NCH_BaseHUD : BaseStatusBar
 
 				if(!monsterhpbar_spawnhp)
 				{
-					NCHF_DrawString(nch_bfont, FormatNumber(monsterhp, 0, 5), (-1, 85), DI_TEXT_ALIGN_CENTER | NCHC_DI_SCREEN_CENTER_TOP, valcolor);
+					NCHF_DrawString(nch_bfont, FormatNumber(monsterhp, 0, 5), (-2, 85), DI_TEXT_ALIGN_CENTER | NCHC_DI_SCREEN_CENTER_TOP, valcolor);
 				}
 				else
 				{
-					NCHF_DrawString(nch_bfont, FormatNumber(monsterhp, 0, 5), (-9, 85), DI_TEXT_ALIGN_RIGHT | NCHC_DI_SCREEN_CENTER_TOP, valcolor);
+					NCHF_DrawString(nch_bfont, FormatNumber(monsterhp, 0, 5), (-10, 85), DI_TEXT_ALIGN_RIGHT | NCHC_DI_SCREEN_CENTER_TOP, valcolor);
 					NCHF_DrawString(nch_bfont, "/", (-2, 85), DI_TEXT_ALIGN_CENTER | NCHC_DI_SCREEN_CENTER_TOP);
-					NCHF_DrawString(nch_bfont, FormatNumber(monsterspawnhp, 0, 5), (8, 85), DI_TEXT_ALIGN_LEFT | NCHC_DI_SCREEN_CENTER_TOP, valcolor);
+					NCHF_DrawString(nch_bfont, FormatNumber(monsterspawnhp, 0, 5), (7, 85), DI_TEXT_ALIGN_LEFT | NCHC_DI_SCREEN_CENTER_TOP, valcolor);
 				}
 
 				// Armor bar.
@@ -1740,7 +1742,7 @@ class NCH_BaseHUD : BaseStatusBar
 				{
 					vector2 pos = (Screen.GetWidth() * 0.1, Screen.GetHeight() * 0.2);
 					DrawImage("H_BGDMG", pos, DI_ITEM_LEFT_TOP);
-					NCHF_DrawString(nch_bfont, FormatNumber(damageReceived, 0, 5), (pos.x + 33, pos.y + 8), DI_TEXT_ALIGN_CENTER, 'NCHPink');
+					NCHF_DrawString(nch_bfont, FormatNumber(damageReceived, 0, 5), (pos.x + 32, pos.y + 8), DI_TEXT_ALIGN_CENTER, 'NCHPink');
 					NCHF_DrawString(nch_sfont, "Damage", (pos.x + 32, pos.y + 32), DI_TEXT_ALIGN_CENTER);
 				}
 			}
