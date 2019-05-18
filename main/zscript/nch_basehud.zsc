@@ -28,7 +28,7 @@ class NCH_BaseHUD : BaseStatusBar
 	const NCHC_LOWSTATEUCAP = 50; // Bar low state upper cap.
 	const NCHC_DI_SCREEN_CENTER_TOP = DI_SCREEN_TOP | DI_SCREEN_HCENTER;
 
-	const NCHC_POWTIME_NONE = "---";
+	const NCHC_POWTIME_NONE = "";
 	const NCHC_POWTIME_INFINITE = "∞";
 
 	// The icons of depleted inventory items are drawn with this alpha value (used for the selected
@@ -1565,17 +1565,21 @@ class NCH_BaseHUD : BaseStatusBar
 					continue;
 				}
 
+				string ptime = NCHF_GetPowerupTimeAsString(item);
+				bool drawptime = (ptime.Length() > 0);
+
 				// Drawing.
-				DrawImage("H_BGPOW", bgpos, DI_ITEM_RIGHT_TOP);
+				DrawImage(drawptime ? "H_BGPOW" : "H_BGPOW2", bgpos, DI_ITEM_RIGHT_TOP);
 
 				if (!item.IsBlinking())
 				{
 					DrawTexture(icon, iconpos, DI_ITEM_CENTER, box : (32, 32));
 				}
 
-				string ptime = NCHF_GetPowerupTimeAsString(item);
-				if (ptime.Length() == 0) ptime = NCHC_POWTIME_NONE;
-				NCHF_DrawString(nch_sfont, ptime, ticspos, DI_TEXT_ALIGN_CENTER, 'NCHLightGray');
+				if (drawptime)
+				{
+					NCHF_DrawString(nch_sfont, ptime, ticspos, DI_TEXT_ALIGN_CENTER, 'NCHLightGray');
+				}
 
 				bgpos.x -= 48;
 				iconpos.x -= 48;
