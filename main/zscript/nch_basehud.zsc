@@ -423,7 +423,7 @@ class NCH_BaseHUD : BaseStatusBar
 
 	void NCHF_DrawBarLabel (string label, double ypos, int flags = DI_SCREEN_TOP)
 	{
-		Font sfont = Font.GetFont('nchslfnt');
+		Font sfont = nch_sfont.mFont;
 
 		if (sfont != null)
 		{
