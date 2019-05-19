@@ -108,9 +108,15 @@ class NCH_ArgentHUD : NCH_BaseHUD
 					NCHF_DrawString(nch_bfont, FormatNumber((equipment.Arg_RechargeDelayTics() - equipment.rechargeTics + 35) / 35, 0, 3), (-33, -70), DI_TEXT_ALIGN_CENTER, "NCHRed");
 				}
 			}
-
-			NCHF_DrawString(nch_bfont, FormatNumber(invsel.Amount, 0, 4), (-14, -54), DI_TEXT_ALIGN_RIGHT, invsel.Amount >= invsel.MaxAmount ? nch_HighlightColor : 'NCHLightGray');
 			// End variation
+
+            let infinv = sv_infiniteinventory;
+
+            if (invsel.Amount > 1 || (infinv && invsel.Amount > 0))
+            {
+                NCHF_DrawString(nch_bfont, infinv ? "∞" : FormatNumber(invsel.Amount, 0, 4), (-14, -54), DI_TEXT_ALIGN_RIGHT,
+                    infinv ? 'NCHFiery' : invsel.Amount >= invsel.MaxAmount ? nch_HighlightColor : 'NCHLightGray');
+            }
         }
 
         // ---------------------------------------------------------------------------------------
