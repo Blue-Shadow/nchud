@@ -264,10 +264,10 @@ class NCH_BaseHUD : BaseStatusBar
 		int cursecrets = level.found_secrets;
 		int totsecrets = level.total_secrets;
 
-		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "T", NCHC_STATFORMAT_SINGLE, level.TimeFormatted(), 0, 0, Thinker.Tics2Seconds(level.time) < level.partime);
-		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "K", NCHC_STATFORMAT_RATIO, "", curmonsters, totmonsters, curmonsters == totmonsters, totmonsters > 0);
-		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "I", NCHC_STATFORMAT_RATIO, "", curitems, totitems, curitems == totitems, totitems > 0);
-		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "S", NCHC_STATFORMAT_RATIO, "", cursecrets, totsecrets, cursecrets == totsecrets, totsecrets > 0);
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, StringTable.Localize("$NCH_LABEL_TIME"), NCHC_STATFORMAT_SINGLE, level.TimeFormatted(), 0, 0, Thinker.Tics2Seconds(level.time) < level.partime);
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, StringTable.Localize("$NCH_LABEL_KILLS"), NCHC_STATFORMAT_RATIO, "", curmonsters, totmonsters, curmonsters == totmonsters, totmonsters > 0);
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, StringTable.Localize("$NCH_LABEL_ITEMS"), NCHC_STATFORMAT_RATIO, "", curitems, totitems, curitems == totitems, totitems > 0);
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, StringTable.Localize("$NCH_LABEL_SECRETS"), NCHC_STATFORMAT_RATIO, "", cursecrets, totsecrets, cursecrets == totsecrets, totsecrets > 0);
 	}
 
 	// -------------------------------------------------------------------------------------------------
@@ -1617,7 +1617,7 @@ class NCH_BaseHUD : BaseStatusBar
 			level.airsupply > 0 && CPlayer.mo.AirCapacity > 0 &&
 			(CPlayer.air_finished + 1 - level.maptime) < int(level.airsupply * CPlayer.mo.AirCapacity))
 		{
-			NCHF_DrawBarLabel("Air", -99, DI_SCREEN_BOTTOM);
+			NCHF_DrawBarLabel(StringTable.Localize("$NCH_LABEL_AIR"), -99, DI_SCREEN_BOTTOM);
 			DrawImage("H_BGAIR", (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
 
 			int curpnts = Max(CPlayer.air_finished - level.maptime, 0);
@@ -1747,7 +1747,7 @@ class NCH_BaseHUD : BaseStatusBar
 					vector2 pos = (Screen.GetWidth() * 0.1, Screen.GetHeight() * 0.2);
 					DrawImage("H_BGDMG", pos, DI_ITEM_LEFT_TOP);
 					NCHF_DrawString(nch_bfont, FormatNumber(damageReceived, 0, 5), (pos.x + 32, pos.y + 8), DI_TEXT_ALIGN_CENTER, 'NCHPink');
-					NCHF_DrawString(nch_sfont, "Damage", (pos.x + 32, pos.y + 32), DI_TEXT_ALIGN_CENTER);
+					NCHF_DrawString(nch_sfont, StringTable.Localize("$NCH_LABEL_DAMAGE"), (pos.x + 32, pos.y + 32), DI_TEXT_ALIGN_CENTER);
 				}
 			}
 		}

@@ -25,7 +25,7 @@ class NCH_FasponsHUD : NCH_BaseHUD
 			level.airsupply > 0 && CPlayer.mo.AirCapacity > 0 &&
 			(CPlayer.air_finished + 1 - level.maptime) < int(level.airsupply * CPlayer.mo.AirCapacity))
 		{
-			NCHF_DrawBarLabel("Air", -99, DI_SCREEN_BOTTOM);
+			NCHF_DrawBarLabel(StringTable.Localize("$NCH_LABEL_AIR"), -99, DI_SCREEN_BOTTOM);
 			DrawImage("H_BGAIR", (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
 
 			int curpnts = Max(CPlayer.air_finished - level.maptime, 0);
@@ -45,7 +45,7 @@ class NCH_FasponsHUD : NCH_BaseHUD
 		}	
 		else if (GetAmount("Adrenaline") > 0)
 		{
-			NCHF_DrawBarLabel("Adrenaline", -99, DI_SCREEN_BOTTOM);
+			NCHF_DrawBarLabel(StringTable.Localize("$NCH_LABEL_ADRENALINE"), -99, DI_SCREEN_BOTTOM);
 			DrawImage("H_BGAIR", (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
 
 			string barframe = "H_BRFMX3";

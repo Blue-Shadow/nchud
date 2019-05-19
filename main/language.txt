@@ -1,3 +1,22 @@
 [enu default]
 
+NCH_LABEL_TIME = "T";
+NCH_LABEL_KILLS = "K";
+NCH_LABEL_ITEMS = "I";
+NCH_LABEL_SECRETS = "S";
+NCH_LABEL_AIR = "Air";
 NCH_MONGENNAME = "<Target>";
+NCH_LABEL_DAMAGE = "Damage";
+
+// Used by Brutal Doom/64 patches.
+NCH_LABEL_STAMINA = "Stamina";
+
+// Used by Combined Arms patch.
+NCH_LABEL_OVERHEATED = "Overheated!";
+NCH_LABEL_HEATLEVEL = "Heat Level";
+
+// Used by Faspons patch.
+NCH_LABEL_ADRENALINE = "Adrenaline";
+
+// Used by MetaDoom patch.
+NCH_LABEL_POINTS = "P";

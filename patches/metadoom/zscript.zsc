@@ -29,6 +29,6 @@ class NCH_MetaDoomHUD : NCH_BaseHUD
 		int totdemonkeys = GetMaxAmount("DemonKey");
 
 		NCHF_AddSingleStat(NCHC_STATLABELTYPE_ICON, "ART1A0", NCHC_STATFORMAT_RATIO, "", curdemonkeys, totdemonkeys, curdemonkeys == totdemonkeys, totdemonkeys > 0);
-		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "P", NCHC_STATFORMAT_SINGLE, FormatNumber(CPlayer.mo.score));
+		NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, StringTable.Localize("$NCH_LABEL_POINTS"), NCHC_STATFORMAT_SINGLE, FormatNumber(CPlayer.mo.score));
 	}
 }
