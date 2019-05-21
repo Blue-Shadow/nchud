@@ -1693,16 +1693,19 @@ class NCH_BaseHUD : BaseStatusBar
 				DrawImage("H_BRFMX3", (0, 75), DI_ITEM_CENTER | NCHC_DI_SCREEN_CENTER_TOP);
 
 				string barfg;
+				string barol;
 				name valcolor;
 
 				if(t.bFriendly)
 				{
 					barfg = "H_BRFLG3";
+					barol = "H_BROLG3";
 					valcolor = 'NCHGreen';
 				}
 				else
 				{
 					barfg = "H_BRFLP3";
+					barol = "H_BROLP3";
 					valcolor = 'NCHPink';
 				}
 
@@ -1724,7 +1727,7 @@ class NCH_BaseHUD : BaseStatusBar
 
 				if (armor && (armor.Amount > 0))
 				{
-					NCHF_DrawBar("H_BROLX3", "TNT1A0", armor.Amount, armor.ActualSaveAmount, (0, 75), 0, SHADER_HORZ, DI_ITEM_CENTER | NCHC_DI_SCREEN_CENTER_TOP);
+					NCHF_DrawBar(barol, "TNT1A0", armor.Amount, armor.ActualSaveAmount, (0, 75), 0, SHADER_HORZ, DI_ITEM_CENTER | NCHC_DI_SCREEN_CENTER_TOP);
 				}
 			}
 		}

@@ -69,7 +69,13 @@ GRAPHIC H_BRFLY2, 129, 8 { Patch H_BRFLY1, 0, 0 Patch H_BRFLY1, 102, 0 } // Yell
 GRAPHIC H_BRFLR2, 129, 8 { Patch H_BRFLR1, 0, 0 Patch H_BRFLR1, 102, 0 } // Red
 GRAPHIC H_BRFLF2, 129, 8 { Patch H_BRFLF1, 0, 0 Patch H_BRFLF1, 102, 0 } // Fiery
 //GRAPHIC H_BRFLP2, 129, 8 { Patch H_BRFLP1, 0, 0 Patch H_BRFLP1, 102, 0 } // Pink
-//GRAPHIC H_BROLX2, 129, 8 { Patch H_BROLX1, 0, 0 Patch H_BROLX1, 102, 0 } // Overlay
+
+// Overlay ------------------------------------------------------------------------------
+
+GRAPHIC H_BROLG2, 129, 8 { Patch H_BROLG1, 0, 0 Patch H_BROLG1, 102, 0 } // Green
+GRAPHIC H_BROLR2, 129, 8 { Patch H_BROLR1, 0, 0 Patch H_BROLR1, 102, 0 } // Red
+GRAPHIC H_BROLF2, 129, 8 { Patch H_BROLF1, 0, 0 Patch H_BROLF1, 102, 0 } // Fiery
+//GRAPHIC H_BROLP2, 129, 8 { Patch H_BROLP1, 0, 0 Patch H_BROLP1, 102, 0 } // Pink
 
 // ------------------------------------------------------------------------------------------------
 //
@@ -87,9 +93,15 @@ GRAPHIC H_BRBGB3, 157, 8 { Patch H_BRBGB1, 0, 0 Patch H_BRBGB1, 102, 0 }
 GRAPHIC H_BRFLG3, 157, 8 { Patch H_BRFLG1, 0, 0 Patch H_BRFLG1, 102, 0 } // Green
 //GRAPHIC H_BRFLY3, 157, 8 { Patch H_BRFLY1, 0, 0 Patch H_BRFLY1, 102, 0 } // Yellow
 GRAPHIC H_BRFLR3, 157, 8 { Patch H_BRFLR1, 0, 0 Patch H_BRFLR1, 102, 0 } // Red
-GRAPHIC H_BRFLF3, 157, 8 { Patch H_BRFLF1, 0, 0 Patch H_BRFLF1, 102, 0 } // Fiery
+//GRAPHIC H_BRFLF3, 157, 8 { Patch H_BRFLF1, 0, 0 Patch H_BRFLF1, 102, 0 } // Fiery
 GRAPHIC H_BRFLP3, 157, 8 { Patch H_BRFLP1, 0, 0 Patch H_BRFLP1, 102, 0 } // Pink
-GRAPHIC H_BROLX3, 157, 8 { Patch H_BROLX1, 0, 0 Patch H_BROLX1, 102, 0 } // Overlay
+
+// Overlay ------------------------------------------------------------------------------
+
+GRAPHIC H_BROLG3, 157, 8 { Patch H_BROLG1, 0, 0 Patch H_BROLG1, 102, 0 } // Green
+//GRAPHIC H_BROLR3, 157, 8 { Patch H_BROLR1, 0, 0 Patch H_BROLR1, 102, 0 } // Red
+//GRAPHIC H_BROLF3, 157, 8 { Patch H_BROLF1, 0, 0 Patch H_BROLF1, 102, 0 } // Fiery
+GRAPHIC H_BROLP3, 157, 8 { Patch H_BROLP1, 0, 0 Patch H_BROLP1, 102, 0 } // Pink
 
 // ------------------------------------------------------------------------------------------------
 //
