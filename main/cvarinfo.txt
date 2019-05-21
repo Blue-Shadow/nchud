@@ -26,5 +26,5 @@ user int nchud_airlowstate = 35;
 user int nchud_monsterhpbar;
 user bool nchud_monsterhpbar_genname;
 user bool nchud_monsterhpbar_friend;
-user bool nchud_monsterhpbar_spawnhp;
+user int nchud_monsterhpbar_hpcounter = 1;
 user int nchud_monsterhpbar_threshold;

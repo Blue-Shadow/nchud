@@ -31,6 +31,13 @@ OptionValue "NCH_MonsterHPBarDrawModes"
 	2, "Always"
 }
 
+OptionValue "NCH_MonsterHPBarHPCounterDrawModes"
+{
+	0, "Off"
+	1, "Health only"
+	2, "Health and spawn health"
+}
+
 OptionMenu "NCHUD"
 {
 	Title "NC HUD Options"
@@ -64,6 +71,6 @@ OptionMenu "NCHUD"
 	Option "Draw mode", "nchud_monsterhpbar", "NCH_MonsterHPBarDrawModes"
 	Option "Name is generic?", "nchud_monsterhpbar_genname", "YesNo", "nchud_monsterhpbar"
 	Option "Include friendlies?", "nchud_monsterhpbar_friend", "YesNo", "nchud_monsterhpbar"
-	Option "Show spawn health?", "nchud_monsterhpbar_spawnhp", "YesNo", "nchud_monsterhpbar"
+	Option "Health counter", "nchud_monsterhpbar_hpcounter", "NCH_MonsterHPBarHPCounterDrawModes", "nchud_monsterhpbar"
 	TextField "Spawn health threshold", "nchud_monsterhpbar_threshold", "nchud_monsterhpbar"
 }

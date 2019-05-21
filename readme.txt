@@ -208,12 +208,13 @@
       Controls whether friendly monsters should display a health bar or not. Setting this to
       "Yes" (1), displays it, while setting it to "No" (0), does not.
 
-    - Show spawn health?
-      CVAR: nchud_monsterhpbar_spawnhp
-      Default: No (0)
+    - Health counter
+      CVAR: nchud_monsterhpbar_hpcounter
+      Default: Health only (1)
 
-      Controls the display of the spawn health. Setting this to "Yes" (1), displays it, while
-      setting it to "No" (0), does not.
+      Controls the display of the health counter. Setting this to "Health only" (1), displays it, while
+      setting it to "Health and spawn health" (2), displays it along with the spawn health counter.
+      Set it to "Off" (0) to hide the counter entirely.
 
     - Spawn health threshold
       CVAR: nchud_monsterhpbar_threshold

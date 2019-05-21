@@ -1687,9 +1687,9 @@ class NCH_BaseHUD : BaseStatusBar
 				//
 				// -------------------------------------------------------------------------------------------------
 
-				bool monsterhpbar_spawnhp = NCHF_GetCVar('nchud_monsterhpbar_spawnhp');
+				int monsterhpbar_hpcounter = NCHF_GetCVar('nchud_monsterhpbar_hpcounter');
 
-				DrawImage(monsterhpbar_spawnhp ? "H_BGMHP2" : "H_BGMHP1", (0, 83), DI_ITEM_CENTER | NCHC_DI_SCREEN_CENTER_TOP);
+				DrawImage(monsterhpbar_hpcounter > 1 ? "H_BGMHP2" : monsterhpbar_hpcounter == 1 ? "H_BGMHP1" : "H_BGMHP0", (0, 83), DI_ITEM_CENTER | NCHC_DI_SCREEN_CENTER_TOP);
 				DrawImage("H_BRFMX3", (0, 75), DI_ITEM_CENTER | NCHC_DI_SCREEN_CENTER_TOP);
 
 				string barfg;
@@ -1711,12 +1711,14 @@ class NCH_BaseHUD : BaseStatusBar
 
 				NCHF_DrawBar(barfg, "H_BRBGB3", monsterhp, monsterspawnhp, (0, 75), 0, SHADER_HORZ, DI_ITEM_CENTER | NCHC_DI_SCREEN_CENTER_TOP);
 
-				if(!monsterhpbar_spawnhp)
+				if (monsterhpbar_hpcounter == 1)
 				{
+					// Health only.
 					NCHF_DrawString(nch_bfont, FormatNumber(monsterhp, 0, 5), (-2, 85), DI_TEXT_ALIGN_CENTER | NCHC_DI_SCREEN_CENTER_TOP, valcolor);
 				}
-				else
+				else if (monsterhpbar_hpcounter > 1)
 				{
+					// Health and spawn health.
 					NCHF_DrawString(nch_bfont, FormatNumber(monsterhp, 0, 5), (-10, 85), DI_TEXT_ALIGN_RIGHT | NCHC_DI_SCREEN_CENTER_TOP, valcolor);
 					NCHF_DrawString(nch_bfont, "/", (-2, 85), DI_TEXT_ALIGN_CENTER | NCHC_DI_SCREEN_CENTER_TOP);
 					NCHF_DrawString(nch_bfont, FormatNumber(monsterspawnhp, 0, 5), (7, 85), DI_TEXT_ALIGN_LEFT | NCHC_DI_SCREEN_CENTER_TOP, valcolor);
