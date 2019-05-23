@@ -1,97 +1,97 @@
 AddOptionMenu "OptionsMenu"
 {
 	StaticText ""
-	Submenu "NC HUD Options", "NCHUD"
+	Submenu "$NCH_OPTMNU_TITLE", "NCHUD"
 }
 
 OptionValue "NCH_TallyDrawModes"
 {
-	0, "Off"
-	1, "Counters"
-	2, "Counters and %"
+	0, "$OPTVAL_OFF"
+	1, "$NCH_OPTVAL_COUNTERS"
+	2, "$NCH_OPTVAL_COUNTERS_AND_PRC"
 }
 
 OptionValue "NCH_AmmoListDrawModes"
 {
-	0, "Off"
-	1, "Owned weapons only"
-	2, "All"
+	0, "$OPTVAL_OFF"
+	1, "$NCH_OPTVAL_OWNEDWEAPONSONLY"
+	2, "$NCH_OPTVAL_ALL"
 }
 
 OptionValue "NCH_OverMaxBarModes"
 {
-	0, "Over max"
-	1, "Over 100"
+	0, "$NCH_OPTVAL_OVERMAX"
+	1, "$NCH_OPTVAL_OVER100"
 }
 
 OptionValue "NCH_MonsterHPBarDrawModes"
 {
-	0, "Off"
-	1, "On"
-	2, "Always"
+	0, "$OPTVAL_OFF"
+	1, "$OPTVAL_ON"
+	2, "$NCH_OPTVAL_ALWAYS"
 }
 
 OptionValue "NCH_MonsterHPBarHPCounterDrawModes"
 {
-	0, "Off"
-	1, "Health only"
-	2, "Health and spawn health"
+	0, "$OPTVAL_OFF"
+	1, "$NCH_OPTVAL_HPONLY"
+	2, "$NCH_OPTVAL_HP_AND_SPAWNHP"
 }
 
 OptionMenu "NCHUD"
 {
-	Title "NC HUD Options"
-	Submenu "General Options", "NCH_GeneralOptions"
-	Submenu "Ammo List Options", "NCH_AmmoListOptions"
-	Submenu "Overmax Bar Mode Options", "NCH_OvermaxBarModeOptions"
-	Submenu "Bars Low State (%) Options", "NCH_BarsLowStateOptions"
-	Submenu "Monster Health Bar Options", "NCH_MonsterHealthBarOptions"
+	Title "$NCH_OPTMNU_TITLE"
+	Submenu "$NCH_OPTMNU_GENERAL", "NCH_GeneralOptions"
+	Submenu "$NCH_OPTMNU_AMMOLIST", "NCH_AmmoListOptions"
+	Submenu "$NCH_OPTMNU_OVERMAXBARMODE", "NCH_OvermaxBarModeOptions"
+	Submenu "$NCH_OPTMNU_BARSLOWSTATE", "NCH_BarsLowStateOptions"
+	Submenu "$NCH_OPTMNU_MONSHPBAR", "NCH_MonsterHealthBarOptions"
 }
 
 OptionMenu "NCH_GeneralOptions"
 {
-	Title "General Options"
-	Option "Statistics", "nchud_toggletally", "NCH_TallyDrawModes"
-	Option "Received damage", "nchud_toggledamage", "OnOff"
-	Option "Air supply bar", "nchud_toggleair", "OnOff"
-	Option "Active powerups", "nchud_togglepowerups", "OnOff"
+	Title "$NCH_OPTMNU_GENERAL"
+	Option "$NCH_OPTION_STATS", "nchud_toggletally", "NCH_TallyDrawModes"
+	Option "$NCH_OPTION_RECDMG", "nchud_toggledamage", "OnOff"
+	Option "$NCH_OPTION_AIRBAR", "nchud_toggleair", "OnOff"
+	Option "$NCH_OPTION_APOWERUPS", "nchud_togglepowerups", "OnOff"
 }
 
 OptionMenu "NCH_AmmoListOptions"
 {
-	Title "Ammo List Options"
-	Option "Draw mode", "nchud_toggleammo", "NCH_AmmoListDrawModes"
-	Option "Allow list override?", "nchud_allowammolistoverride", "YesNo", "nchud_toggleammo"
+	Title "$NCH_OPTMNU_AMMOLIST"
+	Option "$NCH_OPTION_DRAWMODE", "nchud_toggleammo", "NCH_AmmoListDrawModes"
+	Option "$NCH_OPTION_AMMOLISTOVERRIDE", "nchud_allowammolistoverride", "YesNo", "nchud_toggleammo"
 }
 
 OptionMenu "NCH_OvermaxBarModeOptions"
 {
-	Title "Overmax Bar Mode Options"
-	StaticText "Health", 1
-	Option "Mode", "nchud_hpovermaxbarmode", "NCH_OverMaxBarModes"
-	TextField "Bar maxes out at", "nchud_hpovermaxbarvalue", "nchud_hpovermaxbarmode"
+	Title "$NCH_OPTMNU_OVERMAXBARMODE"
+	StaticText "$NCH_OPTION_HEALTH", 1
+	Option "$NCH_OPTION_MODE", "nchud_hpovermaxbarmode", "NCH_OverMaxBarModes"
+	TextField "$NCH_OPTION_BARMAXOUT", "nchud_hpovermaxbarvalue", "nchud_hpovermaxbarmode"
 	StaticText " "
-	StaticText "Armor", 1
-	Option "Mode", "nchud_arovermaxbarmode", "NCH_OverMaxBarModes"
-	TextField "Bar maxes out at", "nchud_arovermaxbarvalue", "nchud_arovermaxbarmode"
+	StaticText "$NCH_OPTION_ARMOR", 1
+	Option "$NCH_OPTION_MODE", "nchud_arovermaxbarmode", "NCH_OverMaxBarModes"
+	TextField "$NCH_OPTION_BARMAXOUT", "nchud_arovermaxbarvalue", "nchud_arovermaxbarmode"
 }
 
 OptionMenu "NCH_BarsLowStateOptions"
 {
-	Title "Bars Low State (%) Options"
-	Slider "Health", "nchud_hplowstate", 0, 50, 1, 0
-	Slider "Armor", "nchud_arlowstate", 0, 50, 1, 0
-	Slider "Primary ammo", "nchud_am1lowstate", 0, 50, 1, 0
-	Slider "Secondary ammo", "nchud_am2lowstate", 0, 50, 1, 0
-	Slider "Air supply", "nchud_airlowstate", 0, 50, 1, 0
+	Title "$NCH_OPTMNU_BARSLOWSTATE"
+	Slider "$NCH_OPTION_HEALTH", "nchud_hplowstate", 0, 50, 1, 0
+	Slider "$NCH_OPTION_ARMOR", "nchud_arlowstate", 0, 50, 1, 0
+	Slider "$NCH_OPTION_AMMO1", "nchud_am1lowstate", 0, 50, 1, 0
+	Slider "$NCH_OPTION_AMMO2", "nchud_am2lowstate", 0, 50, 1, 0
+	Slider "$NCH_OPTION_AIR", "nchud_airlowstate", 0, 50, 1, 0
 }
 
 OptionMenu "NCH_MonsterHealthBarOptions"
 {
-	Title "Monster Health Bar Options"
-	Option "Draw mode", "nchud_monsterhpbar", "NCH_MonsterHPBarDrawModes"
-	Option "Name is generic?", "nchud_monsterhpbar_genname", "YesNo", "nchud_monsterhpbar"
-	Option "Include friendlies?", "nchud_monsterhpbar_friend", "YesNo", "nchud_monsterhpbar"
-	Option "Health counter", "nchud_monsterhpbar_hpcounter", "NCH_MonsterHPBarHPCounterDrawModes", "nchud_monsterhpbar"
-	TextField "Spawn health threshold", "nchud_monsterhpbar_threshold", "nchud_monsterhpbar"
+	Title "$NCH_OPTMNU_MONSHPBAR"
+	Option "$NCH_OPTION_DRAWMODE", "nchud_monsterhpbar", "NCH_MonsterHPBarDrawModes"
+	Option "$NCH_OPTION_NAMEISGENERIC", "nchud_monsterhpbar_genname", "YesNo", "nchud_monsterhpbar"
+	Option "$NCH_OPTION_INCFRIEND", "nchud_monsterhpbar_friend", "YesNo", "nchud_monsterhpbar"
+	Option "$NCH_OPTION_HPCOUNTER", "nchud_monsterhpbar_hpcounter", "NCH_MonsterHPBarHPCounterDrawModes", "nchud_monsterhpbar"
+	TextField "$NCH_OPTION_SPAWNHPTHRESHOLD", "nchud_monsterhpbar_threshold", "nchud_monsterhpbar"
 }
