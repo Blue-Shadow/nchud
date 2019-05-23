@@ -40,7 +40,7 @@
   | changed without having access to the menu. To do that, enter the option's CVAR into the     |
   | console, setting it to the desired value.                                                   |
 
-  ------------------------------------------- Toggles -------------------------------------------
+  --------------------------------------- General Options ---------------------------------------
 
     - Statistics
       CVAR: nchud_toggletally
@@ -71,7 +71,7 @@
       Controls the toggling of the active powerups display. Setting this to "On" (1), toggles the
       display on, while setting it to "Off" (0), toggles it off.
 
-  ------------------------------------------ Ammo List ------------------------------------------
+  -------------------------------------- Ammo List Options --------------------------------------
 
     - Draw mode
       CVAR: nchud_toggleammo
@@ -88,7 +88,9 @@
       Controls whether or not to allow patches to override the list. Setting this to "Yes" (1),
       allows the list to be overridden, while setting it to "No" (0) does not.
 
-  ----------------------------------- Health Overmax Bar Mode -----------------------------------
+  ---------------------------------- Overmax Bar Mode Options -----------------------------------
+
+      --------------------------------------- Health ----------------------------------------
 
     - Mode
       CVAR: nchud_hpovermaxbarmode
@@ -107,7 +109,7 @@
       Setting this to any value which is below or equal to 100 results in using the default value.
       This option is only relevant if the above mode option is set to "Over 100" (1).
 
-  ------------------------------------ Armor Overmax Bar Mode -----------------------------------
+      --------------------------------------- Armor -----------------------------------------
 
     - Mode
       CVAR: nchud_arovermaxbarmode
@@ -126,7 +128,7 @@
       Setting this to any value which is below or equal to 100 results in using the default value.
       This option is only relevant if the above mode option is set to "Over 100" (1).
 
-  ------------------------------------- Bars Low State (%) --------------------------------------
+  --------------------------------- Bars Low State (%) Options ----------------------------------
 
     - Health
       CVAR: nchud_hplowstate
@@ -163,7 +165,7 @@
       The low state of the air supply is entered if the air supply, as a percentage, is below the
       set value. Setting this to 0, disables the low state altogether.
 
-  ------------------------------------- Monster Health Bar --------------------------------------
+  --------------------------------- Monster Health Bar Options ----------------------------------
 
     - Draw mode
       CVAR: nchud_monsterhpbar

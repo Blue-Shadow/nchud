@@ -41,33 +41,54 @@ OptionValue "NCH_MonsterHPBarHPCounterDrawModes"
 OptionMenu "NCHUD"
 {
 	Title "NC HUD Options"
-	Indent 220
-	StaticText "Toggles", 1
+	Submenu "General Options", "NCH_GeneralOptions"
+	Submenu "Ammo List Options", "NCH_AmmoListOptions"
+	Submenu "Overmax Bar Mode Options", "NCH_OvermaxBarModeOptions"
+	Submenu "Bars Low State (%) Options", "NCH_BarsLowStateOptions"
+	Submenu "Monster Health Bar Options", "NCH_MonsterHealthBarOptions"
+}
+
+OptionMenu "NCH_GeneralOptions"
+{
+	Title "General Options"
 	Option "Statistics", "nchud_toggletally", "NCH_TallyDrawModes"
 	Option "Received damage", "nchud_toggledamage", "OnOff"
 	Option "Air supply bar", "nchud_toggleair", "OnOff"
 	Option "Active powerups", "nchud_togglepowerups", "OnOff"
-	StaticText " "
-	StaticText "Ammo List", 1
+}
+
+OptionMenu "NCH_AmmoListOptions"
+{
+	Title "Ammo List Options"
 	Option "Draw mode", "nchud_toggleammo", "NCH_AmmoListDrawModes"
 	Option "Allow list override?", "nchud_allowammolistoverride", "YesNo", "nchud_toggleammo"
-	StaticText " "
-	StaticText "Health Overmax Bar Mode", 1
+}
+
+OptionMenu "NCH_OvermaxBarModeOptions"
+{
+	Title "Overmax Bar Mode Options"
+	StaticText "Health", 1
 	Option "Mode", "nchud_hpovermaxbarmode", "NCH_OverMaxBarModes"
 	TextField "Bar maxes out at", "nchud_hpovermaxbarvalue", "nchud_hpovermaxbarmode"
 	StaticText " "
-	StaticText "Armor Overmax Bar Mode", 1
+	StaticText "Armor", 1
 	Option "Mode", "nchud_arovermaxbarmode", "NCH_OverMaxBarModes"
 	TextField "Bar maxes out at", "nchud_arovermaxbarvalue", "nchud_arovermaxbarmode"
-	StaticText " "
-	StaticText "Bars Low State (%)", 1
+}
+
+OptionMenu "NCH_BarsLowStateOptions"
+{
+	Title "Bars Low State (%) Options"
 	Slider "Health", "nchud_hplowstate", 0, 50, 1, 0
 	Slider "Armor", "nchud_arlowstate", 0, 50, 1, 0
 	Slider "Primary ammo", "nchud_am1lowstate", 0, 50, 1, 0
 	Slider "Secondary ammo", "nchud_am2lowstate", 0, 50, 1, 0
 	Slider "Air supply", "nchud_airlowstate", 0, 50, 1, 0
-	StaticText " "
-	StaticText "Monster Health Bar", 1
+}
+
+OptionMenu "NCH_MonsterHealthBarOptions"
+{
+	Title "Monster Health Bar Options"
 	Option "Draw mode", "nchud_monsterhpbar", "NCH_MonsterHPBarDrawModes"
 	Option "Name is generic?", "nchud_monsterhpbar_genname", "YesNo", "nchud_monsterhpbar"
 	Option "Include friendlies?", "nchud_monsterhpbar_friend", "YesNo", "nchud_monsterhpbar"
