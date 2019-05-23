@@ -300,8 +300,10 @@
             int curmonsters = level.killed_monsters;
             int totmonsters = level.total_monsters;
 
-            NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "T", NCHC_STATFORMAT_SINGLE, level.TimeFormatted(), 0, 0, Thinker.Tics2Seconds(level.time) < level.partime);
-            NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, "K", NCHC_STATFORMAT_RATIO, "", curmonsters, totmonsters, curmonsters == totmonsters, totmonsters > 0);
+            NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, StringTable.Localize("$NCH_LABEL_TIME"), NCHC_STATFORMAT_SINGLE,
+                level.TimeFormatted(), 0, 0, Thinker.Tics2Seconds(level.time) < level.partime);
+            NCHF_AddSingleStat(NCHC_STATLABELTYPE_TEXT, StringTable.Localize("$NCH_LABEL_KILLS"), NCHC_STATFORMAT_RATIO,
+                "", curmonsters, totmonsters, curmonsters == totmonsters, totmonsters > 0);
             NCHF_AddSingleStat(NCHC_STATLABELTYPE_ICON, "I_GOLD", NCHC_STATFORMAT_SINGLE, FormatNumber(GetAmount("Gold")));
         }
 
@@ -313,7 +315,8 @@
 
         override void NCHF_AddStats ()
         {
-            NCH_BaseHUD.NCHF_AddStats(); // Tip: you can replace 'NCH_BaseHUD' with 'Super' if your status bar class inherits directly from the base HUD.
+            NCH_BaseHUD.NCHF_AddStats(); // Tip: you can replace 'NCH_BaseHUD' with 'Super' if your
+                                         // status bar class inherits directly from the base HUD.
             NCHF_AddSingleStat(NCHC_STATLABELTYPE_ICON, "I_GOLD", NCHC_STATFORMAT_SINGLE, FormatNumber(GetAmount("Gold")));
         }
 
