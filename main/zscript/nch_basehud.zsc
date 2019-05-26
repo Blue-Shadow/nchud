@@ -119,6 +119,8 @@ class NCH_BaseHUD : BaseStatusBar
 		fnt = "nchbigfont";
 		nch_bfont = HUDFont.Create(fnt);
 
+		NCHF_ResolveHighlightColor();
+
 		string selbox, leftarrow, rightarrow;
 		[selbox, leftarrow, rightarrow] = NCHF_GetInventoryBarGFX();
 		nch_diparms = InventoryBarState.Create(nch_bfont, boxgfx : "H_INVBOX", selgfx : selbox, leftgfx : leftarrow, rightgfx : rightarrow);
@@ -164,6 +166,29 @@ class NCH_BaseHUD : BaseStatusBar
 			BeginHUD(resW : NCHC_RESW, resH : NCHC_RESH);
 			DrawFullScreenStuff();
 		}
+	}
+
+	// -------------------------------------------------------------------------------------------------
+	//
+	//
+	//
+	// -------------------------------------------------------------------------------------------------
+
+	void NCHF_ResolveHighlightColor ()
+	{
+		switch (nch_HighlightColor)
+		{
+			// Only allow these colors.
+			case 'NCHBlue':
+			case 'NCHGreen':
+			case 'NCHYellow':
+			case 'NCHRed':
+			case 'NCHPink':
+				return;
+		}
+
+		// Default to blue if the specified color isn't one of the above.
+		nch_HighlightColor = 'NCHBlue';
 	}
 
 	// -------------------------------------------------------------------------------------------------
