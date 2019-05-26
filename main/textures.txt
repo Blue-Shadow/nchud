@@ -119,14 +119,37 @@ GRAPHIC H_BROLP3, 157, 8 { Patch H_BROLP1, 0, 0 Patch H_BROLP1, 102, 0 } // Pink
 
 // Arrows ----------------------------------------------------------------
 
+// Blue
 GRAPHIC H_INVAL1, 19, 34 { Patch H_INVAL1, 0, 0 }
-GRAPHIC H_INVAL2, 19, 34 { Patch H_INVAL2, 0, 0 }
 GRAPHIC H_INVAR1, 19, 34 { Patch H_INVAL1, 0, 0 { FlipX } }
+
+// Green
+GRAPHIC H_INVALG, 19, 34 { Patch H_INVALG, 0, 0 }
+GRAPHIC H_INVARG, 19, 34 { Patch H_INVALG, 0, 0 { FlipX } }
+
+// Yellow
+GRAPHIC H_INVALY, 19, 34 { Patch H_INVALY, 0, 0 }
+GRAPHIC H_INVARY, 19, 34 { Patch H_INVALY, 0, 0 { FlipX } }
+
+// Red
+GRAPHIC H_INVALR, 19, 34 { Patch H_INVALR, 0, 0 }
+GRAPHIC H_INVARR, 19, 34 { Patch H_INVALR, 0, 0 { FlipX } }
+
+// Pink
+GRAPHIC H_INVALP, 19, 34 { Patch H_INVALP, 0, 0 }
+GRAPHIC H_INVARP, 19, 34 { Patch H_INVALP, 0, 0 { FlipX } }
+
+// Background
+GRAPHIC H_INVAL2, 19, 34 { Patch H_INVAL2, 0, 0 }
 GRAPHIC H_INVAR2, 19, 34 { Patch H_INVAL2, 0, 0 { FlipX } }
 
 // Items selector --------------------------------------------------------
 
-GRAPHIC H_INVCUR, 74, 74 { Offset -6, -2 Patch H_INVCUR, 0, 0 }
+GRAPHIC H_INVCUR, 74, 74 { Offset -6, -2 Patch H_INVCUR, 0, 0 } // Blue
+GRAPHIC H_INVCRG, 74, 74 { Offset -6, -2 Patch H_INVCRG, 0, 0 } // Green
+GRAPHIC H_INVCRY, 74, 74 { Offset -6, -2 Patch H_INVCRY, 0, 0 } // Yellow
+GRAPHIC H_INVCRR, 74, 74 { Offset -6, -2 Patch H_INVCRR, 0, 0 } // Red
+GRAPHIC H_INVCRP, 74, 74 { Offset -6, -2 Patch H_INVCRP, 0, 0 } // Pink
 
 // ------------------------------------------------------------------------------------------------
 //

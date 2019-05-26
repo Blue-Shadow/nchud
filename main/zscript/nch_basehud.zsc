@@ -86,8 +86,8 @@ class NCH_BaseHUD : BaseStatusBar
 	// inventory icon.
 	bool nch_KeysUseSpawnState;
 
-	// The color used for highlighting. It affects statistics, weapon slots, inventory items and
-	// ammo list.
+	// The color used for highlighting. It affects statistics, weapon slots, inventory items, ammo list
+	// and inventory bar's arrows and selection box.
 	name nch_HighlightColor;
 
 	// -------------------------------------------------------------------------------------------------
@@ -104,13 +104,6 @@ class NCH_BaseHUD : BaseStatusBar
 
 		nch_init = false;
 
-		// Font creation.
-		Font fnt = "nchsmallfont";
-		nch_sfont = HUDFont.Create(fnt);
-		fnt = "nchbigfont";
-		nch_bfont = HUDFont.Create(fnt);
-		nch_diparms = InventoryBarState.Create(nch_bfont, boxgfx : "H_INVBOX", selgfx : "H_INVCUR", leftgfx : "H_INVAL1", rightgfx : "H_INVAR1");
-
 		// HUD setup.
 		nch_DrawMugShot = true;
 		nch_XDeathFace = false;
@@ -119,6 +112,16 @@ class NCH_BaseHUD : BaseStatusBar
 
 		// Call the setup function.
 		NCHF_Setup();
+
+		// Font creation.
+		Font fnt = "nchsmallfont";
+		nch_sfont = HUDFont.Create(fnt);
+		fnt = "nchbigfont";
+		nch_bfont = HUDFont.Create(fnt);
+
+		string selbox, leftarrow, rightarrow;
+		[selbox, leftarrow, rightarrow] = NCHF_GetInventoryBarGFX();
+		nch_diparms = InventoryBarState.Create(nch_bfont, boxgfx : "H_INVBOX", selgfx : selbox, leftgfx : leftarrow, rightgfx : rightarrow);
 	}
 
 	// -------------------------------------------------------------------------------------------------
@@ -161,6 +164,25 @@ class NCH_BaseHUD : BaseStatusBar
 			BeginHUD(resW : NCHC_RESW, resH : NCHC_RESH);
 			DrawFullScreenStuff();
 		}
+	}
+
+	// -------------------------------------------------------------------------------------------------
+	//
+	//
+	//
+	// -------------------------------------------------------------------------------------------------
+
+	string, string, string NCHF_GetInventoryBarGFX ()
+	{
+		switch (nch_HighlightColor)
+		{
+			case 'NCHGreen':  return "H_INVCRG", "H_INVALG", "H_INVARG";
+			case 'NCHYellow': return "H_INVCRY", "H_INVALY", "H_INVARY";
+			case 'NCHRed':    return "H_INVCRR", "H_INVALR", "H_INVARR";
+			case 'NCHPink':   return "H_INVCRP", "H_INVALP", "H_INVARP";
+		}
+
+		return "H_INVCUR", "H_INVAL1", "H_INVAR1";
 	}
 
 	// -------------------------------------------------------------------------------------------------

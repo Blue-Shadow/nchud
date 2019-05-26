@@ -196,10 +196,47 @@ TEXTURE H_BFGR3A
 //
 // ------------------------------------------------------------------------------------------------
 
+// Blue
 TEXTURE H_INVAL1
 	Pic H_INVAL1 Tics 4
 	Pic H_INVAL2 Tics 4
 
 TEXTURE H_INVAR1
 	Pic H_INVAR1 Tics 4
+	Pic H_INVAR2 Tics 4
+
+// Green
+TEXTURE H_INVALG
+	Pic H_INVALG Tics 4
+	Pic H_INVAL2 Tics 4
+
+TEXTURE H_INVARG
+	Pic H_INVARG Tics 4
+	Pic H_INVAR2 Tics 4
+
+// Yellow
+TEXTURE H_INVALY
+	Pic H_INVALY Tics 4
+	Pic H_INVAL2 Tics 4
+
+TEXTURE H_INVARY
+	Pic H_INVARY Tics 4
+	Pic H_INVAR2 Tics 4
+
+// Red
+TEXTURE H_INVALR
+	Pic H_INVALR Tics 4
+	Pic H_INVAL2 Tics 4
+
+TEXTURE H_INVARR
+	Pic H_INVARR Tics 4
+	Pic H_INVAR2 Tics 4
+
+// Pink
+TEXTURE H_INVALP
+	Pic H_INVALP Tics 4
+	Pic H_INVAL2 Tics 4
+
+TEXTURE H_INVARP
+	Pic H_INVARP Tics 4
 	Pic H_INVAR2 Tics 4
