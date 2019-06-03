@@ -1,0 +1,5 @@
+PowerWeaponLevel2      DOOMA0 // Doom Sphere
+PowerGhost             SPECA0 // Spectral Sphere
+PowerLightAmp          VISNA0 // Vision Sphere
+PowerInfiniteAmmo      ANNHA0 // Annihilator Sphere
+PowerDoubleFiringSpeed TIMEA0 // Chrono Sphere

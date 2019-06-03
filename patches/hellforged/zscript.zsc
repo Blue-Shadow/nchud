@@ -1,0 +1,28 @@
+version "3.2.5"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Hell-Forged
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_HellForgedHUD : NCH_DoomStatusBar
+{
+	override void NCHF_Setup ()
+	{
+		// This is temporary, uniil male and female player characters are implemented
+		// into the game.
+		nch_DrawMugShot = false;
+	}
+
+	override string NCHF_GetPowerupTimeAsString (Powerup item)
+	{
+		// These two last for the whole map.
+		if ((item is 'PowerResist') || (item is 'PowerRegenerationHF'))
+		{
+			return NCHC_POWTIME_INFINITE;
+		}
+
+		return Super.NCHF_GetPowerupTimeAsString(item);
+	}
+}
