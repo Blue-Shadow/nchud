@@ -1,6 +1,11 @@
+HammergewehrAmmo    AMMOHUDE
 HandNadeAmmo        AMMOHUDI
 HatchetAmmo         AMMOHUDJ
+LasergewehrAmmo     AMMOHUDG
+MG60Ammo            AMMOHUDM
 NapalmAmmo          AMMOHUDL
+NapalmgewehrAmmo    AMMOHUDL
+UbergewehrAmmo      AMMOHUDH
 PowerBattleSuit     RUN4A0
 PowerIronfeet       HEVSA0
 PowerLightamp       PVISA0
