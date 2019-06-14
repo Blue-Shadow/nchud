@@ -9,6 +9,7 @@ PowerLightAmp PVISA0
 PowerSpeed HASTA0
 PowerInvulnerable PINVA0
 PowerDamage QUADA0
+PowerMetaBerserkTimer PSTRA0 
 
 BlueCard2 STKEYS0
 YellowCard2 STKEYS1
