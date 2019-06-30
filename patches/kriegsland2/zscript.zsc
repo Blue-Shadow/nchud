@@ -1,0 +1,25 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Kriegsland II: Untergrund
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_Kriegsland2HUD : NCH_BaseHUD
+{
+	override void NCHF_Setup ()
+	{
+		nch_DrawMugShot = false;
+	}
+
+	override void NCHF_AddAmmos ()
+	{
+		NCHF_AddSingleAmmo("K2AmmoCL1");
+		NCHF_AddSingleAmmo("K2AmmoMG1");
+		NCHF_AddSingleAmmo("K2AmmoHV1");
+		NCHF_AddSingleAmmo("K2AmmoSH1");
+		NCHF_AddSingleAmmo("K2AmmoMN1");
+		NCHF_AddSingleAmmo("K2AmmoGR1");
+	}
+}
