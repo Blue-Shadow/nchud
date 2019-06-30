@@ -1,0 +1,11 @@
+K2AmmoCL1		K2CLA0
+K2AmmoMG1		K2MGA0
+K2AmmoHV1		K2HVA0
+K2AmmoSH1		K2SHA0
+K2AmmoGR1		K2G1A0
+K2AmmoMN1		WPLMA0
+
+PowerInvulnerable		NZGDA0
+PowerIronFeet		NZRDA0
+PowerLightAmp		TNT1A0
+PowerSpeed		TNT1A0
