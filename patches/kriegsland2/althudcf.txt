@@ -9,3 +9,4 @@ PowerInvulnerable		NZGDA0
 PowerIronFeet		NZRDA0
 PowerLightAmp		TNT1A0
 PowerSpeed		TNT1A0
+PowerFlight   JETTA0
