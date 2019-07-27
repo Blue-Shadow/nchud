@@ -1,0 +1,25 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Naku Naru
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_NakuNaruHUD : NCH_BaseHUD
+{
+	override void NCHF_Setup ()
+	{
+		nch_DrawMugShot = false;
+	}
+
+	override void NCHF_AddAmmos ()
+	{
+		NCHF_AddSingleAmmo("Ammo44");
+		NCHF_AddSingleAmmo("shells12gauge");
+		NCHF_AddSingleAmmo("Ammo9mm");
+		NCHF_AddSingleAmmo("Ammo84mm");
+		NCHF_AddSingleAmmo("Ammo77");
+		NCHF_AddSingleAmmo("TotalSkulls");
+	}
+}
