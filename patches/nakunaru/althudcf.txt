@@ -1,0 +1,11 @@
+Ammo44		3577A0
+shells12gauge		SHELA0
+Ammo9mm		9MMIA0
+Ammo84mm		40MMA0
+Ammo77		A762A0
+TotalSkulls		SKRLA0
+
+PowerDamage		TNT1A0
+PowerBloodLustDamage		BLSTA0
+PowerDrain		TNT1A0
+PowerSpeed		TNT1A0
