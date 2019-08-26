@@ -40,7 +40,7 @@ OptionValue "NCH_MonsterHPBarHPCounterDrawModes"
 
 OptionValue "NCH_BackgroundsColors"
 {
-	-1, "$C_DEFAULT"
+	-1, "$OPTVAL_DEFAULT"
 	 0, "$C_BLACK"
 	 1, "$C_BLUE"
 	 2, "$C_GRAY"
@@ -52,7 +52,7 @@ OptionValue "NCH_BackgroundsColors"
 
 OptionValue "NCH_HighlightColors"
 {
-	-1, "$C_DEFAULT"
+	-1, "$OPTVAL_DEFAULT"
 	 0, "$C_BLUE"
 	 1, "$C_GREEN"
 	 2, "$NCH_OPTVAL_C_PINK"
