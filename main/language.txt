@@ -38,12 +38,14 @@ NCH_OPTVAL_OVER100 = "Over 100";
 NCH_OPTVAL_ALWAYS = "Always";
 NCH_OPTVAL_HPONLY = "Health only";
 NCH_OPTVAL_HP_AND_SPAWNHP = "Health and spawn health";
+NCH_OPTVAL_C_PINK = "Pink";
 
 NCH_OPTMNU_GENERAL = "General Options";
 NCH_OPTMNU_AMMOLIST = "Ammo List Options";
 NCH_OPTMNU_OVERMAXBARMODE = "Overmax Bar Mode Options";
 NCH_OPTMNU_BARSLOWSTATE = "Bars Low State (%) Options";
 NCH_OPTMNU_MONSHPBAR = "Monster Health Bar Options";
+NCH_OPTMNU_COLOR = "Color Options";
 
 NCH_OPTION_STATS = "Statistics";
 NCH_OPTION_RECDMG = "Received damage";
@@ -62,3 +64,4 @@ NCH_OPTION_NAMEISGENERIC = "Name is generic?";
 NCH_OPTION_INCFRIEND = "Include friendlies?";
 NCH_OPTION_HPCOUNTER = "Health counter";
 NCH_OPTION_SPAWNHPTHRESHOLD = "Spawn health threshold";
+NCH_OPTION_BGCOLOR = "Backgrounds color";

@@ -38,6 +38,18 @@ OptionValue "NCH_MonsterHPBarHPCounterDrawModes"
 	2, "$NCH_OPTVAL_HP_AND_SPAWNHP"
 }
 
+OptionValue "NCH_BackgroundsColors"
+{
+	-1, "$C_DEFAULT"
+	 0, "$C_BLACK"
+	 1, "$C_BLUE"
+	 2, "$C_GRAY"
+	 3, "$C_GREEN"
+	 4, "$NCH_OPTVAL_C_PINK"
+	 5, "$C_RED"
+	 6, "$C_YELLOW"
+}
+
 OptionMenu "NCHUD"
 {
 	Title "$NCH_OPTMNU_TITLE"
@@ -46,6 +58,7 @@ OptionMenu "NCHUD"
 	Submenu "$NCH_OPTMNU_OVERMAXBARMODE", "NCH_OvermaxBarModeOptions"
 	Submenu "$NCH_OPTMNU_BARSLOWSTATE", "NCH_BarsLowStateOptions"
 	Submenu "$NCH_OPTMNU_MONSHPBAR", "NCH_MonsterHealthBarOptions"
+	Submenu "$NCH_OPTMNU_COLOR", "NCH_ColorOptions"
 }
 
 OptionMenu "NCH_GeneralOptions"
@@ -94,4 +107,10 @@ OptionMenu "NCH_MonsterHealthBarOptions"
 	Option "$NCH_OPTION_INCFRIEND", "nchud_monsterhpbar_friend", "YesNo", "nchud_monsterhpbar"
 	Option "$NCH_OPTION_HPCOUNTER", "nchud_monsterhpbar_hpcounter", "NCH_MonsterHPBarHPCounterDrawModes", "nchud_monsterhpbar"
 	TextField "$NCH_OPTION_SPAWNHPTHRESHOLD", "nchud_monsterhpbar_threshold", "nchud_monsterhpbar"
+}
+
+OptionMenu "NCH_ColorOptions"
+{
+	Title "$NCH_OPTMNU_COLOR"
+	Option "$NCH_OPTION_BGCOLOR", "nchud_bgcolor", "NCH_BackgroundsColors"
 }

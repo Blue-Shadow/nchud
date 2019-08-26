@@ -28,3 +28,5 @@ user bool nchud_monsterhpbar_genname;
 user bool nchud_monsterhpbar_friend;
 user int nchud_monsterhpbar_hpcounter = 1;
 user int nchud_monsterhpbar_threshold;
+
+user int nchud_bgcolor = -1;

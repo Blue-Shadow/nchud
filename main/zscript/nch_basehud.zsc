@@ -63,6 +63,7 @@ class NCH_BaseHUD : BaseStatusBar
 	int nch_toggleammo;
 	HUDFont nch_sfont, nch_bfont;
 	InventoryBarState nch_diparms;
+	string nch_invbox;
 
 	// Used to store the stats items.
 	Array<NCH_StatItem> nch_statslist;
@@ -86,6 +87,9 @@ class NCH_BaseHUD : BaseStatusBar
 	// inventory icon.
 	bool nch_KeysUseSpawnState;
 
+	// The color used for the background graphics.
+	name nch_BackgroundColor;
+
 	// The color used for highlighting. It affects statistics, weapon slots, inventory items, ammo list
 	// and inventory bar's arrows and selection box.
 	name nch_HighlightColor;
@@ -108,6 +112,7 @@ class NCH_BaseHUD : BaseStatusBar
 		nch_DrawMugShot = true;
 		nch_XDeathFace = false;
 		nch_KeysUseSpawnState = false;
+		nch_BackgroundColor = 'blue';
 		nch_HighlightColor = 'NCHBlue';
 
 		// Call the setup function.
@@ -119,11 +124,17 @@ class NCH_BaseHUD : BaseStatusBar
 		fnt = "nchbigfont";
 		nch_bfont = HUDFont.Create(fnt);
 
+		NCHF_ResolveBackgroundColor();
 		NCHF_ResolveHighlightColor();
 
+		nch_invbox = "H_INVBOX";
 		string selbox, leftarrow, rightarrow;
 		[selbox, leftarrow, rightarrow] = NCHF_GetInventoryBarGFX();
-		nch_diparms = InventoryBarState.Create(nch_bfont, boxgfx : "H_INVBOX", selgfx : selbox, leftgfx : leftarrow, rightgfx : rightarrow);
+
+		// Note: the inventory box graphic passed here is only used for data setup. What graphic that
+		// is drawn in the end is determined by the NCHF_DrawInventoryBar function.
+		nch_diparms = InventoryBarState.Create(nch_bfont, boxgfx : String.Format("graphics/backgrounds/blue/\%s.png", nch_invbox),
+			selgfx : selbox, leftgfx : leftarrow, rightgfx : rightarrow);
 	}
 
 	// -------------------------------------------------------------------------------------------------
@@ -166,6 +177,56 @@ class NCH_BaseHUD : BaseStatusBar
 			BeginHUD(resW : NCHC_RESW, resH : NCHC_RESH);
 			DrawFullScreenStuff();
 		}
+	}
+
+	// -------------------------------------------------------------------------------------------------
+	//
+	//
+	//
+	// -------------------------------------------------------------------------------------------------
+
+	void NCHF_ResolveBackgroundColor ()
+	{
+		switch (nch_BackgroundColor)
+		{
+			// Only allow these colors.
+			case 'black':
+			case 'gray':
+			case 'green':
+			case 'pink':
+			case 'red':
+			case 'yellow':
+				return;
+		}
+
+		// Default to blue if the specified color isn't one of the above.
+		nch_BackgroundColor = 'blue';
+	}
+
+	// -------------------------------------------------------------------------------------------------
+	//
+	//
+	//
+	// -------------------------------------------------------------------------------------------------
+
+	string NCHF_GetBackgroundGFX (string lumpname)
+	{
+		int bgcolor = NCHF_GetCVar('nchud_bgcolor');
+		string col;
+
+		switch (bgcolor)
+		{
+			default: col = nch_BackgroundColor; break;
+			case 0:  col = "black";  break; //  8  8  8
+			case 1:  col = "blue";   break; //  0 32 48
+			case 2:  col = "gray";   break; // 18 24 24
+			case 3:  col = "green";  break; //  0 36  0
+			case 4:  col = "pink";   break; // 48  0 32
+			case 5:  col = "red";    break; // 48  0  0
+			case 6:  col = "yellow"; break; // 36 32  0
+		}
+
+		return String.Format("graphics/backgrounds/\%s/\%s.png", col, lumpname);
 	}
 
 	// -------------------------------------------------------------------------------------------------
@@ -483,13 +544,13 @@ class NCH_BaseHUD : BaseStatusBar
 			[cx, cy, cw, ch] = Screen.GetClipRect();
 
 			SetClipRect(-halflabelwidth, ypos - 12, labelwidth, 24, flags);
-			DrawImage("H_BGMNM", (0, ypos), flags | DI_ITEM_CENTER);
+			DrawImage(NCHF_GetBackgroundGFX("H_BGMNM"), (0, ypos), flags | DI_ITEM_CENTER);
 
 			// Restore the previous clipping rectangle.
 			Screen.SetClipRect(cx, cy, cw, ch);
 
-			DrawImage("H_BGMNL", (-halflabelwidth, ypos - 12), flags | DI_ITEM_RIGHT_TOP);
-			DrawImage("H_BGMNR", (halflabelwidth + (labelwidth & 1), ypos - 12), flags | DI_ITEM_LEFT_TOP);
+			DrawImage(NCHF_GetBackgroundGFX("H_BGMNL"), (-halflabelwidth, ypos - 12), flags | DI_ITEM_RIGHT_TOP);
+			DrawImage(NCHF_GetBackgroundGFX("H_BGMNR"), (halflabelwidth + (labelwidth & 1), ypos - 12), flags | DI_ITEM_LEFT_TOP);
 			NCHF_DrawString(nch_sfont, label, (-1, ypos - 4), flags | DI_TEXT_ALIGN_CENTER);
 		}
 	}
@@ -650,7 +711,7 @@ class NCH_BaseHUD : BaseStatusBar
 		// First draw all the boxes
 		for(int i = 0; i < numfields; i++)
 		{
-			DrawTexture(parms.box, position + ((boxsize.X + 3) * i, 0), flags | DI_ITEM_LEFT_TOP, bgalpha);
+			DrawImage(NCHF_GetBackgroundGFX(nch_invbox), position + ((boxsize.X + 3) * i, 0), flags | DI_ITEM_LEFT_TOP, bgalpha);
 		}
 		
 		// Now the items and the rest.
@@ -739,7 +800,7 @@ class NCH_BaseHUD : BaseStatusBar
 			"H_BGLVS4", "H_BGLVS5", "H_BGLVS6"
 		};
 
-		return tallybg[row * (tallybg.Size() / 2) + col];
+		return NCHF_GetBackgroundGFX(tallybg[row * (tallybg.Size() / 2) + col]);
 	}
 
 	// -------------------------------------------------------------------------------------------------
@@ -750,7 +811,7 @@ class NCH_BaseHUD : BaseStatusBar
 
 	virtual void NCHF_DrawKeys ()
 	{
-		DrawImage("H_BGKEYS", (5, -31), DI_ITEM_LEFT_TOP); // Background.
+		DrawImage(NCHF_GetBackgroundGFX("H_BGKEYS"), (5, -31), DI_ITEM_LEFT_TOP); // Background.
 
 		textureid icon;
 		vector2 size;
@@ -811,7 +872,7 @@ class NCH_BaseHUD : BaseStatusBar
 
 	virtual void NCHF_DrawWeaponSlots ()
 	{
-		DrawImage("H_BGWSLT", (-5, -31), DI_ITEM_RIGHT_TOP);
+		DrawImage(NCHF_GetBackgroundGFX("H_BGWSLT"), (-5, -31), DI_ITEM_RIGHT_TOP);
 
 		bool found = false;
 		int slot = 0;
@@ -885,7 +946,7 @@ class NCH_BaseHUD : BaseStatusBar
 
 		// Background ----------------------------------------------------------------------------
 
-		DrawImage("H_BGLFT2", (5, -108), DI_ITEM_LEFT_TOP);
+		DrawImage(NCHF_GetBackgroundGFX("H_BGLFT2"), (5, -108), DI_ITEM_LEFT_TOP);
 
 		// Mugshot -------------------------------------------------------------------------------
 
@@ -1162,16 +1223,16 @@ class NCH_BaseHUD : BaseStatusBar
 		{
 			if(wpn_ammotype1 || wpn_ammotype2)
 			{
-				DrawImage("H_BGRIT", rightbgpos, DI_ITEM_RIGHT_TOP);
+				DrawImage(NCHF_GetBackgroundGFX("H_BGRIT"), rightbgpos, DI_ITEM_RIGHT_TOP);
 			}
 			else
 			{
-				DrawImage("H_BGRIT3", rightbgpos, DI_ITEM_RIGHT_TOP);
+				DrawImage(NCHF_GetBackgroundGFX("H_BGRIT3"), rightbgpos, DI_ITEM_RIGHT_TOP);
 			}
 		}
 		else if(wpn_ammotype1 || wpn_ammotype2)
 		{
-			DrawImage("H_BGRIT2", rightbgpos, DI_ITEM_RIGHT_TOP);
+			DrawImage(NCHF_GetBackgroundGFX("H_BGRIT2"), rightbgpos, DI_ITEM_RIGHT_TOP);
 		}
 
 		// Selected inventory --------------------------------------------------------------------
@@ -1558,7 +1619,7 @@ class NCH_BaseHUD : BaseStatusBar
 				let ammo = nch_ammoslist[i];
 				name valuecolor = (rweap && ((ammo.type == rweap.AmmoType1) || (ammo.type == rweap.AmmoType2))) ? nch_HighlightColor : 'NCHLightGray';
 
-				DrawImage(bg, bgpos, DI_ITEM_RIGHT_TOP);
+				DrawImage(NCHF_GetBackgroundGFX(bg), bgpos, DI_ITEM_RIGHT_TOP);
 				DrawTexture(ammo.icon, iconpos, DI_ITEM_CENTER, box : (18, 18));
 				NCHF_DrawString(nch_sfont, FormatNumber(ammo.amount, 0, 4), curpntspos, DI_TEXT_ALIGN_RIGHT, valuecolor);
 				NCHF_DrawString(nch_sfont, "/", slashpos, DI_TEXT_ALIGN_RIGHT);
@@ -1620,7 +1681,7 @@ class NCH_BaseHUD : BaseStatusBar
 				bool drawptime = (ptime.Length() > 0);
 
 				// Drawing.
-				DrawImage(drawptime ? "H_BGPOW" : "H_BGPOW2", bgpos, DI_ITEM_RIGHT_TOP);
+				DrawImage(drawptime ? NCHF_GetBackgroundGFX("H_BGPOW") : NCHF_GetBackgroundGFX("H_BGPOW2"), bgpos, DI_ITEM_RIGHT_TOP);
 
 				if (!item.IsBlinking())
 				{
@@ -1669,7 +1730,7 @@ class NCH_BaseHUD : BaseStatusBar
 			(CPlayer.air_finished + 1 - level.maptime) < int(level.airsupply * CPlayer.mo.AirCapacity))
 		{
 			NCHF_DrawBarLabel(StringTable.Localize("$NCH_LABEL_AIR"), -99, DI_SCREEN_BOTTOM);
-			DrawImage("H_BGAIR", (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+			DrawImage(NCHF_GetBackgroundGFX("H_BGAIR"), (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
 
 			int curpnts = Max(CPlayer.air_finished - level.maptime, 0);
 			int maxpnts = int(level.airsupply * CPlayer.mo.AirCapacity);
@@ -1736,7 +1797,9 @@ class NCH_BaseHUD : BaseStatusBar
 
 				int monsterhpbar_hpcounter = NCHF_GetCVar('nchud_monsterhpbar_hpcounter');
 
-				DrawImage(monsterhpbar_hpcounter > 1 ? "H_BGMHP2" : monsterhpbar_hpcounter == 1 ? "H_BGMHP1" : "H_BGMHP0", (0, 83), DI_ITEM_CENTER | NCHC_DI_SCREEN_CENTER_TOP);
+				DrawImage(monsterhpbar_hpcounter > 1 ? NCHF_GetBackgroundGFX("H_BGMHP2") :
+					monsterhpbar_hpcounter == 1 ? NCHF_GetBackgroundGFX("H_BGMHP1") :
+					NCHF_GetBackgroundGFX("H_BGMHP0"), (0, 83), DI_ITEM_CENTER | NCHC_DI_SCREEN_CENTER_TOP);
 				DrawImage("H_BRFMX3", (0, 75), DI_ITEM_CENTER | NCHC_DI_SCREEN_CENTER_TOP);
 
 				string barfg;
@@ -1801,7 +1864,7 @@ class NCH_BaseHUD : BaseStatusBar
 				if (damageReceived > 0)
 				{
 					vector2 pos = (Screen.GetWidth() * 0.1, Screen.GetHeight() * 0.2);
-					DrawImage("H_BGDMG", pos, DI_ITEM_LEFT_TOP);
+					DrawImage(NCHF_GetBackgroundGFX("H_BGDMG"), pos, DI_ITEM_LEFT_TOP);
 					NCHF_DrawString(nch_bfont, FormatNumber(damageReceived, 0, 5), (pos.x + 32, pos.y + 8), DI_TEXT_ALIGN_CENTER, 'NCHPink');
 					NCHF_DrawString(nch_sfont, StringTable.Localize("$NCH_LABEL_DAMAGE"), (pos.x + 32, pos.y + 32), DI_TEXT_ALIGN_CENTER);
 				}

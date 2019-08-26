@@ -4,7 +4,13 @@
 //
 // ------------------------------------------------------------------------------------------------
 
-GRAPHIC H_BGMHP0, 179, 45 { Patch H_BGAIR, 0, 0 }
+GRAPHIC "graphics/backgrounds/black/H_BGMHP0.png",  179, 45 { Patch "graphics/backgrounds/black/H_BGAIR.png",  0, 0 } // Black
+GRAPHIC "graphics/backgrounds/blue/H_BGMHP0.png",   179, 45 { Patch "graphics/backgrounds/blue/H_BGAIR.png",   0, 0 } // Blue
+GRAPHIC "graphics/backgrounds/gray/H_BGMHP0.png",   179, 45 { Patch "graphics/backgrounds/gray/H_BGAIR.png",   0, 0 } // Gray
+GRAPHIC "graphics/backgrounds/green/H_BGMHP0.png",  179, 45 { Patch "graphics/backgrounds/green/H_BGAIR.png",  0, 0 } // Green
+GRAPHIC "graphics/backgrounds/pink/H_BGMHP0.png",   179, 45 { Patch "graphics/backgrounds/pink/H_BGAIR.png",   0, 0 } // Pink
+GRAPHIC "graphics/backgrounds/red/H_BGMHP0.png",    179, 45 { Patch "graphics/backgrounds/red/H_BGAIR.png",    0, 0 } // Red
+GRAPHIC "graphics/backgrounds/yellow/H_BGMHP0.png", 179, 45 { Patch "graphics/backgrounds/yellow/H_BGAIR.png", 0, 0 } // Yellow
 
 // ------------------------------------------------------------------------------------------------
 //
@@ -12,7 +18,13 @@ GRAPHIC H_BGMHP0, 179, 45 { Patch H_BGAIR, 0, 0 }
 //
 // ------------------------------------------------------------------------------------------------
 
-GRAPHIC H_BGWSLT, 261, 26 { Patch H_BGKEYS, 0, 0 { FlipX } }
+GRAPHIC "graphics/backgrounds/black/H_BGWSLT.png",  261, 26 { Patch "graphics/backgrounds/black/H_BGKEYS.png",  0, 0 { FlipX } } // Black
+GRAPHIC "graphics/backgrounds/blue/H_BGWSLT.png",   261, 26 { Patch "graphics/backgrounds/blue/H_BGKEYS.png",   0, 0 { FlipX } } // Blue
+GRAPHIC "graphics/backgrounds/gray/H_BGWSLT.png",   261, 26 { Patch "graphics/backgrounds/gray/H_BGKEYS.png",   0, 0 { FlipX } } // Gray
+GRAPHIC "graphics/backgrounds/green/H_BGWSLT.png",  261, 26 { Patch "graphics/backgrounds/green/H_BGKEYS.png",  0, 0 { FlipX } } // Green
+GRAPHIC "graphics/backgrounds/pink/H_BGWSLT.png",   261, 26 { Patch "graphics/backgrounds/pink/H_BGKEYS.png",   0, 0 { FlipX } } // Pink
+GRAPHIC "graphics/backgrounds/red/H_BGWSLT.png",    261, 26 { Patch "graphics/backgrounds/red/H_BGKEYS.png",    0, 0 { FlipX } } // Red
+GRAPHIC "graphics/backgrounds/yellow/H_BGWSLT.png", 261, 26 { Patch "graphics/backgrounds/yellow/H_BGKEYS.png", 0, 0 { FlipX } } // Yellow
 
 // ------------------------------------------------------------------------------------------------
 //
@@ -20,8 +32,23 @@ GRAPHIC H_BGWSLT, 261, 26 { Patch H_BGKEYS, 0, 0 { FlipX } }
 //
 // ------------------------------------------------------------------------------------------------
 
-GRAPHIC H_BGRIT,  261, 74 { Patch H_BGLEFT, 0, 0 { FlipX } }
-GRAPHIC H_BGRIT2, 261, 74 { Patch H_BGLFT2, 0, 0 { FlipX } } // Without inventory
+// With inventory section
+GRAPHIC "graphics/backgrounds/black/H_BGRIT.png",  261, 74 { Patch "graphics/backgrounds/black/H_BGLEFT.png",  0, 0 { FlipX } } // Black
+GRAPHIC "graphics/backgrounds/blue/H_BGRIT.png",   261, 74 { Patch "graphics/backgrounds/blue/H_BGLEFT.png",   0, 0 { FlipX } } // Blue
+GRAPHIC "graphics/backgrounds/gray/H_BGRIT.png",   261, 74 { Patch "graphics/backgrounds/gray/H_BGLEFT.png",   0, 0 { FlipX } } // Gray
+GRAPHIC "graphics/backgrounds/green/H_BGRIT.png",  261, 74 { Patch "graphics/backgrounds/green/H_BGLEFT.png",  0, 0 { FlipX } } // Green
+GRAPHIC "graphics/backgrounds/pink/H_BGRIT.png",   261, 74 { Patch "graphics/backgrounds/pink/H_BGLEFT.png",   0, 0 { FlipX } } // Pink
+GRAPHIC "graphics/backgrounds/red/H_BGRIT.png",    261, 74 { Patch "graphics/backgrounds/red/H_BGLEFT.png",    0, 0 { FlipX } } // Red
+GRAPHIC "graphics/backgrounds/yellow/H_BGRIT.png", 261, 74 { Patch "graphics/backgrounds/yellow/H_BGLEFT.png", 0, 0 { FlipX } } // Yellow
+
+// Without inventory section
+GRAPHIC "graphics/backgrounds/black/H_BGRIT2.png",  261, 74 { Patch "graphics/backgrounds/black/H_BGLFT2.png",  0, 0 { FlipX } } // Black
+GRAPHIC "graphics/backgrounds/blue/H_BGRIT2.png",   261, 74 { Patch "graphics/backgrounds/blue/H_BGLFT2.png",   0, 0 { FlipX } } // Blue
+GRAPHIC "graphics/backgrounds/gray/H_BGRIT2.png",   261, 74 { Patch "graphics/backgrounds/gray/H_BGLFT2.png",   0, 0 { FlipX } } // Gray
+GRAPHIC "graphics/backgrounds/green/H_BGRIT2.png",  261, 74 { Patch "graphics/backgrounds/green/H_BGLFT2.png",  0, 0 { FlipX } } // Green
+GRAPHIC "graphics/backgrounds/pink/H_BGRIT2.png",   261, 74 { Patch "graphics/backgrounds/pink/H_BGLFT2.png",   0, 0 { FlipX } } // Pink
+GRAPHIC "graphics/backgrounds/red/H_BGRIT2.png",    261, 74 { Patch "graphics/backgrounds/red/H_BGLFT2.png",    0, 0 { FlipX } } // Red
+GRAPHIC "graphics/backgrounds/yellow/H_BGRIT2.png", 261, 74 { Patch "graphics/backgrounds/yellow/H_BGLFT2.png", 0, 0 { FlipX } } // Yellow
 
 // ------------------------------------------------------------------------------------------------
 //
@@ -31,15 +58,61 @@ GRAPHIC H_BGRIT2, 261, 74 { Patch H_BGLFT2, 0, 0 { FlipX } } // Without inventor
 
 // Normal ----------------------------------------------------------------
 
-GRAPHIC H_BGLVS1, 117, 22 { Patch H_BGTLY1, 0,   0 } // Top
-GRAPHIC H_BGLVS2, 117, 22 { Patch H_BGTLY1, 0, -23 } // Middle
-GRAPHIC H_BGLVS3, 117, 22 { Patch H_BGTLY1, 0, -46 } // Bottom
+// Top
+GRAPHIC "graphics/backgrounds/black/H_BGLVS1.png",  117, 22 { Patch "graphics/backgrounds/black/H_BGTLY1.png",  0, 0 } // Black
+GRAPHIC "graphics/backgrounds/blue/H_BGLVS1.png",   117, 22 { Patch "graphics/backgrounds/blue/H_BGTLY1.png",   0, 0 } // Blue
+GRAPHIC "graphics/backgrounds/gray/H_BGLVS1.png",   117, 22 { Patch "graphics/backgrounds/gray/H_BGTLY1.png",   0, 0 } // Gray
+GRAPHIC "graphics/backgrounds/green/H_BGLVS1.png",  117, 22 { Patch "graphics/backgrounds/green/H_BGTLY1.png",  0, 0 } // Green
+GRAPHIC "graphics/backgrounds/pink/H_BGLVS1.png",   117, 22 { Patch "graphics/backgrounds/pink/H_BGTLY1.png",   0, 0 } // Pink
+GRAPHIC "graphics/backgrounds/red/H_BGLVS1.png",    117, 22 { Patch "graphics/backgrounds/red/H_BGTLY1.png",    0, 0 } // Red
+GRAPHIC "graphics/backgrounds/yellow/H_BGLVS1.png", 117, 22 { Patch "graphics/backgrounds/yellow/H_BGTLY1.png", 0, 0 } // Yellow
+
+// In-between
+GRAPHIC "graphics/backgrounds/black/H_BGLVS2.png",  117, 22 { Patch "graphics/backgrounds/black/H_BGTLY1.png",  0, -23 } // Black
+GRAPHIC "graphics/backgrounds/blue/H_BGLVS2.png",   117, 22 { Patch "graphics/backgrounds/blue/H_BGTLY1.png",   0, -23 } // Blue
+GRAPHIC "graphics/backgrounds/gray/H_BGLVS2.png",   117, 22 { Patch "graphics/backgrounds/gray/H_BGTLY1.png",   0, -23 } // Gray
+GRAPHIC "graphics/backgrounds/green/H_BGLVS2.png",  117, 22 { Patch "graphics/backgrounds/green/H_BGTLY1.png",  0, -23 } // Green
+GRAPHIC "graphics/backgrounds/pink/H_BGLVS2.png",   117, 22 { Patch "graphics/backgrounds/pink/H_BGTLY1.png",   0, -23 } // Pink
+GRAPHIC "graphics/backgrounds/red/H_BGLVS2.png",    117, 22 { Patch "graphics/backgrounds/red/H_BGTLY1.png",    0, -23 } // Red
+GRAPHIC "graphics/backgrounds/yellow/H_BGLVS2.png", 117, 22 { Patch "graphics/backgrounds/yellow/H_BGTLY1.png", 0, -23 } // Yellow
+
+// Bottom
+GRAPHIC "graphics/backgrounds/black/H_BGLVS3.png",  117, 22 { Patch "graphics/backgrounds/black/H_BGTLY1.png",  0, -46 } // Black
+GRAPHIC "graphics/backgrounds/blue/H_BGLVS3.png",   117, 22 { Patch "graphics/backgrounds/blue/H_BGTLY1.png",   0, -46 } // Blue
+GRAPHIC "graphics/backgrounds/gray/H_BGLVS3.png",   117, 22 { Patch "graphics/backgrounds/gray/H_BGTLY1.png",   0, -46 } // Gray
+GRAPHIC "graphics/backgrounds/green/H_BGLVS3.png",  117, 22 { Patch "graphics/backgrounds/green/H_BGTLY1.png",  0, -46 } // Green
+GRAPHIC "graphics/backgrounds/pink/H_BGLVS3.png",   117, 22 { Patch "graphics/backgrounds/pink/H_BGTLY1.png",   0, -46 } // Pink
+GRAPHIC "graphics/backgrounds/red/H_BGLVS3.png",    117, 22 { Patch "graphics/backgrounds/red/H_BGTLY1.png",    0, -46 } // Red
+GRAPHIC "graphics/backgrounds/yellow/H_BGLVS3.png", 117, 22 { Patch "graphics/backgrounds/yellow/H_BGTLY1.png", 0, -46 } // Yellow
 
 // Extended --------------------------------------------------------------
 
-GRAPHIC H_BGLVS4, 164, 22 { Patch H_BGTLY2, 0,   0 } // Top
-GRAPHIC H_BGLVS5, 164, 22 { Patch H_BGTLY2, 0, -23 } // Middle
-GRAPHIC H_BGLVS6, 164, 22 { Patch H_BGTLY2, 0, -46 } // Bottom
+// Top
+GRAPHIC "graphics/backgrounds/black/H_BGLVS4.png",  164, 22 { Patch "graphics/backgrounds/black/H_BGTLY2.png",  0, 0 } // Black
+GRAPHIC "graphics/backgrounds/blue/H_BGLVS4.png",   164, 22 { Patch "graphics/backgrounds/blue/H_BGTLY2.png",   0, 0 } // Blue
+GRAPHIC "graphics/backgrounds/gray/H_BGLVS4.png",   164, 22 { Patch "graphics/backgrounds/gray/H_BGTLY2.png",   0, 0 } // Gray
+GRAPHIC "graphics/backgrounds/green/H_BGLVS4.png",  164, 22 { Patch "graphics/backgrounds/green/H_BGTLY2.png",  0, 0 } // Green
+GRAPHIC "graphics/backgrounds/pink/H_BGLVS4.png",   164, 22 { Patch "graphics/backgrounds/pink/H_BGTLY2.png",   0, 0 } // Pink
+GRAPHIC "graphics/backgrounds/red/H_BGLVS4.png",    164, 22 { Patch "graphics/backgrounds/red/H_BGTLY2.png",    0, 0 } // Red
+GRAPHIC "graphics/backgrounds/yellow/H_BGLVS4.png", 164, 22 { Patch "graphics/backgrounds/yellow/H_BGTLY2.png", 0, 0 } // Yellow
+
+// In-between
+GRAPHIC "graphics/backgrounds/black/H_BGLVS5.png",  164, 22 { Patch "graphics/backgrounds/black/H_BGTLY2.png",  0, -23 } // Black
+GRAPHIC "graphics/backgrounds/blue/H_BGLVS5.png",   164, 22 { Patch "graphics/backgrounds/blue/H_BGTLY2.png",   0, -23 } // Blue
+GRAPHIC "graphics/backgrounds/gray/H_BGLVS5.png",   164, 22 { Patch "graphics/backgrounds/gray/H_BGTLY2.png",   0, -23 } // Gray
+GRAPHIC "graphics/backgrounds/green/H_BGLVS5.png",  164, 22 { Patch "graphics/backgrounds/green/H_BGTLY2.png",  0, -23 } // Green
+GRAPHIC "graphics/backgrounds/pink/H_BGLVS5.png",   164, 22 { Patch "graphics/backgrounds/pink/H_BGTLY2.png",   0, -23 } // Pink
+GRAPHIC "graphics/backgrounds/red/H_BGLVS5.png",    164, 22 { Patch "graphics/backgrounds/red/H_BGTLY2.png",    0, -23 } // Red
+GRAPHIC "graphics/backgrounds/yellow/H_BGLVS5.png", 164, 22 { Patch "graphics/backgrounds/yellow/H_BGTLY2.png", 0, -23 } // Yellow
+
+// Bottom
+GRAPHIC "graphics/backgrounds/black/H_BGLVS6.png",  164, 22 { Patch "graphics/backgrounds/black/H_BGTLY2.png",  0, -46 } // Black
+GRAPHIC "graphics/backgrounds/blue/H_BGLVS6.png",   164, 22 { Patch "graphics/backgrounds/blue/H_BGTLY2.png",   0, -46 } // Blue
+GRAPHIC "graphics/backgrounds/gray/H_BGLVS6.png",   164, 22 { Patch "graphics/backgrounds/gray/H_BGTLY2.png",   0, -46 } // Gray
+GRAPHIC "graphics/backgrounds/green/H_BGLVS6.png",  164, 22 { Patch "graphics/backgrounds/green/H_BGTLY2.png",  0, -46 } // Green
+GRAPHIC "graphics/backgrounds/pink/H_BGLVS6.png",   164, 22 { Patch "graphics/backgrounds/pink/H_BGTLY2.png",   0, -46 } // Pink
+GRAPHIC "graphics/backgrounds/red/H_BGLVS6.png",    164, 22 { Patch "graphics/backgrounds/red/H_BGTLY2.png",    0, -46 } // Red
+GRAPHIC "graphics/backgrounds/yellow/H_BGLVS6.png", 164, 22 { Patch "graphics/backgrounds/yellow/H_BGTLY2.png", 0, -46 } // Yellow
 
 // ------------------------------------------------------------------------------------------------
 //
@@ -47,9 +120,32 @@ GRAPHIC H_BGLVS6, 164, 22 { Patch H_BGTLY2, 0, -46 } // Bottom
 //
 // ------------------------------------------------------------------------------------------------
 
-GRAPHIC H_BGRAM1, 117, 22 { Patch H_BGTLY1, 0,   0 { FlipX } } // Top
-GRAPHIC H_BGRAM2, 117, 22 { Patch H_BGTLY1, 0, -23 { FlipX } } // Middle
-GRAPHIC H_BGRAM3, 117, 22 { Patch H_BGTLY1, 0, -46 { FlipX } } // Bottom
+// Top
+GRAPHIC "graphics/backgrounds/black/H_BGRAM1.png",  117, 22 { Patch "graphics/backgrounds/black/H_BGTLY1.png",  0, 0 { FlipX } } // Black
+GRAPHIC "graphics/backgrounds/blue/H_BGRAM1.png",   117, 22 { Patch "graphics/backgrounds/blue/H_BGTLY1.png",   0, 0 { FlipX } } // Blue
+GRAPHIC "graphics/backgrounds/gray/H_BGRAM1.png",   117, 22 { Patch "graphics/backgrounds/gray/H_BGTLY1.png",   0, 0 { FlipX } } // Gray
+GRAPHIC "graphics/backgrounds/green/H_BGRAM1.png",  117, 22 { Patch "graphics/backgrounds/green/H_BGTLY1.png",  0, 0 { FlipX } } // Green
+GRAPHIC "graphics/backgrounds/pink/H_BGRAM1.png",   117, 22 { Patch "graphics/backgrounds/pink/H_BGTLY1.png",   0, 0 { FlipX } } // Pink
+GRAPHIC "graphics/backgrounds/red/H_BGRAM1.png",    117, 22 { Patch "graphics/backgrounds/red/H_BGTLY1.png",    0, 0 { FlipX } } // Red
+GRAPHIC "graphics/backgrounds/yellow/H_BGRAM1.png", 117, 22 { Patch "graphics/backgrounds/yellow/H_BGTLY1.png", 0, 0 { FlipX } } // Yellow
+
+// In-between
+GRAPHIC "graphics/backgrounds/black/H_BGRAM2.png",  117, 22 { Patch "graphics/backgrounds/black/H_BGTLY1.png",  0, -23 { FlipX } } // Black
+GRAPHIC "graphics/backgrounds/blue/H_BGRAM2.png",   117, 22 { Patch "graphics/backgrounds/blue/H_BGTLY1.png",   0, -23 { FlipX } } // Blue
+GRAPHIC "graphics/backgrounds/gray/H_BGRAM2.png",   117, 22 { Patch "graphics/backgrounds/gray/H_BGTLY1.png",   0, -23 { FlipX } } // Gray
+GRAPHIC "graphics/backgrounds/green/H_BGRAM2.png",  117, 22 { Patch "graphics/backgrounds/green/H_BGTLY1.png",  0, -23 { FlipX } } // Green
+GRAPHIC "graphics/backgrounds/pink/H_BGRAM2.png",   117, 22 { Patch "graphics/backgrounds/pink/H_BGTLY1.png",   0, -23 { FlipX } } // Pink
+GRAPHIC "graphics/backgrounds/red/H_BGRAM2.png",    117, 22 { Patch "graphics/backgrounds/red/H_BGTLY1.png",    0, -23 { FlipX } } // Red
+GRAPHIC "graphics/backgrounds/yellow/H_BGRAM2.png", 117, 22 { Patch "graphics/backgrounds/yellow/H_BGTLY1.png", 0, -23 { FlipX } } // Yellow
+
+// Bottom
+GRAPHIC "graphics/backgrounds/black/H_BGRAM3.png",  117, 22 { Patch "graphics/backgrounds/black/H_BGTLY1.png",  0, -46 { FlipX } } // Black
+GRAPHIC "graphics/backgrounds/blue/H_BGRAM3.png",   117, 22 { Patch "graphics/backgrounds/blue/H_BGTLY1.png",   0, -46 { FlipX } } // Blue
+GRAPHIC "graphics/backgrounds/gray/H_BGRAM3.png",   117, 22 { Patch "graphics/backgrounds/gray/H_BGTLY1.png",   0, -46 { FlipX } } // Gray
+GRAPHIC "graphics/backgrounds/green/H_BGRAM3.png",  117, 22 { Patch "graphics/backgrounds/green/H_BGTLY1.png",  0, -46 { FlipX } } // Green
+GRAPHIC "graphics/backgrounds/pink/H_BGRAM3.png",   117, 22 { Patch "graphics/backgrounds/pink/H_BGTLY1.png",   0, -46 { FlipX } } // Pink
+GRAPHIC "graphics/backgrounds/red/H_BGRAM3.png",    117, 22 { Patch "graphics/backgrounds/red/H_BGTLY1.png",    0, -46 { FlipX } } // Red
+GRAPHIC "graphics/backgrounds/yellow/H_BGRAM3.png", 117, 22 { Patch "graphics/backgrounds/yellow/H_BGTLY1.png", 0, -46 { FlipX } } // Yellow
 
 // ------------------------------------------------------------------------------------------------
 //
@@ -58,6 +154,14 @@ GRAPHIC H_BGRAM3, 117, 22 { Patch H_BGTLY1, 0, -46 { FlipX } } // Bottom
 // ------------------------------------------------------------------------------------------------
 
 GRAPHIC H_BGMNR, 8, 24 { Patch H_BGMNL, 0, 0 { FlipX } } // Right
+
+GRAPHIC "graphics/backgrounds/black/H_BGMNR.png",  8, 24 { Patch "graphics/backgrounds/black/H_BGMNL.png",  0, 0 { FlipX } } // Black
+GRAPHIC "graphics/backgrounds/blue/H_BGMNR.png",   8, 24 { Patch "graphics/backgrounds/blue/H_BGMNL.png",   0, 0 { FlipX } } // Blue
+GRAPHIC "graphics/backgrounds/gray/H_BGMNR.png",   8, 24 { Patch "graphics/backgrounds/gray/H_BGMNL.png",   0, 0 { FlipX } } // Gray
+GRAPHIC "graphics/backgrounds/green/H_BGMNR.png",  8, 24 { Patch "graphics/backgrounds/green/H_BGMNL.png",  0, 0 { FlipX } } // Green
+GRAPHIC "graphics/backgrounds/pink/H_BGMNR.png",   8, 24 { Patch "graphics/backgrounds/pink/H_BGMNL.png",   0, 0 { FlipX } } // Pink
+GRAPHIC "graphics/backgrounds/red/H_BGMNR.png",    8, 24 { Patch "graphics/backgrounds/red/H_BGMNL.png",    0, 0 { FlipX } } // Red
+GRAPHIC "graphics/backgrounds/yellow/H_BGMNR.png", 8, 24 { Patch "graphics/backgrounds/yellow/H_BGMNL.png", 0, 0 { FlipX } } // Yellow
 
 // ------------------------------------------------------------------------------------------------
 //
