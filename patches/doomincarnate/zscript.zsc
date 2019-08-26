@@ -19,8 +19,11 @@ class NCH_DoomIncarnateHUD : NCH_BaseHUD
 		NCHF_AddSingleAmmo("NapalmAmmo");
 		NCHF_AddSingleAmmo("Battery");
 		NCHF_AddSingleAmmo("FusionCell");
+		NCHF_AddSingleAmmo("EngelAmmo");
 		NCHF_AddSingleAmmo("HammergewehrAmmo");
+		NCHF_AddSingleAmmo("SchmerzAmmo");
 		NCHF_AddSingleAmmo("MG60Ammo");
+		NCHF_AddSingleAmmo("TotenAmmo");
 		NCHF_AddSingleAmmo("NapalmgewehrAmmo");
 		NCHF_AddSingleAmmo("LasergewehrAmmo");
 		NCHF_AddSingleAmmo("UbergewehrAmmo");
