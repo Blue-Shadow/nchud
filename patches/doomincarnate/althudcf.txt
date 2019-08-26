@@ -1,3 +1,4 @@
+EngelAmmo           AMMOHUDF
 HammergewehrAmmo    AMMOHUDE
 HandNadeAmmo        AMMOHUDI
 HatchetAmmo         AMMOHUDJ
@@ -5,6 +6,7 @@ LasergewehrAmmo     AMMOHUDG
 MG60Ammo            AMMOHUDM
 NapalmAmmo          AMMOHUDL
 NapalmgewehrAmmo    AMMOHUDL
+TotenAmmo           AMMOHUDH
 UbergewehrAmmo      AMMOHUDH
 PowerBattleSuit     RUN4A0
 PowerIronfeet       HEVSA0
