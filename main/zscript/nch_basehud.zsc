@@ -113,7 +113,7 @@ class NCH_BaseHUD : BaseStatusBar
 		nch_XDeathFace = false;
 		nch_KeysUseSpawnState = false;
 		nch_BackgroundColor = 'blue';
-		nch_HighlightColor = 'blue';
+		nch_HighlightColor = 'NCHBlue';
 
 		// Call the setup function.
 		NCHF_Setup();
@@ -238,16 +238,16 @@ class NCH_BaseHUD : BaseStatusBar
 		switch (nch_HighlightColor)
 		{
 			// Only allow these colors.
-			case 'blue':
-			case 'green':
-			case 'pink':
-			case 'red':
-			case 'yellow':
+			case 'NCHBlue':
+			case 'NCHGreen':
+			case 'NCHYellow':
+			case 'NCHRed':
+			case 'NCHPink':
 				return;
 		}
 
 		// Default to blue if the specified color isn't one of the above.
-		nch_HighlightColor = 'blue';
+		nch_HighlightColor = 'NCHBlue';
 	}
 
 	// -------------------------------------------------------------------------------------------------
@@ -262,11 +262,11 @@ class NCH_BaseHUD : BaseStatusBar
 
 		switch (hicolor)
 		{
-			case 0: return 'blue';
-			case 1: return 'green';
-			case 2: return 'pink';
-			case 3: return 'red';
-			case 4: return 'yellow';
+			case 0: return 'NCHBlue';
+			case 1: return 'NCHGreen';
+			case 2: return 'NCHPink';
+			case 3: return 'NCHRed';
+			case 4: return 'NCHYellow';
 		}
 
 		return nch_HighlightColor;
@@ -284,10 +284,10 @@ class NCH_BaseHUD : BaseStatusBar
 
 		switch (col)
 		{
-			case 'green':  return "H_INVCRG", "H_INVALG", "H_INVARG";
-			case 'pink':   return "H_INVCRP", "H_INVALP", "H_INVARP";
-			case 'red':    return "H_INVCRR", "H_INVALR", "H_INVARR";
-			case 'yellow': return "H_INVCRY", "H_INVALY", "H_INVARY";
+			case 'NCHGreen':  return "H_INVCRG", "H_INVALG", "H_INVARG";
+			case 'NCHYellow': return "H_INVCRY", "H_INVALY", "H_INVARY";
+			case 'NCHRed':    return "H_INVCRR", "H_INVALR", "H_INVARR";
+			case 'NCHPink':   return "H_INVCRP", "H_INVALP", "H_INVARP";
 		}
 
 		return "H_INVCUR", "H_INVAL1", "H_INVAR1";
