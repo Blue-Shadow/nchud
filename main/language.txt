@@ -65,3 +65,4 @@ NCH_OPTION_INCFRIEND = "Include friendlies?";
 NCH_OPTION_HPCOUNTER = "Health counter";
 NCH_OPTION_SPAWNHPTHRESHOLD = "Spawn health threshold";
 NCH_OPTION_BGCOLOR = "Backgrounds color";
+NCH_OPTION_HICOLOR = "Highlight color";

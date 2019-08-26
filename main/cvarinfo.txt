@@ -30,3 +30,4 @@ user int nchud_monsterhpbar_hpcounter = 1;
 user int nchud_monsterhpbar_threshold;
 
 user int nchud_bgcolor = -1;
+user int nchud_hicolor = -1;

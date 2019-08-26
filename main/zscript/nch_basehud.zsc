@@ -128,13 +128,11 @@ class NCH_BaseHUD : BaseStatusBar
 		NCHF_ResolveHighlightColor();
 
 		nch_invbox = "H_INVBOX";
-		string selbox, leftarrow, rightarrow;
-		[selbox, leftarrow, rightarrow] = NCHF_GetInventoryBarGFX();
 
-		// Note: the inventory box graphic passed here is only used for data setup. What graphic that
-		// is drawn in the end is determined by the NCHF_DrawInventoryBar function.
+		// Note: the graphics passed here are only used for data setup. What graphic that
+		// are drawn in the end are determined by the NCHF_DrawInventoryBar function.
 		nch_diparms = InventoryBarState.Create(nch_bfont, boxgfx : String.Format("graphics/backgrounds/blue/\%s.png", nch_invbox),
-			selgfx : selbox, leftgfx : leftarrow, rightgfx : rightarrow);
+			selgfx : "H_INVCUR", leftgfx : "H_INVAL1", rightgfx : "H_INVAR1");
 	}
 
 	// -------------------------------------------------------------------------------------------------
@@ -258,9 +256,33 @@ class NCH_BaseHUD : BaseStatusBar
 	//
 	// -------------------------------------------------------------------------------------------------
 
+	name NCHF_GetHighlightColor ()
+	{
+		int hicolor = NCHF_GetCVar('nchud_hicolor');
+
+		switch (hicolor)
+		{
+			case 0: return 'NCHBlue';
+			case 1: return 'NCHGreen';
+			case 2: return 'NCHPink';
+			case 3: return 'NCHRed';
+			case 4: return 'NCHYellow';
+		}
+
+		return nch_HighlightColor;
+	}
+
+	// -------------------------------------------------------------------------------------------------
+	//
+	//
+	//
+	// -------------------------------------------------------------------------------------------------
+
 	string, string, string NCHF_GetInventoryBarGFX ()
 	{
-		switch (nch_HighlightColor)
+		name col = NCHF_GetHighlightColor();
+
+		switch (col)
 		{
 			case 'NCHGreen':  return "H_INVCRG", "H_INVALG", "H_INVARG";
 			case 'NCHYellow': return "H_INVCRY", "H_INVALY", "H_INVARY";
@@ -723,6 +745,9 @@ class NCH_BaseHUD : BaseStatusBar
 		Inventory item;
 		let infinv = sv_infiniteinventory;
 
+		string selbox, leftarrow, rightarrow;
+		[selbox, leftarrow, rightarrow] = NCHF_GetInventoryBarGFX();
+
 		for(item = CPlayer.mo.InvFirst; item != NULL && i < numfields; item = item.NextInv())
 		{
 			for(int j = 0; j < 2; j++)
@@ -738,7 +763,7 @@ class NCH_BaseHUD : BaseStatusBar
 							flashAlpha *= itemflashFade;
 						}
 
-						DrawTexture(parms.selector, position + parms.selectofs + ((boxsize.X + 3) * i, 0), flags | DI_ITEM_LEFT_TOP, flashAlpha);
+						DrawImage(selbox, position + parms.selectofs + ((boxsize.X + 3) * i, 0), flags | DI_ITEM_LEFT_TOP, flashAlpha);
 					}
 				}
 				else
@@ -749,7 +774,7 @@ class NCH_BaseHUD : BaseStatusBar
 			
 			if(parms.amountfont != null && (item.Amount > 1 || (infinv && item.Amount > 0) || (flags & DI_ALWAYSSHOWCOUNTERS)))
 			{
-				name fcolor = infinv ? 'NCHFiery' : item.Amount >= item.MaxAmount ? nch_HighlightColor : 'NCHLightGray';
+				name fcolor = infinv ? 'NCHFiery' : item.Amount >= item.MaxAmount ? NCHF_GetHighlightColor() : 'NCHLightGray';
 				DrawString(parms.amountfont, infinv ? "∞" : FormatNumber(item.Amount, 0, 4), textpos + ((boxsize.X + 3) * i, 0), flags | DI_TEXT_ALIGN_RIGHT, Font.FindFontColor(fcolor), parms.itemalpha);
 			}
 
@@ -759,13 +784,13 @@ class NCH_BaseHUD : BaseStatusBar
 		// Is there something to the left?
 		if(CPlayer.mo.FirstInv() != CPlayer.mo.InvFirst)
 		{
-			DrawTexture(parms.left, position + (-parms.arrowoffset.X - 3, parms.arrowoffset.Y), flags | DI_ITEM_RIGHT | DI_ITEM_VCENTER);
+			DrawImage(leftarrow, position + (-parms.arrowoffset.X - 3, parms.arrowoffset.Y), flags | DI_ITEM_RIGHT | DI_ITEM_VCENTER);
 		}
 
 		// Is there something to the right?
 		if(item != NULL)
 		{
-			DrawTexture(parms.right, position + parms.arrowoffset + (width, 0), flags | DI_ITEM_LEFT | DI_ITEM_VCENTER);
+			DrawImage(rightarrow, position + parms.arrowoffset + (width, 0), flags | DI_ITEM_LEFT | DI_ITEM_VCENTER);
 		}
 	}
 
@@ -899,7 +924,7 @@ class NCH_BaseHUD : BaseStatusBar
 
 			if (found && slot == s)
 			{
-				fcolor = nch_HighlightColor;
+				fcolor = NCHF_GetHighlightColor();
 			}
 			else if (CPlayer.HasWeaponsInSlot(s))
 			{
@@ -1246,7 +1271,7 @@ class NCH_BaseHUD : BaseStatusBar
 			if (invsel.Amount > 1 || (infinv && invsel.Amount > 0))
 			{
 				NCHF_DrawString(nch_bfont, infinv ? "∞" : FormatNumber(invsel.Amount, 0, 4), (-14, -54), DI_TEXT_ALIGN_RIGHT,
-					infinv ? 'NCHFiery' : invsel.Amount >= invsel.MaxAmount ? nch_HighlightColor : 'NCHLightGray');
+					infinv ? 'NCHFiery' : invsel.Amount >= invsel.MaxAmount ? NCHF_GetHighlightColor() : 'NCHLightGray');
 			}
 		}
 
@@ -1484,7 +1509,7 @@ class NCH_BaseHUD : BaseStatusBar
 
 				int format = nch_statslist[i].format;
 				bool extendedbg = toggletally == 2 && format == NCHC_STATFORMAT_RATIO;
-				name valcolor = nch_statslist[i].colorize ? nch_HighlightColor : 'NCHLightGray';
+				name valcolor = nch_statslist[i].colorize ? NCHF_GetHighlightColor() : 'NCHLightGray';
 
 				// -------------------------------------------------------------------------------------------------
 				//
@@ -1617,7 +1642,7 @@ class NCH_BaseHUD : BaseStatusBar
 				}
 
 				let ammo = nch_ammoslist[i];
-				name valuecolor = (rweap && ((ammo.type == rweap.AmmoType1) || (ammo.type == rweap.AmmoType2))) ? nch_HighlightColor : 'NCHLightGray';
+				name valuecolor = (rweap && ((ammo.type == rweap.AmmoType1) || (ammo.type == rweap.AmmoType2))) ? NCHF_GetHighlightColor() : 'NCHLightGray';
 
 				DrawImage(NCHF_GetBackgroundGFX(bg), bgpos, DI_ITEM_RIGHT_TOP);
 				DrawTexture(ammo.icon, iconpos, DI_ITEM_CENTER, box : (18, 18));

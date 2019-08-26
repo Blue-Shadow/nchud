@@ -50,6 +50,16 @@ OptionValue "NCH_BackgroundsColors"
 	 6, "$C_YELLOW"
 }
 
+OptionValue "NCH_HighlightColors"
+{
+	-1, "$C_DEFAULT"
+	 0, "$C_BLUE"
+	 1, "$C_GREEN"
+	 2, "$NCH_OPTVAL_C_PINK"
+	 3, "$C_RED"
+	 4, "$C_YELLOW"
+}
+
 OptionMenu "NCHUD"
 {
 	Title "$NCH_OPTMNU_TITLE"
@@ -113,4 +123,5 @@ OptionMenu "NCH_ColorOptions"
 {
 	Title "$NCH_OPTMNU_COLOR"
 	Option "$NCH_OPTION_BGCOLOR", "nchud_bgcolor", "NCH_BackgroundsColors"
+	Option "$NCH_OPTION_HICOLOR", "nchud_hicolor", "NCH_HighlightColors"
 }
