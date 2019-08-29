@@ -166,6 +166,8 @@ class NCH_BaseHUD : BaseStatusBar
 			nch_init = true;
 		}
 
+		NCHF_UpdateElementsColor();
+
 		if(state == HUD_StatusBar)
 		{
 			BeginStatusBar();
@@ -174,7 +176,6 @@ class NCH_BaseHUD : BaseStatusBar
 		else if(state == HUD_Fullscreen)
 		{
 			BeginHUD(resW : NCHC_RESW, resH : NCHC_RESH);
-			NCHF_UpdateElementsColor();
 			DrawFullScreenStuff();
 		}
 	}
@@ -1903,7 +1904,7 @@ class NCH_BaseHUD : BaseStatusBar
 
 	protected void DrawMainBar (double TicFrac)
 	{
-		DrawImage("H_STBRBG", (0, 168), DI_ITEM_OFFSETS);
+		DrawImage(NCHF_GetBackgroundGFX("H_STBRBG"), (0, 168), DI_ITEM_OFFSETS);
 	}
 
 	// -------------------------------------------------------------------------------------------------

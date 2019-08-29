@@ -374,32 +374,3 @@ GRAPHIC H_BFGY3J, 163, 14 { Patch H_BRFMY3, 0, 0 { Style Translucent Alpha 0.42 
 GRAPHIC H_BFGY3K, 163, 14 { Patch H_BRFMY3, 0, 0 { Style Translucent Alpha 0.36 } }
 GRAPHIC H_BFGY3L, 163, 14 { Patch H_BRFMY3, 0, 0 { Style Translucent Alpha 0.3  } }
 GRAPHIC H_BFGY3M, 163, 14 { Patch H_BRFMY3, 0, 0 { Style Translucent Alpha 0.25 } } */
-
-// ------------------------------------------------------------------------------------------------
-//
-//   Normal status bar and window border
-//
-// ------------------------------------------------------------------------------------------------
-
-GRAPHIC H_STBRBG, 320, 32
-{
-	Patch NCHWNBRD,   0, 0
-	Patch NCHWNBRD,  64, 0
-	Patch NCHWNBRD, 128, 0
-	Patch NCHWNBRD, 192, 0
-	Patch NCHWNBRD, 256, 0
-	/* Patch NCHWNBRD, 320, 0
-	Patch NCHWNBRD, 384, 0
-	Patch NCHWNBRD, 448, 0
-	Patch NCHWNBRD, 512, 0
-	Patch NCHWNBRD, 576, 0 */
-}
-
-GRAPHIC NCHBR_TL, 3, 3 { Offset -5, -5 Patch NCHWNBRD, 0, 0 }
-GRAPHIC NCHBR_T,  8, 3 { Offset  0, -5 Patch NCHWNBRD, 0, 0 }
-GRAPHIC NCHBR_TR, 3, 3 { Offset  0, -5 Patch NCHWNBRD, 0, 0 }
-GRAPHIC NCHBR_L,  3, 8 { Offset -5,  0 Patch NCHWNBRD, 0, 0 }
-GRAPHIC NCHBR_R,  3, 8 { Patch NCHWNBRD, 0, 0 }
-GRAPHIC NCHBR_BL, 3, 3 { Offset -5,  0 Patch NCHWNBRD, 0, 0 }
-GRAPHIC NCHBR_B,  8, 3 { Patch NCHWNBRD, 0, 0 }
-GRAPHIC NCHBR_BR, 3, 3 { Patch NCHWNBRD, 0, 0 }
