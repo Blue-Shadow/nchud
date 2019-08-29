@@ -80,16 +80,16 @@ class NCH_ArgentHUD : NCH_BaseHUD
         {
             if(wpn_ammotype1 || wpn_ammotype2)
             {
-                DrawImage("H_BGRIT", rightbgpos, DI_ITEM_RIGHT_TOP);
+                DrawImage(NCHF_GetBackgroundGFX("H_BGRIT"), rightbgpos, DI_ITEM_RIGHT_TOP);
             }
             else
             {
-                DrawImage("H_BGRIT3", rightbgpos, DI_ITEM_RIGHT_TOP);
+                DrawImage(NCHF_GetBackgroundGFX("H_BGRIT3"), rightbgpos, DI_ITEM_RIGHT_TOP);
             }
         }
         else if(wpn_ammotype1 || wpn_ammotype2)
         {
-            DrawImage("H_BGRIT2", rightbgpos, DI_ITEM_RIGHT_TOP);
+            DrawImage(NCHF_GetBackgroundGFX("H_BGRIT2"), rightbgpos, DI_ITEM_RIGHT_TOP);
         }
 
         // Selected inventory --------------------------------------------------------------------
@@ -115,7 +115,7 @@ class NCH_ArgentHUD : NCH_BaseHUD
             if (invsel.Amount > 1 || (infinv && invsel.Amount > 0))
             {
                 NCHF_DrawString(nch_bfont, infinv ? "∞" : FormatNumber(invsel.Amount, 0, 4), (-14, -54), DI_TEXT_ALIGN_RIGHT,
-                    infinv ? 'NCHFiery' : invsel.Amount >= invsel.MaxAmount ? nch_HighlightColor : 'NCHLightGray');
+                    infinv ? 'NCHFiery' : invsel.Amount >= invsel.MaxAmount ? nch_curhicolor : 'NCHLightGray');
             }
         }
 

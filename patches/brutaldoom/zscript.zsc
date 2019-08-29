@@ -42,7 +42,7 @@ class NCH_BDHUD : NCH_BaseHUD
             (CPlayer.air_finished + 1 - level.maptime) < int(level.airsupply * CPlayer.mo.AirCapacity))
         {
             NCHF_DrawBarLabel(StringTable.Localize("$NCH_LABEL_AIR"), -99, DI_SCREEN_BOTTOM);
-            DrawImage("H_BGAIR", (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+            DrawImage(NCHF_GetBackgroundGFX("H_BGAIR"), (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
 
             int curpnts = Max(CPlayer.air_finished - level.maptime, 0);
             int maxpnts = int(level.airsupply * CPlayer.mo.AirCapacity);
@@ -62,7 +62,7 @@ class NCH_BDHUD : NCH_BaseHUD
 		else if (GetAmount("IsTacticalClass") && GetAmount("UsedStamina"))
 		{
             NCHF_DrawBarLabel(StringTable.Localize("$NCH_LABEL_STAMINA"), -99, DI_SCREEN_BOTTOM);
-            DrawImage("H_BGAIR", (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
+            DrawImage(NCHF_GetBackgroundGFX("H_BGAIR"), (0, -71), DI_ITEM_CENTER | DI_SCREEN_CENTER_BOTTOM);
 
 			int maxstamina = GetMaxAmount("UsedStamina");
 			int stamina = maxstamina - GetAmount("UsedStamina");
