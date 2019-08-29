@@ -20,6 +20,14 @@ class NCH_FinalDoomerHUD : NCH_BaseHUD
 			NCHF_AddSingleAmmo("FDAliensCell");
 			NCHF_AddSingleAmmo("FDAliensBFGCharge");
 		}
+		else if (player is "FDAlienVendettaPlayer")
+		{
+			NCHF_AddSingleAmmo("FDAlienVendettaShells");
+			NCHF_AddSingleAmmo("FDAlienVendettaBullets");
+			NCHF_AddSingleAmmo("FDAlienVendettaRocket");
+			NCHF_AddSingleAmmo("FDAlienVendettaCell");
+			NCHF_AddSingleAmmo("FDAlienVendettaBFGCharge");
+		}
 		else if (player is "FDBTSXPlayer")
 		{
 			NCHF_AddSingleAmmo("FDBTSXShells");
@@ -35,6 +43,14 @@ class NCH_FinalDoomerHUD : NCH_BaseHUD
 			NCHF_AddSingleAmmo("FDDoom2Rocket");
 			NCHF_AddSingleAmmo("FDDoom2Cell");
 			NCHF_AddSingleAmmo("FDDoom2BFGCharge");
+		}
+		else if (player is "FDHellboundPlayer")
+		{
+			NCHF_AddSingleAmmo("FDHellboundShells");
+			NCHF_AddSingleAmmo("FDHellboundBullets");
+			NCHF_AddSingleAmmo("FDHellboundRocket");
+			NCHF_AddSingleAmmo("FDHellboundCell");
+			NCHF_AddSingleAmmo("FDHellboundBFGCharge");
 		}
 		else if (player is "FDJPCPPlayer")
 		{
@@ -59,6 +75,14 @@ class NCH_FinalDoomerHUD : NCH_BaseHUD
 			NCHF_AddSingleAmmo("FDTNTRocket");
 			NCHF_AddSingleAmmo("FDTNTCell");
 			NCHF_AddSingleAmmo("FDTNTBFGCharge");
+		}
+		else if (player is "FDWhitemarePlayer")
+		{
+			NCHF_AddSingleAmmo("FDWhitemareShells");
+			NCHF_AddSingleAmmo("FDWhitemareBullets");
+			NCHF_AddSingleAmmo("FDWhitemareRocket");
+			NCHF_AddSingleAmmo("FDWhitemareCell");
+			NCHF_AddSingleAmmo("FDWhitemareBFGCharge");
 		}
 	}
 }

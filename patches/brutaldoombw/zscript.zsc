@@ -1,0 +1,38 @@
+version "3.3"
+
+// ------------------------------------------------------------------------------------------------
+//
+//   NC HUD - Brutal Doom V21.0.3 - BLOODWOLF's Unofficial Patch
+//
+// ------------------------------------------------------------------------------------------------
+
+class NCH_BDBWHUD : NCH_BDHUD
+{
+	override void NCHF_AddAmmos ()
+	{
+		let player = CPlayer.mo;
+
+		if (player is "Purist")
+		{
+			NCHF_AddSingleAmmo("Clip2");
+			NCHF_AddSingleAmmo("AmmoShell");
+			NCHF_AddSingleAmmo("AmmoRocket");
+			NCHF_AddSingleAmmo("AmmoCell");
+		}
+		else
+		{
+			NCHF_AddSingleAmmo("Clip1");
+			NCHF_AddSingleAmmo("AmmoMagnum");
+			NCHF_AddSingleAmmo("AmmoShell");
+			NCHF_AddSingleAmmo("Clip2");
+			NCHF_AddSingleAmmo("BuzzSawAmmo");
+			NCHF_AddSingleAmmo("AmmoRocket");
+			NCHF_AddSingleAmmo("Nuke");
+			NCHF_AddSingleAmmo("AmmoCell");
+			NCHF_AddSingleAmmo("SoulAmmo");
+			NCHF_AddSingleAmmo("MiniHellRocketAmmo");
+			NCHF_AddSingleAmmo("Gas");
+			NCHF_AddSingleAmmo("GrenadeAmmo");
+		}
+	}
+}
