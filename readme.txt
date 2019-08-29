@@ -224,6 +224,23 @@
 
       Sets the value at or above which a monster's spawn health needs to be for the bar to be drawn.
 
+  ---------------------------------------- Color Options ----------------------------------------
+
+    - Backgrounds
+      CVAR: nchud_bgcolor
+      Default: Default (-1)
+
+      Sets the color used for the background graphics, including the status bar background. Setting
+      this to "Default" (-1), allows usage of whatever color chosen by the HUD as the default color.
+
+    - Highlight
+      CVAR: nchud_hicolor
+      Default: Default (-1)
+
+      Sets the color used for highlighting. It affects statistics, weapon slots, inventory items,
+      ammo list and inventory bar's arrows and selection box. Setting this to "Default" (-1), allows
+      usage of whatever color chosen by the HUD as the default color.
+
 ---------------------------------------------------------------------------------------------------
 -- Overriding icons                                                                              --
 ---------------------------------------------------------------------------------------------------
