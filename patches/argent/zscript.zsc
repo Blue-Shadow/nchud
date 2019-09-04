@@ -63,6 +63,15 @@ class NCH_ArgentHUD : NCH_BaseHUD
 		}
 	}
 
+    override void NCHF_AddAmmos ()
+    {
+        NCHF_AddSingleAmmo("Clip");
+        NCHF_AddSingleAmmo("Shell");
+        NCHF_AddSingleAmmo("ArgRocketAmmo");
+        NCHF_AddSingleAmmo("Cell");
+        NCHF_AddSingleAmmo("ArgBFGAmmo");
+    }
+
     override void NCHF_DrawWeaponAmmo ()
     {
         let invsel = CPlayer.mo.InvSel;
