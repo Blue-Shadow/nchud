@@ -1,4 +1,0 @@
-Nuke		BNUKA0
-AmmoMagnum		MAGAA0
-PowerMorphBaron	D4BST01
-PowerMorphRevenant D4REVL0

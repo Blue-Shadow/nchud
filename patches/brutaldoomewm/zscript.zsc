@@ -6,35 +6,8 @@ version "3.3"
 //
 // ------------------------------------------------------------------------------------------------
 
-class NCH_BDBWEWMHUD : NCH_BDHUD
+class NCH_BDBWEWMHUD : NCH_BDBWHUD
 {
-	override void NCHF_AddAmmos ()
-	{
-		let player = CPlayer.mo;
-
-		if (player is "Purist")
-		{
-			NCHF_AddSingleAmmo("Clip2");
-			NCHF_AddSingleAmmo("AmmoShell");
-			NCHF_AddSingleAmmo("AmmoRocket");
-			NCHF_AddSingleAmmo("AmmoCell");
-		}
-		else
-		{
-			NCHF_AddSingleAmmo("Clip1");
-			NCHF_AddSingleAmmo("AmmoMagnum");
-			NCHF_AddSingleAmmo("AmmoShell");
-			NCHF_AddSingleAmmo("Clip2");
-			NCHF_AddSingleAmmo("BuzzSawAmmo");
-			NCHF_AddSingleAmmo("AmmoRocket");
-			NCHF_AddSingleAmmo("Nuke");
-			NCHF_AddSingleAmmo("AmmoCell");
-			NCHF_AddSingleAmmo("SoulAmmo");
-			NCHF_AddSingleAmmo("MiniHellRocketAmmo");
-			NCHF_AddSingleAmmo("Gas");
-			NCHF_AddSingleAmmo("GrenadeAmmo");
-		}
-	}
 	override void NCHF_DrawWeaponAmmo ()
    {
       let invsel = CPlayer.mo.InvSel;
