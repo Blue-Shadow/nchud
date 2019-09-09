@@ -27,8 +27,7 @@
     - Shockwave508 for patch contributions.
     - CottonDisciple for patch contributions.
     - AL-97 for patch contributions.
-    - BlueFireZ88 for testing.
+    - BlueFireZ88 for testing and patch contributions.
     - Dawn111 for patch contributions.
-    - silentzora for patch contributions.
 
 ---------------------------------------------------------------------------------------------------
